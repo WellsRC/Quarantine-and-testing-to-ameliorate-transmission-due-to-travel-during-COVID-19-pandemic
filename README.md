@@ -78,4 +78,7 @@ NatComm_TrafficLightAnalysis_Ag_Test-Sufficient quarantine duration for teir-bas
 NatComm_TrafficLightAnalysis_Dual_Ag_Test-Sufficient quarantine duration for teir-based analysis for a rapid antigen test on entry and exit for alternative diagnostic senticity curve for the RT-PCR
 
 ## Functions/Scripts
-ReadDatatoMAT- Reads data from files to a mat file for the country-pair analysis
+ReadDatatoMAT- Reads data from files to a mat file for the country-pair analysis (reference_hospitalization_all_locs.csv will need to be downloaded from http://www.healthdata.org/covid/data-downloads as the file size was too large to be included in the repository)
+CalculateInequalityVOCAll-Calcualtes the values of the ineuality to determine quarantine duration
+DetermineQuarantine-Calls CalculateInequalityVOCAll and returns the minimum quanrantine duration.
+InfectionsVOCAll-Calcualtes the imminent infections used in determining hospitaliztion
