@@ -21,33 +21,61 @@ To generate the Figures and output of the calculations, select a script from Fig
 
 ## Analysis scripts
 NoTest- Calculates the post-quarantine transmission (PQT) for no testing.
+
 TX- Calculates the post-quarantine transmission (PQT) for an RT-PCR test on exit.
+
 TXA- Calculates the post-quarantine transmission (PQT) for an rapid anitgen test on exit.
+
 TEXA- Calculates the post-quarantine transmission (PQT) for an rapid anitgen test on entry and exit.
+
 OTX- Calculates the post-quarantine transmission (PQT) for an RT-PCR test on exit using alternative diagnsotic sensitivty curve.
+
 OTXA- Calculates the post-quarantine transmission (PQT) for an rapid anitgen test on exit using alternative diagnsotic sensitivty curve for the RT-PCR.
+
 OTEXA- Calculates the post-quarantine transmission (PQT) for an rapid anitgen test on entry and exit using alternative diagnsotic sensitivty curve for the RT-PCR.
+
 CountryMatrix_Sensitivity_Analysis- Conducts the sensitivity analysis for the country-pair analysis
+
 ## Figures and Analysis
 CompareQuarantines- Comapres the quarantine for the country-pair analysis and the teir-based analysis
+
 CountryMatrix-Sufficient quarantine duration for country-pair analysis for an RT-PCR test on exit
+
 CountryMatrix_Summary-Sufficient quarantine duration for country-pair analysis for an RT-PCR test on exit (Figure 2G).
+
 CountryMatrix_No_Test-Sufficient quarantine duration for country-pair analysis for no testing
+
 CountryMatrix_Ag_Test-Sufficient quarantine duration for country-pair analysis for a rapid antigen test on exit
+
 CountryMatrix_Dual_Ag_Test-Sufficient quarantine duration for country-pair analysis for a rapid antigen test on entry and exit
+
 CountryMatrix_RTPCR_NatComm-Sufficient quarantine duration for country-pair analysis for an RT-PCR test on exit for alternative diagnostic senticity curve for the RT-PCR
+
 CountryMatrix_Ag_Test_NatComm-Sufficient quarantine duration for country-pair analysis for a rapid antigen test on exit for alternative diagnostic senticity curve for the RT-PCR
+
 CountryMatrix_Dual_Ag_Test_NatComm-Sufficient quarantine duration for country-pair analysis for a rapid antigen test on entry and exit for alternative diagnostic senticity curve for the RT-PCR
+
 CountryMatrixVOC-Sufficient quarantine duration for country-pair analysis for an RT-PCR test on exit when considering variants of concern
+
 CountryMatrixVOC_summary-Sufficient quarantine duration for country-pair analysis for an RT-PCR test on exit when considering variants of concern (Generates Figure 4).
+
 Figure_SA_Plot - Generates the panels for the sensitivity analysis
+
 MapPlots_Quarantine-Generates the panels of the maps for specified countries
+
 TrafficLightAnalysis-Sufficient quarantine duration for teir-based analysis for an RT-PCR test on exit
+
 TrafficLightAnalysis_No_Test-Sufficient quarantine duration for teir-based analysis for anot test
+
 TrafficLightAnalysis_Ag_Test-Sufficient quarantine duration for teir-based analysis for a rapid antigen test on exit
+
 TrafficLightAnalysis_Dual_Ag_Test-Sufficient quarantine duration for teir-based analysis for a rapid antigen test on entry and exit
+
 NatComm_TrafficLightAnalysis_RTPCR-Sufficient quarantine duration for teir-based analysis for an RT-PCR test on exit for alternative diagnostic senticity curve for the RT-PCR
+
 NatComm_TrafficLightAnalysis_Ag_Test-Sufficient quarantine duration for teir-based analysis for a rapid antigen test on exit for alternative diagnostic senticity curve for the RT-PCR
+
 NatComm_TrafficLightAnalysis_Dual_Ag_Test-Sufficient quarantine duration for teir-based analysis for a rapid antigen test on entry and exit for alternative diagnostic senticity curve for the RT-PCR
+
 ## Functions/Scripts
 ReadDatatoMAT- Reads data from files to a mat file for the country-pair analysis
