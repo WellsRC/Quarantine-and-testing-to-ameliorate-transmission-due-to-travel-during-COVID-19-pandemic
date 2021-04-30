@@ -62,6 +62,12 @@ CountryM(t)={'Czechia'};
 PlotQuarantineHospitalization(CountryM,QM0,CSR)
 print(gcf,['Figure_Country_Hospital_NT.png'],'-dpng','-r600');
 print(gcf,['FigureS6.png'],'-dpng','-r600');
+
+
+PlotQuarantineHospitalizationHighLow(CountryM,QM0,CSR)
+print(gcf,['Figure_Country_Hospital_HighLow_NT_FigureS6.png'],'-dpng','-r600');
+
+
 RRR=(QM0-QM14)./QM0;
 RRR=100.*RRR;
 RRR(QM0==-1)=-1;
