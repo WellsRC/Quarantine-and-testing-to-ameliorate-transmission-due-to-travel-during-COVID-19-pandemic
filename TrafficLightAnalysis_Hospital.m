@@ -66,8 +66,8 @@ figure('units','normalized','outerposition',[0 0.05 0.8 0.7]);
 
 subplot('Position',[0.101210526315789,0.175082956259427,0.880368421052631,0.8]);
 test=squeeze(QM(1,:)); % Green with Dark-red
-plot(100.*vacA,QMH(1,:),'color',hex2rgb('90AFC5'),'LineWidth',2); hold on
-plot(100.*vacA,QMH(end,:),'color',hex2rgb('7DA3A1'),'LineWidth',2);
+plot(100.*vacA,QMH(1,:),'color',hex2rgb('CB6318'),'LineWidth',2); hold on
+plot(100.*vacA,QMH(end,:),'color',hex2rgb('90AFC5'),'LineWidth',2);
 plot(100.*vacA,test,'k','LineWidth',2);
 
 
@@ -94,9 +94,9 @@ annotation(gcf,'arrow',[0.976973684210526 0.371052631578947],...
 axes('Position',[0.548684210526316,0.627450980392157,0.430921052631577,0.345399698340875])
 
 
-plot(100.*vacA,QMH(1,:),'color',hex2rgb('90AFC5'),'LineWidth',2); hold on
+plot(100.*vacA,QMH(1,:),'color',hex2rgb('CB6318'),'LineWidth',2); hold on
 plot(100.*vacA,test,'k','LineWidth',2);
-plot(100.*vacA,QMH(end,:),'color',hex2rgb('7DA3A1'),'LineWidth',2);
+plot(100.*vacA,QMH(end,:),'color',hex2rgb('90AFC5'),'LineWidth',2);
 ylabel({'Two-week','hospitalization rate','(per 100,000 residents)'},'Fontsize',18);
 xlabel('Vaccine coverage in destination country','Fontsize',18,'Position',[27.45419847328244,0.539684881037066]);
 xtickformat(gca, 'percentage');

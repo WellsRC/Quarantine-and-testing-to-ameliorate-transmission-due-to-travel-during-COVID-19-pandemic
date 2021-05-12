@@ -18,7 +18,7 @@ cFile={'Quarantine_BDVeritor_Entry_Exit_Duration'};
 NM=length(CountryM);
 
 QM0=-1.*ones(NM);
-QM14=-1.*ones(NM);
+QMNT=-1.*ones(NM);
 
 d=30;
 
@@ -41,15 +41,14 @@ for ii=1:NM
              IB=InfectionsVOCAll(nageB,nageA,[1],[1],[0],[0],[0],RB,pA,d,prevB,prevA,vacB,vacA,recB,recA,cB,vBA,vAB,dBA,dAB,NB,NA,0,cFile);
              [QM0(jj,ii)]=sum(proHB.*IB)*14*100000./NB;
              
-             IA=InfectionsVOCAll(nageA,nageB,[1],[1],[0],[0],[0],RA,pA,d,prevA,prevB,vacA,vacB,recA,recB,cA,vAB,vBA,dAB,dBA,NA,NB,14,cFile);
-             [QM14(ii,jj)]=sum(proHA.*IA)*14*100000./NA;
+             IA=InfectionsVOCAll(nageA,nageB,[1],[1],[0],[0],[0],RA,pA,d,prevA,prevB,vacA,vacB,recA,recB,cA,vAB,vBA,dAB,dBA,NA,NB,-1,cFile);
+             [QMNT(ii,jj)]=sum(proHA.*IA)*14*100000./NA;
             
-             IB=InfectionsVOCAll(nageB,nageA,[1],[1],[0],[0],[0],RB,pA,d,prevB,prevA,vacB,vacA,recB,recA,cB,vBA,vAB,dBA,dAB,NB,NA,14,cFile);
-             [QM14(jj,ii)]=sum(proHB.*IB)*14*100000./NB;
+             IB=InfectionsVOCAll(nageB,nageA,[1],[1],[0],[0],[0],RB,pA,d,prevB,prevA,vacB,vacA,recB,recA,cB,vBA,vAB,dBA,dAB,NB,NA,-1,cFile);
+             [QMNT(jj,ii)]=sum(proHB.*IB)*14*100000./NB;
         end
     end
 end
-
 % %%% Changed Republic of Ireland to Ireland to improve the visualization of
 % %%% the figure
 t=strcmp(CountryM,'United Kingdom');
@@ -59,16 +58,20 @@ CountryM(t)={'Ireland'};
 t=strcmp(CountryM,'Czech Republic');
 CountryM(t)={'Czechia'};
 PlotQuarantineHospitalization(CountryM,QM0,CSR)
-print(gcf,['Figure_Country_Hospital_DualAg.png'],'-dpng','-r600');
-print(gcf,['FigureS5.png'],'-dpng','-r600');
+print(gcf,['Figure_Country_Hospital_AgTestEntry_Exit_0Day_Quarantine.png'],'-dpng','-r600');
 
-PlotQuarantineHospitalizationHighLow(CountryM,QM0,CSR)
-print(gcf,['Figure_Country_Hospital_HighLow_DualAg_FigureS5.png'],'-dpng','-r600');
+PlotQuarantineHospitalization(CountryM,QMNT,CSR)
+print(gcf,['Figure_Country_Hospital_AgTestEntry_Exit_No_Travel.png'],'-dpng','-r600');
 
-RRR=(QM0-QM14)./QM0;
+RRR=(QM0-QMNT)./QMNT;
 RRR=100.*RRR;
 RRR(QM0==-1)=-1;
 
-PlotQuarantineHospitalizationReduction(CountryM,RRR,CSR)
-print(gcf,['Figure_Country_Hospital_Reduction_DualAg.png'],'-dpng','-r600');
-print(gcf,['FigureS9.png'],'-dpng','-r600');
+PlotQuarantineHospitalizationReduction_NoTravel(CountryM,RRR,CSR)
+print(gcf,['Figure_Country_Hospital_Relative_Reduction_No_Travel_AgTestEntry_Exit.png'],'-dpng','-r600');
+
+RRR=(QM0-QMNT);
+RRR(QM0==-1)=-1;
+
+PlotQuarantineHospitalizationAbsReduction_NoTravel(CountryM,RRR,CSR)
+print(gcf,['Figure_Country_Hospital_Absolute_Reduction_No_Travel_AgTestEntry_Exit.png'],'-dpng','-r600');
