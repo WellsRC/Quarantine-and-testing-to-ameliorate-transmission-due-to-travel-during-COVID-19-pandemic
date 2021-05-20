@@ -108,4 +108,4 @@ if(~isempty(prevA)&&~isempty(vacupA)&&~isempty(proHA)&&~isempty(recA)&&~isempty(
     end
 end
 
-save('Country_Data_April_12_2021.mat','prev','rec','c','N','vac','proH','avgABM','pgeoABM','VTABM','CountryM','pA','cstatusR','Vacup','VOCB117','VOCP1','VOC501YV2','Demo','prevM','vacM','proHM')
+save('Country_Data_April_12_2021(TEST).mat','prev','rec','c','N','vac','proH','avgABM','pgeoABM','VTABM','CountryM','pA','cstatusR','Vacup','VOCB117','VOCP1','VOC501YV2','Demo','prevM','vacM','proHM')
