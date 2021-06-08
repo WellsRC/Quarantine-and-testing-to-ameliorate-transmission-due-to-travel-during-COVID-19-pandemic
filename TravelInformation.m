@@ -93,7 +93,7 @@ else
             pgeo=[];
         end
     elseif(strcmp(CountryEntering,'Serbia'))
-        T=readtable('Serbia Inbound Travel and Bednight Data.xlsx','Range','A5:I54');
+        T=readtable([pwd '\Country_Data\Serbia Inbound Travel and Bednight Data.xlsx'],'Range','A5:I54');
         tB=strcmp(CountryLeaving,T.Country);
         TravelDepart=T.Jan_Dec_2019(tB)./365;
         x=[1:30];        
@@ -104,7 +104,7 @@ else
             pgeo=[];
         end
      elseif(strcmp(CountryEntering,'Romania'))
-        T=readtable('Destination_Romania-2019.xlsx','Range','A7:B52');
+        T=readtable([pwd '\Country_Data\Destination_Romania-2019.xlsx'],'Range','A7:B52');
         tB=strcmp(CountryLeaving,T.Country);
         TravelDepart=T.x2019(tB)./365;
         x=[1:30];        
@@ -116,10 +116,10 @@ else
         end
      elseif(strcmp(CountryEntering,'Denmark'))
          DoS=28857842/5532870; % Based on the World Outside Denmark
-         T=readtable('Denmark Inbound Bednight Data.xlsx','Range','D3:E56');
+         T=readtable([pwd '\Country_Data\Denmark Inbound Bednight Data.xlsx'],'Range','D3:E56');
          tB=strcmp(CountryLeaving,T.Country);
          TravelDepart=(T.x2019(tB)./365)./DoS; % Need to divide by duration of stay as we do not have avialble information for number of travellers
-         
+         x=[1:30];     
          if((~isempty(DoS))&&(~isnan(DoS)))
             pgeo=fmincon(@(z)(sum(x.*((z.*(1-z).^(x-1))./(1-(1-z)^30)))-DoS).^2,1./DoS,[],[],[],[],0,1);
         else
