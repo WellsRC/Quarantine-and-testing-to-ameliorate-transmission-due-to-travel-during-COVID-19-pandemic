@@ -124,7 +124,7 @@ else
             pgeo=fmincon(@(z)(sum(x.*((z.*(1-z).^(x-1))./(1-(1-z)^30)))-DoS).^2,1./DoS,[],[],[],[],0,1);
         else
             pgeo=[];
-        end
+         end
     elseif(exist([pwd '\Country_Data\Destination_' CountryEntering{1} '-2019.xlsx'],'file'))
         % Country B entering Country A
        T=readtable([pwd '\Country_Data\Destination_' CountryEntering{1} '-2019.xlsx'],'Range','A7:J100');
