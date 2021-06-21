@@ -115,8 +115,8 @@ else
             pgeo=[];
         end
      elseif(strcmp(CountryEntering,'Denmark'))
-         DoS=28857842/5532870; % Based on the World Outside Denmark
-         T=readtable([pwd '\Country_Data\Denmark Inbound Bednight Data.xlsx'],'Range','D3:E56');
+         DoS=28857842/5532870; % Based on the World Outside Denmark (We only have inbound travel data for the world outside denmark)
+         T=readtable([pwd '\Country_Data\Denmark Inbound Bednight Data.xlsx'],'Range','D3:E56'); 
          tB=strcmp(CountryLeaving,T.Country);
          TravelDepart=(T.x2019(tB)./365)./DoS; % Need to divide by duration of stay as we do not have avialble information for number of travellers
          x=[1:30];     
