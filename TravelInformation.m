@@ -48,12 +48,12 @@ else
         end
     elseif(strcmp(CountryEntering,'Turkey'))
         % Country B entering Turkey
-        DoS=9.9; % There is only a single number and no specified by individual country
+        DoS=5.7; % There is only a single number and no specified by individual country; assumes the average length of stay in a hotel
         x=[1:30];
         pgeo=fmincon(@(z)(sum(x.*((z.*(1-z).^(x-1))./(1-(1-z)^30)))-DoS).^2,1./DoS,[],[],[],[],0,1);
         T=readtable([pwd '\Country_Data\Destination_Turkey.xls'],'Range','A4:V123');
         tB=strcmp(CountryLeaving,T.Milliyet_Nationality);
-        TravelDepart=T.x2019(tB)./365; % Divide by 365 since the number is annual       
+        TravelDepart=(37048558/53269861).*T.x2019(tB)./365; % Divide by 365 since the number is annual and scale by 0.695 to approximate the number of arrivals in all forms of paid accomidation 
     
     elseif(strcmp(CountryEntering,'Greece'))
         % Country B entering Greece
