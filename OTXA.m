@@ -19,13 +19,8 @@ qA=qA(:);
 qB=qB(:);
 
 RQS=zeros(size(qA)); % Vectorize the matrix
+RQSN=zeros(size(qA)); % Vectorize the matrix
 RQA=zeros(size(qA)); % Vectorize the matrix
-
-RQQS=zeros(size(qA)); % Vectorize the matrix
-RQQA=zeros(size(qA)); % Vectorize the matrix
-
-RIQS=zeros(size(qA));
-RIQA=zeros(size(qA));
 
 td=ts+20; % Asymptomatic increase 20 days from symptom onset
 
@@ -54,24 +49,8 @@ for durT=30:-1:1
         
         % re-write as the differences of the integrals to accelerate
         RQS(jj)=((1./ts).*integral2(@(u,t)InfectiousnessfromInfectionTestingOLD(t+u,u,qA(jj),testtype,R0S,R0A,0,ts,tL,td,SelfIsolate),0,ts,qA(jj),qA(jj)+durT));
+        RQSN(jj)=((1./ts).*integral2(@(u,t)InfectiousnessfromInfectionTestingOLD(t+u,u,qA(jj),testtype,R0S,R0A,0,ts,tL,td,0),0,ts,qA(jj),qA(jj)+durT));
         RQA(jj)=((1./td).*integral2(@(u,t)InfectiousnessfromInfectionTestingOLD(t+u,u,qA(jj),testtype,R0S,R0A,1,ts,tL,td,0),0,td,qA(jj),qA(jj)+durT));  
-        
-        
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
-        % Those from A that travelled to B and returned to A (i.e. need to undergo both quarantine for
-        % Country A and coutnry B) we go to inf since the are not leaving
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
-
-         RQQS(jj)=((1./ts).*integral2(@(u,t)InfectiousnessfromInfectionTestingOLD(t+u,u,[qB(jj) qA(jj)+qB(jj)+durT],testtype2,R0S,R0A,0,ts,tL,td,SelfIsolate),0,ts,qA(jj)+qB(jj)+durT,inf));
-         RQQA(jj)=((1./td).*integral2(@(u,t)InfectiousnessfromInfectionTestingOLD(t+u,u,[qB(jj) qA(jj)+qB(jj)+durT],testtype2,R0S,R0A,1,ts,tL,td,0),0,td,qA(jj)+qB(jj)+durT,inf));  
-
-
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
-        % Individual from A infected in B and returning to A
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
-
-        RIQS(jj)=((1./min(ts,durT)).*integral2(@(u,t)InfectiousnessfromInfectionTestingOLD(t+u,u,qA(jj),testtype,R0S,R0A,0,ts,tL,td,SelfIsolate),0,min(ts,durT),qA(jj),inf));
-        RIQA(jj)=((1./min(td,durT)).*integral2(@(u,t)InfectiousnessfromInfectionTestingOLD(t+u,u,qA(jj),testtype,R0S,R0A,1,ts,tL,td,0),0,min(td,durT),qA(jj),inf));  
     end
 
     save(['NatComm-Quarantine_BDVeritor_Exit_Duration=' num2str(durT) '.mat']);
