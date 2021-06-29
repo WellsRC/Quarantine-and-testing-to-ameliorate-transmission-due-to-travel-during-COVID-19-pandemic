@@ -1,7 +1,7 @@
 clear;
 clc;
 pA=[81.91 77.59 77.59 69.46 69.46 64.54 64.54 35.44]./100;
-
+AL=1;
 
 
 % Vaccinatino Data: Swaped name of Ireland for Republic of Ireland
@@ -11,21 +11,21 @@ CountryM={'Austria';'Belgium';'Bulgaria';'Cyprus';'Czech Republic';'Denmark';'Es
 NM=length(CountryM);
 QM=-1.*ones(NM);
 
-prev=-1.*ones(NM,8);
-prevM=-1.*ones(NM,101,8);
-rec=-1.*ones(NM,8);
+prev=-1.*ones(NM,length(pA));
+prevM=-1.*ones(NM,101,length(pA));
+rec=-1.*ones(NM,length(pA));
 c=-1.*ones(NM,1);
 N=-1.*ones(NM,1);
-vac=-1.*ones(NM,8);
-vacM=-1.*ones(NM,101,8);
-proH=-1.*ones(NM,8);
-proHM=-1.*ones(NM,101,8);
+vac=-1.*ones(NM,length(pA));
+vacM=-1.*ones(NM,101,length(pA));
+proH=-1.*ones(NM,length(pA));
+proHM=-1.*ones(NM,101,length(pA));
 cstatusR=-1.*ones(NM,1);
 Vacup=-1.*ones(NM,1);
 VOCBetaGH501YV2=-1.*ones(NM,1);
 VOCAlpha20201201GRY=-1.*ones(NM,1);
 VOCDeltaG478KV1=-1.*ones(NM,1);
-Demo=-1.*ones(NM,8);
+Demo=-1.*ones(NM,length(pA));
 
 avgABM=-1.*ones(NM,NM);
 pgeoABM=-1.*ones(NM,NM);
@@ -33,7 +33,7 @@ VTABM=-1.*ones(NM,NM);
 
 for ii=1:NM-1
     for jj=(ii+1):NM
-        [~,prevMA,~,prevA,prevB,vacMA,~,vacupA,vacupB,proHMA,~,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,~,~,CAstatusR,~,VacupA,~,VOCBetaGH501YV2A,~,VOCAlpha20201201GRYA,~,VOCDeltaG478KV1A,~,DemoA,DemoB] = CountryDataReturnHospitalization({'June 9, 2021'},CountryM(ii),CountryM(jj),pA,cFile);
+        [~,prevMA,~,prevA,prevB,vacMA,~,vacupA,vacupB,proHMA,~,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,~,~,CAstatusR,~,VacupA,~,VOCBetaGH501YV2A,~,VOCAlpha20201201GRYA,~,VOCDeltaG478KV1A,~,DemoA,DemoB] = CountryDataReturnHospitalization({'June 9, 2021'},CountryM(ii),CountryM(jj),pA,AL,cFile);
         if(~isempty(prevA)&&~isempty(vacupA)&&~isempty(proHA)&&~isempty(recA)&&~isempty(cA)&&~isempty(NA))
             if(~isempty(prevA)&&~isempty(vacupA)&&~isempty(proHA)&&~isempty(recA)&&~isempty(cA)&&~isempty(NA)&&~isempty(pgeoAB)&&~isempty(VTAB)&&~isempty(DemoA)&&~isempty(DemoB)&&~isempty(prevB)&&~isempty(vacupB)&&~isempty(proHB)&&~isempty(recB)&&~isempty(cB)&&~isempty(NB)&&~isempty(pgeoBA)&&~isempty(VTBA))
                 avgABM(ii,jj)=avgdAB;
@@ -99,4 +99,4 @@ if(~isempty(prevA)&&~isempty(vacupA)&&~isempty(proHA)&&~isempty(recA)&&~isempty(
     end
 end
 
-save('Country_Data_June_9_2021.mat','prev','rec','c','N','vac','proH','avgABM','pgeoABM','VTABM','CountryM','pA','cstatusR','Vacup','VOCB117','VOCP1','VOC501YV2','Demo','prevM','vacM','proHM')
+save('Country_Data_June_9_2021.mat','prev','rec','c','N','vac','proH','avgABM','pgeoABM','VTABM','CountryM','pA','cstatusR','Vacup','VOCBetaGH501YV2','VOCAlpha20201201GRY','VOCDeltaG478KV1','Demo','prevM','vacM','proHM')

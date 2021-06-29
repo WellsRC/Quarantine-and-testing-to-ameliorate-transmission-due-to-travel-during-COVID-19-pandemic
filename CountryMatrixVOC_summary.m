@@ -22,7 +22,7 @@ qR=[0:14];
 
 [RAlpha20201201GRY,RBetaGH501YV2,RDeltaG478KV1]=FactorIncreaseVOC;
 
-CountryNotInlcude={'Serbia','Hungary','Russia','Denmark','Bulgaria','Finland','Estonia','Greece','Cyprus','Portugal','Norway'};
+CountryNotInlcude={'Austria','Belgium','Czech Republic','Denmark','France','Germany','Poland','Portugal','Spain','Sweden','Switzerland','Turkey','United Kingdom'};
 for ii=1:NM
     if(sum(strcmp(CountryM(ii),CountryNotInlcude))<1)
         for jj=(ii+1):NM
