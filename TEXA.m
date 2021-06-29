@@ -14,9 +14,7 @@ tL=[2.9]; % vecotor for the incbation periods to be integrated over
 % Get Basline parameters
 [pA,~,R0,ts] = BaselineParameters(tL); % Does not matter here what ts is fed in 
 
-[qA,qB]=meshgrid(qt,qt); % Create a mesh grid of the paramters being changes
-qA=qA(:);
-qB=qB(:);
+qA=qt;
 
 RQS=zeros(size(qA)); % Vectorize the matrix
 RQSN=zeros(size(qA)); % Vectorize the matrix
@@ -37,17 +35,11 @@ testtype=cell(2,1);
 testtype{1}=beta;
 testtype{2}=beta;
 
-testtype2=cell(4,1);
-testtype2{1}=beta;
-testtype2{2}=beta;
-testtype2{3}=beta;
-testtype2{4}=beta;
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % We are focusing on "Country A"
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 for durT=30:-1:1
-    parfor jj=1:225 
+    parfor jj=1:15
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
         % Those from B that travelled to A (i.e. need to undergo quarantine for
         % Country A)

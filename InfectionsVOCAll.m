@@ -1,12 +1,11 @@
-function [InfectionsA]=InfectionsVOCAll(nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,RAw,pA,d,prevAw,prevBw,vacAw,vacBw,recAw,recBw,cAw,vAB,vBA,dAB,dBA,NA,NB,qAI,cFile)
+function [InfectionsA]=InfectionsVOCAll(nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,RAw,pA,d,prevAw,prevBw,vacAw,vacBw,recAw,recBw,cAw,vAB,vBA,dAB,dBA,NA,NB,qAI,AL,cFile)
 
 if(qAI>=0)
-    load([cFile{1} '=' num2str(d) '.mat'],'qA','qB','RQA','RQS');
+    load([cFile{1} '=' num2str(d) '.mat'],'qA','RQA','RQS','RQNS');
+    RQw=(1-pA).*((1-AL).*RQS(qA==qAI)+AL.*RQNS(qA==qAI))+pA.*RQA(qA==qAI);
 
-    RQw=((1-pA).*RQS(qA==qAI & qB==0)+pA.*RQA(qA==qAI & qB==0));
-
-    load(['NoTest_Duration=' num2str(d) '.mat'],'qA','qB','RQA','RQS');
-    RVw=((1-pA).*RQS(qA==0 & qB==0)+pA.*RQA(qA==0 & qB==0));
+    load(['NoTest_Duration=' num2str(d) '.mat'],'qA','RQA','RQS','RQNS');
+    RVw=(1-pA).*((1-AL).*RQS(qA==qAI)+AL.*RQNS(qA==qAI))+pA.*RQA(qA==qAI);
 
     InfectionsA=zeros(size(nageA));
     for jj=1:length(FVOCA)

@@ -22,9 +22,9 @@ proH=-1.*ones(NM,8);
 proHM=-1.*ones(NM,101,8);
 cstatusR=-1.*ones(NM,1);
 Vacup=-1.*ones(NM,1);
-VOCB117=-1.*ones(NM,1);
-VOCP1=-1.*ones(NM,1);
-VOC501YV2=-1.*ones(NM,1);
+VOCBetaGH501YV2=-1.*ones(NM,1);
+VOCAlpha20201201GRY=-1.*ones(NM,1);
+VOCDeltaG478KV1=-1.*ones(NM,1);
 Demo=-1.*ones(NM,8);
 
 avgABM=-1.*ones(NM,NM);
@@ -33,7 +33,7 @@ VTABM=-1.*ones(NM,NM);
 
 for ii=1:NM-1
     for jj=(ii+1):NM
-        [~,prevMA,~,prevA,prevB,vacMA,~,vacupA,vacupB,proHMA,~,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,~,~,CAstatusR,~,VacupA,~,VOCB117A,~,VOCP1A,~,VOC501YV2A,~,DemoA,DemoB] = CountryDataReturnHospitalization({'April 12, 2021'},CountryM(ii),CountryM(jj),pA,cFile);
+        [~,prevMA,~,prevA,prevB,vacMA,~,vacupA,vacupB,proHMA,~,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,~,~,CAstatusR,~,VacupA,~,VOCBetaGH501YV2A,~,VOCAlpha20201201GRYA,~,VOCDeltaG478KV1A,~,DemoA,DemoB] = CountryDataReturnHospitalization({'June 9, 2021'},CountryM(ii),CountryM(jj),pA,cFile);
         if(~isempty(prevA)&&~isempty(vacupA)&&~isempty(proHA)&&~isempty(recA)&&~isempty(cA)&&~isempty(NA))
             if(~isempty(prevA)&&~isempty(vacupA)&&~isempty(proHA)&&~isempty(recA)&&~isempty(cA)&&~isempty(NA)&&~isempty(pgeoAB)&&~isempty(VTAB)&&~isempty(DemoA)&&~isempty(DemoB)&&~isempty(prevB)&&~isempty(vacupB)&&~isempty(proHB)&&~isempty(recB)&&~isempty(cB)&&~isempty(NB)&&~isempty(pgeoBA)&&~isempty(VTBA))
                 avgABM(ii,jj)=avgdAB;
@@ -60,21 +60,21 @@ for ii=1:NM-1
         proHM(ii,:,:)=proHMA;
         cstatusR(ii)=CAstatusR;
         Vacup(ii)=VacupA;
-        if(~isempty(VOCB117A))
-            VOCB117(ii)=VOCB117A;
+        if(~isempty(VOCBetaGH501YV2A))
+            VOCBetaGH501YV2(ii)=VOCBetaGH501YV2A;
         end
-        if(~isempty(VOCP1A))
-            VOCP1(ii)=VOCP1A;
+        if(~isempty(VOCAlpha20201201GRYA))
+            VOCAlpha20201201GRY(ii)=VOCAlpha20201201GRYA;
         end
-        if(~isempty(VOC501YV2A))
-            VOC501YV2(ii)=VOC501YV2A;
+        if(~isempty(VOCDeltaG478KV1A))
+            VOCDeltaG478KV1(ii)=VOCDeltaG478KV1A;
         end
     end
 end
 % Need to record the last country's epiddemic profile
 ii=NM;
 jj=NM-1;
-[~,prevMA,~,prevA,~,vacMA,~,vacupA,vacupB,proHMA,~,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,~,~,CAstatusR,~,VacupA,~,VOCB117A,~,VOCP1A,~,VOC501YV2A,~,DemoA,DemoB] = CountryDataReturnHospitalization({'April 12, 2021'},CountryM(ii),CountryM(jj),pA,cFile);
+[~,prevMA,~,prevA,~,vacMA,~,vacupA,vacupB,proHMA,~,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,~,~,CAstatusR,~,VacupA,~,VOCBetaGH501YV2A,~,VOCAlpha20201201GRYA,~,VOCDeltaG478KV1A,~,DemoA,DemoB] = CountryDataReturnHospitalization({'April 12, 2021'},CountryM(ii),CountryM(jj),pA,cFile);
 if(~isempty(prevA)&&~isempty(vacupA)&&~isempty(proHA)&&~isempty(recA)&&~isempty(cA)&&~isempty(NA))
     prev(ii,:)=prevA;
     prevM(ii,:,:)=prevMA;
@@ -88,24 +88,15 @@ if(~isempty(prevA)&&~isempty(vacupA)&&~isempty(proHA)&&~isempty(recA)&&~isempty(
     proHM(ii,:,:)=proHMA;
     cstatusR(ii)=CAstatusR;
     Vacup(ii)=VacupA;
-    if(~isempty(VOCB117A))
-        VOCB117(ii)=VOCB117A;
+    if(~isempty(VOCBetaGH501YV2A))
+        VOCBetaGH501YV2(ii)=VOCBetaGH501YV2A;
     end
-    if(~isempty(VOCP1A))
-        VOCP1(ii)=VOCP1A;
+    if(~isempty(VOCAlpha20201201GRYA))
+        VOCAlpha20201201GRY(ii)=VOCAlpha20201201GRYA;
     end
-    if(~isempty(VOC501YV2A))
-        VOC501YV2(ii)=VOC501YV2A;
-    end
-    if(~isempty(VOCB117A))
-        VOCB117(ii)=VOCB117A;
-    end
-    if(~isempty(VOCP1A))
-        VOCP1(ii)=VOCP1A;
-    end
-    if(~isempty(VOC501YV2A))
-        VOC501YV2(ii)=VOC501YV2A;
+    if(~isempty(VOCDeltaG478KV1A))
+        VOCDeltaG478KV1(ii)=VOCDeltaG478KV1A;
     end
 end
 
-save('Country_Data_April_12_2021(TEST).mat','prev','rec','c','N','vac','proH','avgABM','pgeoABM','VTABM','CountryM','pA','cstatusR','Vacup','VOCB117','VOCP1','VOC501YV2','Demo','prevM','vacM','proHM')
+save('Country_Data_June_9_2021.mat','prev','rec','c','N','vac','proH','avgABM','pgeoABM','VTABM','CountryM','pA','cstatusR','Vacup','VOCB117','VOCP1','VOC501YV2','Demo','prevM','vacM','proHM')

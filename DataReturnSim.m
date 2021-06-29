@@ -1,4 +1,4 @@
-function [nageA,nageB,prevA,prevB,vacA,vacB,proHA,proHB,recA,recB,cA,cB,NA,NB,pgeoAB,VTAB,dAB,pgeoBA,VTBA,dBA,pA,RA,RB,qt,VOCB117A,VOCB117B,VOCP1A,VOCP1B,VOC501YV2A,VOC501YV2B] = DataReturnSim(CountryA,CountryB,vacupA,vacupB,cFile)
+function [nageA,nageB,prevA,prevB,vacA,vacB,proHA,proHB,recA,recB,cA,cB,NA,NB,pgeoAB,VTAB,dAB,pgeoBA,VTBA,dBA,pA,RA,RB,qt,VOCDeltaG478KV1A,VOCDeltaG478KV1B,VOCAlpha20201201GRYA,VOCAlpha20201201GRYB,VOC501YV2A,VOC501YV2B] = DataReturnSim(CountryA,CountryB,vacupA,vacupB,AL,cFile)
 load('Country_Data_April_12_2021.mat','prev','rec','c','N','vac','proH','pgeoABM','VTABM','CountryM','pA','avgABM','Demo','VOCB117','VOCP1','VOC501YV2','vacM','prevM','proHM')
 tA=strcmp(CountryA,CountryM);
 tB=strcmp(CountryB,CountryM);
@@ -26,8 +26,8 @@ if(sum(tA)+sum(tB)==2)
         VTAB=VTABM(tA,tB);
         dAB=avgABM(tA,tB);
         nageA=Demo(tA,:);
-        VOCB117A=VOCB117(tA);
-        VOCP1A=VOCP1(tA);
+        VOCDeltaG478KV1A=VOCB117(tA);
+        VOCAlpha20201201GRYA=VOCP1(tA);
         VOC501YV2A=VOC501YV2(tA);
         
         
@@ -50,8 +50,8 @@ if(sum(tA)+sum(tB)==2)
         dBA=avgABM(tB,tA);
         nageB=Demo(tB,:);
         
-        VOCB117B=VOCB117(tB);
-        VOCP1B=VOCP1(tB);
+        VOCDeltaG478KV1B=VOCB117(tB);
+        VOCAlpha20201201GRYB=VOCP1(tB);
         VOC501YV2B=VOC501YV2(tB);
         
     else        
@@ -65,8 +65,8 @@ if(sum(tA)+sum(tB)==2)
         VTAB=[];
         dAB=[];
         nageA=[];
-        VOCB117A=[];
-        VOCP1A=[];
+        VOCDeltaG478KV1A=[];
+        VOCAlpha20201201GRYA=[];
         VOC501YV2A=[];
 
 
@@ -80,8 +80,8 @@ if(sum(tA)+sum(tB)==2)
         VTBA=[];
         dBA=[];
         nageB=[];
-        VOCB117B=[];
-        VOCP1B=[];
+        VOCDeltaG478KV1B=[];
+        VOCAlpha20201201GRYB=[];
         VOC501YV2B=[];
     end
 else
@@ -94,8 +94,8 @@ else
     pgeoAB=[];
     VTAB=[];
     dAB=[];
-        VOCB117A=[];
-        VOCP1A=[];
+        VOCDeltaG478KV1A=[];
+        VOCAlpha20201201GRYA=[];
         VOC501YV2A=[];
     
     
@@ -107,8 +107,8 @@ else
     NB=[];
     pgeoBA=[];
     dBA=[];
-        VOCB117B=[];
-        VOCP1B=[];
+        VOCDeltaG478KV1B=[];
+        VOCAlpha20201201GRYB=[];
         VOC501YV2B=[];
 end
 
@@ -124,8 +124,8 @@ SelfIsolate=1;
 RA=zeros(size(pA));
 RB=zeros(size(pA));
 for aa=1:length(pA)
-    RA(aa)=integral(@(t)InfectiousnessfromInfection(t,R0cA,R0cA,pA(aa),ts,tL,td,SelfIsolate),0,td);
-    RB(aa)=integral(@(t)InfectiousnessfromInfection(t,R0cB,R0cB,pA(aa),ts,tL,td,SelfIsolate),0,td);
+    RA(aa)=pA(jj).*integral(@(t)InfectiousnessfromInfection(t,R0cA,R0cA,1,ts,tL,td,0),0,td)+(1-pA(jj)).*(AL.*integral(@(t)InfectiousnessfromInfection(t,R0cA,R0cA,0,ts,tL,td,SelfIsolate),0,td)+(1-AL).*integral(@(t)InfectiousnessfromInfection(t,R0cA,R0cA,0,ts,tL,td,0),0,td));
+    RB(aa)=pA(jj).*integral(@(t)InfectiousnessfromInfection(t,R0cB,R0cB,1,ts,tL,td,0),0,td)+(1-pA(jj)).*(AL.*integral(@(t)InfectiousnessfromInfection(t,R0cB,R0cB,0,ts,tL,td,SelfIsolate),0,td)+(1-AL).*integral(@(t)InfectiousnessfromInfection(t,R0cB,R0cB,0,ts,tL,td,0),0,td));
 end
 end
 

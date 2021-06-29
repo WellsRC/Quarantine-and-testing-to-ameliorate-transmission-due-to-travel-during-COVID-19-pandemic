@@ -1,29 +1,29 @@
-function [VOCB117,VOCP1,VOC501YV2] = VOCDataReturn(CountryA)
+function [VOCBetaGH501YV2,VOCAlpha20201201GRY,VOCDeltaG478KV1] = VOCDataReturn(CountryA)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % B117 VOC
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-T=readtable([pwd '\Country_Data\VOC_Country_B117.xlsx'],'Range','A3:D110');
+T=readtable([pwd '\Country_Data\Beta GH501YV2 (B1351).csv']);
 
 tA=strcmp(CountryA,T.Country);
-VOCB117=T.x_VUI202012_01GR_501Y_V1_B_1_1_7_InPast4Weeks_1(tA)./100;
+VOCBetaGH501YV2=T.Percentage(tA)./100;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % P1 VOC
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-T=readtable([pwd '\Country_Data\VOC_Country_P1.xlsx'],'Range','A3:D33');
+T=readtable([pwd '\Country_Data\Alpha 20201201 GRY (B117).csv']);
 
 
 tA=strcmp(CountryA,T.Country);
 
-VOCP1=T.x_GR_501Y_V3_P_1_InPast4Weeks_1(tA)./100;
+VOCAlpha20201201GRY=T.Percentage(tA)./100;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 501YV2 VOC
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-T=readtable([pwd '\Country_Data\VOC_Country_501YV2.xlsx'],'Range','A3:D68');
+T=readtable([pwd '\Country_Data\Delta G478KV1 (B16172+AY1+AY2).csv']);
 
 tA=strcmp(CountryA,T.Country);
 
-VOC501YV2=T.x_GH_501Y_V2_B_1_351_InPast4Weeks_1(tA)./100;
+VOCDeltaG478KV1=T.Percentage(tA)./100;
 
 
 end
