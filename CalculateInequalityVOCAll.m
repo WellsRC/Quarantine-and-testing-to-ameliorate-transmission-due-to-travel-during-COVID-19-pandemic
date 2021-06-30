@@ -40,7 +40,7 @@ function [RIEQA]=CalculateInequalityVOCAll(nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Testing and quanraitne: Post-quarantine transmission
-load([cFile{1} '.mat'],'qA','RQA','RQS','RQSN');
+load([cFile '.mat'],'qA','RQA','RQS','RQSN');
 RQw=(1-pA).*((1-AL).*RQSN(qA==qAI)+AL.*RQS(qA==qAI))+pA.*RQA(qA==qAI);
 
 % No test: Post-quarantine transmission
@@ -66,13 +66,13 @@ for jj=1:length(FVOCA)
     prevB=prevBw.*FVOCB(jj); % Prevlaence for the variant of concern in coutnry B
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % THE CODE HAS NOT BEEN SET UP PROPERLY TO ACCOUNT FOR THIS YET; AS WE
+    % THE CODE HAS NOT BEEN SET UP PROPERLY TO ACCOUNT FOR CROSS-IMMUNITY TET; AS WE
     % ASSUMED THE VOC HAD NO IMPACT ON IMMUNITY
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     vacA=vacAw.*(1-REPSVOC(jj)); % Vaccine immunity in country A for VOC
     vacB=vacBw.*(1-REPSVOC(jj)); % Vaccine immunity in country B for VOC
-    recA=recAw.*(1-RNIVOC(jj,1)); % Natural immunity in country A for VOC
-    recB=recBw.*(1-RNIVOC(jj,1)); % Natural immunity in country B for VOC
+    recA=recAw.*(1-RNIVOC(jj)); % Natural immunity in country A for VOC
+    recB=recBw.*(1-RNIVOC(jj)); % Natural immunity in country B for VOC
     
     
     

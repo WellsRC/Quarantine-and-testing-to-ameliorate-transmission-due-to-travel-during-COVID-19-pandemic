@@ -43,7 +43,7 @@ if(qAI>=0)
     
     
     % Testing and quanraitne: Post-quarantine transmission
-    load([cFile{1} '.mat'],'qA','RQA','RQS','RQSN');
+    load([cFile '.mat'],'qA','RQA','RQS','RQSN');
     RQw=(1-pA).*((1-AL).*RQSN(qA==qAI)+AL.*RQS(qA==qAI))+pA.*RQA(qA==qAI);
 
     % No test: Post-quarantine transmission

@@ -36,7 +36,7 @@ PT24=1;
 parfor jj=1:15 
     if(qA(jj)>0)
         RQS(jj)=((1./ts).*integral2(@(u,t)InfectiousnessfromInfectionTesting(t+u,u,max(qA(jj)-1,0),testtype,R0S,R0A,0,ts,tL,td,SelfIsolate,betaRTPCR),0,ts,qA(jj),inf));
-        RQSN(jj)=((1./ts).*integral2(@(u,t)InfectiousnessfromInfectionTesting(t+u,u,max(qA(jj)-1,0),testtype,R0S,R0A,0,ts,tL,td,0,betaRTPCR),0,ts,qA(jj),inf));
+        RQSN(jj)=((1./ts).*integral2(@(u,t)InfectiousnessfromInfectionTesting(t+u,u,max(qA(jj)-1,0),testtype,R0S,R0A,0,ts,tL,td,0,betaRTPCR),0,max(ts-qA(jj)),qA(jj),inf));
         RQA(jj)=((1./td).*integral2(@(u,t)InfectiousnessfromInfectionTesting(t+u,u,max(qA(jj)-1,0),testtype,R0S,R0A,1,ts,tL,td,0,betaRTPCR),0,td,qA(jj),inf));  
     else
         % Infected after the test was adminsted 

@@ -1,5 +1,5 @@
-function [nageA,nageB,prevA,prevB,vacA,vacB,proHA,proHB,recA,recB,cA,cB,NA,NB,pgeoAB,VTAB,dAB,pgeoBA,VTBA,dBA,pA,VOCDeltaG478KV1A,VOCDeltaG478KV1B,VOCAlpha20201201GRYA,VOCAlpha20201201GRYB,VOC501YV2A,VOC501YV2B] = DataReturnSim(CountryA,CountryB,vacupA,vacupB)
-load('Country_Data_April_12_2021.mat','prev','rec','c','N','vac','proH','pgeoABM','VTABM','CountryM','pA','avgABM','Demo','VOCB117','VOCP1','VOC501YV2','vacM','prevM','proHM')
+function [nageA,nageB,prevA,prevB,vacA,vacB,proHA,proHB,recA,recB,cA,cB,NA,NB,pgeoAB,VTAB,dAB,pgeoBA,VTBA,dBA,pA,VOCDeltaG478KV1A,VOCDeltaG478KV1B,VOCAlpha20201201GRYA,VOCAlpha20201201GRYB,VOCBetaGH501YV2A,VOCBetaGH501YV2B] = DataReturnSim(CountryA,CountryB,vacupA,vacupB)
+load('Country_Data_April_12_2021.mat','prev','rec','c','N','vac','proH','pgeoABM','VTABM','CountryM','pA','avgABM','Demo','VOCDeltaG478KV1','VOCAlpha20201201GRY','VOCBetaGH501YV2','vacM','prevM','proHM')
 tA=strcmp(CountryA,CountryM);
 tB=strcmp(CountryB,CountryM);
 
@@ -13,7 +13,7 @@ if(sum(tA)+sum(tB)==2)
             vacA=vac(tA,:);
             proHA=proH(tA,:);
         else
-            
+            % for a specified vaccine coverage for the country
             fvacA=((vacupA>=(VacVec-5.*10^(-6))) & (vacupA<=(VacVec+5.*10^(-6))));
             prevA=squeeze(prevM(tA,fvacA,:))';
             vacA=squeeze(vacM(tA,fvacA,:))';
@@ -26,9 +26,9 @@ if(sum(tA)+sum(tB)==2)
         VTAB=VTABM(tA,tB);
         dAB=avgABM(tA,tB);
         nageA=Demo(tA,:);
-        VOCDeltaG478KV1A=VOCB117(tA);
-        VOCAlpha20201201GRYA=VOCP1(tA);
-        VOC501YV2A=VOC501YV2(tA);
+        VOCDeltaG478KV1A=0;%VOCDeltaG478KV1(tA);
+        VOCAlpha20201201GRYA=0;%VOCAlpha20201201GRY(tA);
+        VOCBetaGH501YV2A=0;%VOCBetaGH501YV2(tA);
         
         
         if(isempty(vacupB))
@@ -50,9 +50,9 @@ if(sum(tA)+sum(tB)==2)
         dBA=avgABM(tB,tA);
         nageB=Demo(tB,:);
         
-        VOCDeltaG478KV1B=VOCB117(tB);
-        VOCAlpha20201201GRYB=VOCP1(tB);
-        VOC501YV2B=VOC501YV2(tB);
+        VOCDeltaG478KV1B=0;%VOCDeltaG478KV1(tB);
+        VOCAlpha20201201GRYB=0;%VOCAlpha20201201GRY(tB);
+        VOCBetaGH501YV2B=0;%VOCBetaGH501YV2(tB);
         
     else        
         prevA=[];
@@ -67,7 +67,7 @@ if(sum(tA)+sum(tB)==2)
         nageA=[];
         VOCDeltaG478KV1A=[];
         VOCAlpha20201201GRYA=[];
-        VOC501YV2A=[];
+        VOCBetaGH501YV2A=[];
 
 
         prevB=[];
@@ -82,7 +82,7 @@ if(sum(tA)+sum(tB)==2)
         nageB=[];
         VOCDeltaG478KV1B=[];
         VOCAlpha20201201GRYB=[];
-        VOC501YV2B=[];
+        VOCBetaGH501YV2B=[];
     end
 else
     prevA=[];
@@ -96,7 +96,7 @@ else
     dAB=[];
         VOCDeltaG478KV1A=[];
         VOCAlpha20201201GRYA=[];
-        VOC501YV2A=[];
+        VOCBetaGH501YV2A=[];
     
     
     prevB=[];
@@ -109,7 +109,7 @@ else
     dBA=[];
         VOCDeltaG478KV1B=[];
         VOCAlpha20201201GRYB=[];
-        VOC501YV2B=[];
+        VOCBetaGH501YV2B=[];
 end
 
 end

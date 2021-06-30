@@ -4,12 +4,9 @@ pA=[81.91 77.59 77.59 69.46 69.46 64.54 64.54 35.44]./100;
 AL=1;
 
 
-% Vaccinatino Data: Swaped name of Ireland for Republic of Ireland
-cFile={'Quarantine_RTPCR_Exit_Duration'};
-
 CountryM={'Austria';'Belgium';'Bulgaria';'Cyprus';'Czech Republic';'Denmark';'Estonia';'Finland';'France';'Germany';'Greece';'Hungary';'Republic of Ireland';'Italy';'Lithuania';'Luxembourg';'Malta';'Netherlands';'Norway';'Poland';'Portugal';'Romania';'Russia';'Serbia';'Slovakia';'Slovenia';'Spain';'Sweden';'Switzerland';'Turkey';'United Kingdom'};
 NM=length(CountryM);
-QM=-1.*ones(NM);
+
 
 prev=-1.*ones(NM,length(pA));
 prevM=-1.*ones(NM,101,length(pA));
