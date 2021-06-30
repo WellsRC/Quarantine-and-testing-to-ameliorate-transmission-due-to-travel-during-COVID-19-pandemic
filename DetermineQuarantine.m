@@ -59,7 +59,7 @@ function [q1,q2] = DetermineQuarantine(qr,nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,R
     % Compute the minimum duration of the travel quarantine such that the
     % inequality is satisfied.
     for ii=1:length(FVOCA)
-        q1=max([min(qr(RIEQA(ii,:)<=EPSQT))],-1); % Find the minimum quarnantine that satisfies the inequality
-        q2=max([min(qr(RIEQB(ii,:)<=EPSQT))],-1); % Find the minimum quarnantine that satisfies the inequality
+        q1=max([min(qr(RIEQA(ii,:)<=EPSQT))],-1); % Find the minimum quarnantine that satisfies the inequality (max/min will return empty if there is no quarantine that works)
+        q2=max([min(qr(RIEQB(ii,:)<=EPSQT))],-1); % Find the minimum quarnantine that satisfies the inequality (max/min will return empty if there is no quarantine that works)
     end    
 end
