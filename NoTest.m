@@ -35,19 +35,18 @@ testtype{1}=[];
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % We are focusing on "Country A"
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-for durT=30:-1:1
-    parfor jj=1:15 
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
-        % Those from B that travelled to A (i.e. need to undergo quarantine for
-        % Country A)
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5        
-        
-        % re-write as the differences of the integrals to accelerate
-        RQS(jj)=((1./ts).*integral2(@(u,t)InfectiousnessfromInfectionTesting(t+u,u,[],testtype,R0S,R0A,0,ts,tL,td,SelfIsolate,betaRTPCR),0,ts,qA(jj),qA(jj)+durT));
-        RQNS(jj)=((1./ts).*integral2(@(u,t)InfectiousnessfromInfectionTesting(t+u,u,[],testtype,R0S,R0A,0,ts,tL,td,0,betaRTPCR),0,ts,qA(jj),qA(jj)+durT));
-        RQA(jj)=((1./td).*integral2(@(u,t)InfectiousnessfromInfectionTesting(t+u,u,[],testtype,R0S,R0A,1,ts,tL,td,0,betaRTPCR),0,td,qA(jj),qA(jj)+durT));  
-    end
 
-    save(['NoTest_Duration=' num2str(durT) '.mat']);
+parfor jj=1:15 
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+    % Those from B that travelled to A (i.e. need to undergo quarantine for
+    % Country A)
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5        
+
+    % re-write as the differences of the integrals to accelerate
+    RQS(jj)=((1./ts).*integral2(@(u,t)InfectiousnessfromInfectionTesting(t+u,u,[],testtype,R0S,R0A,0,ts,tL,td,SelfIsolate,betaRTPCR),0,ts,qA(jj),inf));
+    RQNS(jj)=((1./ts).*integral2(@(u,t)InfectiousnessfromInfectionTesting(t+u,u,[],testtype,R0S,R0A,0,ts,tL,td,0,betaRTPCR),0,ts,qA(jj),inf));
+    RQA(jj)=((1./td).*integral2(@(u,t)InfectiousnessfromInfectionTesting(t+u,u,[],testtype,R0S,R0A,1,ts,tL,td,0,betaRTPCR),0,td,qA(jj),inf));  
 end
+
+save(['NoTest_Duration.mat']);
 clear;

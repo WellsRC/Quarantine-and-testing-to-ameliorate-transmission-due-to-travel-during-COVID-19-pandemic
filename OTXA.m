@@ -30,22 +30,11 @@ load('BDVeritor_Parameter.mat','beta');
 testtype=cell(1,1);
 testtype{1}=beta;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% We are focusing on "Country A"
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-for durT=30:-1:1
-    parfor jj=1:15 
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
-        % Those from B that travelled to A (i.e. need to undergo quarantine for
-        % Country A)
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
-        
-        % re-write as the differences of the integrals to accelerate
-        RQS(jj)=((1./ts).*integral2(@(u,t)InfectiousnessfromInfectionTestingOLD(t+u,u,qA(jj),testtype,R0S,R0A,0,ts,tL,td,SelfIsolate),0,ts,qA(jj),qA(jj)+durT));
-        RQSN(jj)=((1./ts).*integral2(@(u,t)InfectiousnessfromInfectionTestingOLD(t+u,u,qA(jj),testtype,R0S,R0A,0,ts,tL,td,0),0,ts,qA(jj),qA(jj)+durT));
-        RQA(jj)=((1./td).*integral2(@(u,t)InfectiousnessfromInfectionTestingOLD(t+u,u,qA(jj),testtype,R0S,R0A,1,ts,tL,td,0),0,td,qA(jj),qA(jj)+durT));  
-    end
-
-    save(['NatComm-Quarantine_BDVeritor_Exit_Duration=' num2str(durT) '.mat']);
+parfor jj=1:15 
+    RQS(jj)=((1./ts).*integral2(@(u,t)InfectiousnessfromInfectionTestingOLD(t+u,u,qA(jj),testtype,R0S,R0A,0,ts,tL,td,SelfIsolate),0,ts,qA(jj),inf));
+    RQSN(jj)=((1./ts).*integral2(@(u,t)InfectiousnessfromInfectionTestingOLD(t+u,u,qA(jj),testtype,R0S,R0A,0,ts,tL,td,0),0,ts,qA(jj),inf));
+    RQA(jj)=((1./td).*integral2(@(u,t)InfectiousnessfromInfectionTestingOLD(t+u,u,qA(jj),testtype,R0S,R0A,1,ts,tL,td,0),0,td,qA(jj),inf));  
 end
+
+save(['NatComm-Quarantine_BDVeritor_Exit.mat']);
 clear;

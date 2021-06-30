@@ -92,17 +92,6 @@ else
         else
             pgeo=[];
         end
-    elseif(strcmp(CountryEntering,'Serbia'))
-        T=readtable([pwd '\Country_Data\Serbia Inbound Travel and Bednight Data.xlsx'],'Range','A5:I54');
-        tB=strcmp(CountryLeaving,T.Country);
-        TravelDepart=T.Jan_Dec_2019(tB)./365;
-        x=[1:30];        
-        DoS=T.Bed_Jan_Dec_2019(tB)./T.Jan_Dec_2019(tB);
-        if((~isempty(DoS))&&(~isnan(DoS)))
-            pgeo=fmincon(@(z)(sum(x.*((z.*(1-z).^(x-1))./(1-(1-z)^30)))-DoS).^2,1./DoS,[],[],[],[],0,1);
-        else
-            pgeo=[];
-        end
      elseif(strcmp(CountryEntering,'Romania'))
         T=readtable([pwd '\Country_Data\Destination_Romania-2019.xlsx'],'Range','A7:B52');
         tB=strcmp(CountryLeaving,T.Country);

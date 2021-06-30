@@ -76,6 +76,19 @@ function CountryMatrixNoVOC(cFile,AL)
     PlotQuarantineMatrix(CountryM,QM,CSR)
     print(gcf,['Figure_Country_NoVOC_' cFile '.png'],'-dpng','-r600');
     print(gcf,['Figure_Country_NoVOC_' cFile '.eps'],'-depsc','-r600');
+    
+    SQ=sum(min(QM,0),2);
+    fnon=find(SQ>(-1.*NM+6));
 
-    save('RTPCR_Test_Country.mat');
+    QM=QM(fnon,:);
+    QM=QM(:,fnon);
+
+    CountryM=CountryM(fnon);
+    CSR=CSR(fnon);
+
+    PlotQuarantineMatrixSummary(CountryM,QM,CSR)
+    text(-2.125802579686395,24.29232995658466,0,'G','Fontsize',32,'FontWeight','bold')
+    print(gcf,['Figure_SummaryCountry_NoVOC_' cFile '.eps'],'-depsc','-r600');
+
+    save([cFile '_Country.mat']);
 end

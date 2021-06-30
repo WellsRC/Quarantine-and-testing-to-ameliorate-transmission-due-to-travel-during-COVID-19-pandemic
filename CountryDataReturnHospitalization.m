@@ -1,4 +1,4 @@
-function [qt,prevMA,prevMB,prevA,prevB,vacMA,vacMB,vacupA,vacupB,proHMA,proHMB,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,RA,RB,CAstatusR,CBstatusR,VacupALOA,VacupALOB,VOCBetaGH501YV2A,VOCBetaGH501YV2B,VOCAlpha20201201GRYA,VOCAlpha20201201GRYB,VOCDeltaG478KV1A,VOCDeltaG478KV1B,DemoA,DemoB] = CountryDataReturnHospitalization(Date,CountryA,CountryB,pA,AL,cFile)
+function [prevMA,prevMB,prevA,prevB,vacMA,vacMB,vacupA,vacupB,proHMA,proHMB,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,RA,RB,CAstatusR,CBstatusR,VacupALOA,VacupALOB,VOCBetaGH501YV2A,VOCBetaGH501YV2B,VOCAlpha20201201GRYA,VOCAlpha20201201GRYB,VOCDeltaG478KV1A,VOCDeltaG478KV1B,DemoA,DemoB] = CountryDataReturnHospitalization(Date,CountryA,CountryB,pA,AL,cFile)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Demographics
@@ -55,13 +55,12 @@ DateN=datenum(Date);
 % Effective Reproductive number
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-load([cFile{1} '=30.mat'],'R0','qt');
+tL=2.9;
+[~,~,R0,ts,td] = BaselineParameters(tL);
+
 R0cA=R0;
 R0cB=R0;
 
-ts=8.29;
-tL=2.9;
-td=ts+20;
 SelfIsolate=1;
 RA=zeros(size(pA));
 RB=zeros(size(pA));
