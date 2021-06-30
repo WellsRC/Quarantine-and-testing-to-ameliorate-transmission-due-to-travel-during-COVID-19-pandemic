@@ -56,20 +56,10 @@ function [q1,q2] = DetermineQuarantine(qr,nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,R
     % We ran into issues of floating point percision error. This value was
     % claibrated such that generalized results made the most sense
     EPSQT=5.*10^(-19); % Sepcified by the error in the Dark Red and Dark Red case
-    q1=zeros(length(FVOCA),1);
-    q2=zeros(length(FVOCA),1);
     % Compute the minimum duration of the travel quarantine such that the
     % inequality is satisfied.
     for ii=1:length(FVOCA)
-        q1(ii)=max([min(qr(RIEQA(ii,:)<=EPSQT))],-1); % Find the minimum quarnantine that satisfies the inequality; if empty returns negative one
-        q2(ii)=max([min(qr(RIEQB(ii,:)<=EPSQT))],-1);
-    end
-    % Adjust the scenarios where there is no quarantine
-    q1(q1<0)=max(qr)+1; % Returns maximum quarantine considered +1
-    q2(q2<0)=max(qr)+1; % Returns maximum quarantine considered +1
-    
-    % return the maximum quarantine duration among all VOC as it will
-    % satisfy all inqequalities
-    q1=max(q1);
-    q2=max(q2);
+        q1=max([min(qr(RIEQA(ii,:)<=EPSQT))],-1); % Find the minimum quarnantine that satisfies the inequality
+        q2=max([min(qr(RIEQB(ii,:)<=EPSQT))],-1); % Find the minimum quarnantine that satisfies the inequality
+    end    
 end
