@@ -1,5 +1,7 @@
 function [RIEQA]=CalculateInequalityVOCAll(nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevAw,prevBw,vacAw,vacBw,recAw,recBw,cAw,vAB,vBA,dAB,dBA,NA,NB,qAI,AL,cFile)
 % Returns the values of the inequality for a specified quarantine duration
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 % Input
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
@@ -90,21 +92,21 @@ for jj=1:length(FVOCA)
     %%% FACTORED the NA out to improve the numerical accuracy as a result
     %%% of numerical rounding error
     
-    T1A=sum((cA.*nageA.*(1-phiAw)./(1-phiA)).*RA).*(1-phiA); % First component of inequality
+    T1A=sum((cA.*nageA.*(1-phiAw)./(1-phiA)).*RA).*(1-phiA); % First component of in
     
-    T2A=sum((1-(qAI+dAB).*vAB).*(cA.*nageA.*(1-phiAw)./(1-phiA)).*RA).*(1-phiA);  % Second component of inequality
+    T2A=sum((1-(qAI+dAB).*vAB).*(cA.*nageA.*(1-phiAw)./(1-phiA)).*RA).*(1-phiA);
 
-    T3A=sum((NB./NA).*dBA.*vBA.*(cA.*(nageB.*(1-phiBw)./(1-phiA))).*RA).*(1-phiA);  % Third component of inequality
+    T3A=sum((NB./NA).*dBA.*vBA.*(cA.*(nageB.*(1-phiBw)./(1-phiA))).*RA).*(1-phiA);
 
-    T4A=sum((vAB.*nageA.*prevA.*RV)).*(1-phiA); % Fourth component of inequality
+    T4A=sum((vAB.*nageA.*prevA.*RV)).*(1-phiA);
 
-    T5A=sum((vAB.*nageA.*prevB.*((1-phiAw)./(1-phiBw)).*RQ)).*(1-phiA); % Fifth component of inequality
+    T5A=sum((vAB.*nageA.*prevB.*((1-phiAw)./(1-phiBw)).*RQ)).*(1-phiA);
 
-    T6A=sum(((NB./NA).*vBA.*nageB.*prevB.*RQ)).*(1-phiA); % Sixth component of inequality
+    T6A=sum(((NB./NA).*vBA.*nageB.*prevB.*RQ)).*(1-phiA);
 
-    T7A=sum(((NB./NA).*vBA.*nageB.*prevA.*((1-phiBw)./(1-phiAw)).*RV)).*(1-phiA); % Seventh component of inequality
+    T7A=sum(((NB./NA).*vBA.*nageB.*prevA.*((1-phiBw)./(1-phiAw)).*RV)).*(1-phiA);
 
-    RIEQA(jj)=((T2A+T3A+T5A+T6A)-(T1A+T4A+T7A)); % Compute the inequlaity given the different terms: The minus is suppose to be there!
+    RIEQA(jj)=((T2A+T3A+T5A+T6A)-(T1A+T4A+T7A)); % The minus is suppose to be there!
 
 end
 
