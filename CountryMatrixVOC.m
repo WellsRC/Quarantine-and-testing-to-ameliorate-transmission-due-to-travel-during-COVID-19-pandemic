@@ -1,6 +1,9 @@
 function CountryMatrixVOC(cFile,AL)
 
-load('Country_Data_June_9_2021.mat','CountryM','cstatusR')
+T=[];
+for zzz=3:-1:1
+    AL=0.5+0.25.*(zzz-1)
+load('Country_Data_June_9_2021_Adherence_Level_100.mat','CountryM','cstatusR')
 TT=[[1:31]' cstatusR];
 TEX=sortrows(TT,2);
 
@@ -14,7 +17,6 @@ qR=[0:14];
 
 [RAlpha20201201GRY,RBetaGH501YV2,RDeltaG478KV1]=FactorIncreaseVOC;
 
-T=[];
 for ii=1:NM
     for jj=(ii+1):NM
         [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,VOCDeltaG478KV1A,VOCDeltaG478KV1B,VOCAlpha20201201GRYA,VOCAlpha20201201GRYB,VOCBetaGH501YV2A,VOCBetaGH501YV2B] = DataReturnSim(CountryM(ii),CountryM(jj),AL);
@@ -53,7 +55,6 @@ for ii=1:NM
     end
 end
 
-writetable(T,['VOC_Hellewell_et_al_' cFile '.csv']);
 
 SQ=sum(min(QM,0),2);
 
@@ -77,4 +78,7 @@ CSR=CSR(fnon);
 PlotQuarantineMatrix(CountryM,QM,CSR)
 
 print(gcf,['Figure_Country_VOC_' cFile '_Full.png'],'-dpng','-r600');
+end
+
+writetable(T,['VOC_Hellewell_et_al_' cFile '.csv']);
 end

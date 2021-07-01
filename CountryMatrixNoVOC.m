@@ -1,4 +1,8 @@
 function CountryMatrixNoVOC(cFile,AL)
+
+    T=[];
+for zzz=3:-1:1
+    AL=0.5+0.25.*(zzz-1)
     load('Country_Data_June_9_2021.mat','CountryM','cstatusR')
     TT=[[1:31]' cstatusR];
     TEX=sortrows(TT,2);
@@ -20,7 +24,6 @@ function CountryMatrixNoVOC(cFile,AL)
     PHI=-1.*ones(NM);
 
     qR=[0:14];
-    T=[];
     for ii=1:NM
         for jj=(ii+1):NM
             [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),AL);
@@ -72,7 +75,6 @@ function CountryMatrixNoVOC(cFile,AL)
             end
         end
     end
-    writetable(T,['No_VOC_Hellewell_et_al_' cFile '.csv']);
     % %%% Changed Republic of Ireland to Ireland to improve the visualization of
     % %%% the figure
     t=strcmp(CountryM,'United Kingdom');
@@ -98,5 +100,7 @@ function CountryMatrixNoVOC(cFile,AL)
         text(-3.083382551869983,32.4587554269175,0,'G','Fontsize',32,'FontWeight','bold')
         print(gcf,['Figure_1G.eps'],'-depsc','-r600');
     end
+end
 
+    writetable(T,['No_VOC_Hellewell_et_al_' cFile '.csv']);
 end

@@ -6,21 +6,21 @@
 clear;
 clc;
 
-load('Country_Data_April_12_2021.mat','CountryM','cstatusR')
+load('Country_Data_June_9_2021_Adherence_Level_100.mat','CountryM','cstatusR')
 TT=[[1:31]' cstatusR];
 TEX=sortrows(TT,2);
 
 CountryM=CountryM(TEX(:,1));
 CSR=TEX(:,2);
 
-cFile={'NoTest_Duration'};
+cFile='NoTest';
+AL=1;
 
 NM=length(CountryM);
 
 QM0=-1.*ones(NM);
 QMNT=-1.*ones(NM);
 
-d=30;
 
 FVOCA=1;
 FVOCB=1;
@@ -29,22 +29,22 @@ REPSVOC=0;
 RNIVOC=0;
 for ii=1:NM
     for jj=(ii+1):NM
-        [nageA,nageB,prevA,prevB,vacA,vacB,proHA,proHB,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,RA,RB,~,~,~,~,~,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),[],[],cFile);
+        [nageA,nageB,prevA,prevB,vacA,vacB,proHA,proHB,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),AL);
         if(~isempty(prevA))
             
             vAB=(VTAB./NA);
             vBA=(VTBA./NB);
             
-             IA=InfectionsVOCAll(nageA,nageB,[1],[1],[0],[0],[0],RA,pA,d,prevA,prevB,vacA,vacB,recA,recB,cA,vAB,vBA,dAB,dBA,NA,NB,0,cFile);
+             IA=InfectionsVOCAll(nageA,nageB,[1],[1],[0],[0],[0],pA,prevA,prevB,vacA,vacB,recA,recB,cA,vAB,vBA,dAB,dBA,NA,NB,0,AL,cFile);
              [QM0(ii,jj)]=sum(proHA.*IA)*14*100000./NA;
             
-             IB=InfectionsVOCAll(nageB,nageA,[1],[1],[0],[0],[0],RB,pA,d,prevB,prevA,vacB,vacA,recB,recA,cB,vBA,vAB,dBA,dAB,NB,NA,0,cFile);
+             IB=InfectionsVOCAll(nageB,nageA,[1],[1],[0],[0],[0],pA,prevB,prevA,vacB,vacA,recB,recA,cB,vBA,vAB,dBA,dAB,NB,NA,0,AL,cFile);
              [QM0(jj,ii)]=sum(proHB.*IB)*14*100000./NB;
              
-             IA=InfectionsVOCAll(nageA,nageB,[1],[1],[0],[0],[0],RA,pA,d,prevA,prevB,vacA,vacB,recA,recB,cA,vAB,vBA,dAB,dBA,NA,NB,-1,cFile);
+             IA=InfectionsVOCAll(nageA,nageB,[1],[1],[0],[0],[0],pA,prevA,prevB,vacA,vacB,recA,recB,cA,vAB,vBA,dAB,dBA,NA,NB,-1,AL,cFile);
              [QMNT(ii,jj)]=sum(proHA.*IA)*14*100000./NA;
             
-             IB=InfectionsVOCAll(nageB,nageA,[1],[1],[0],[0],[0],RB,pA,d,prevB,prevA,vacB,vacA,recB,recA,cB,vBA,vAB,dBA,dAB,NB,NA,-1,cFile);
+             IB=InfectionsVOCAll(nageB,nageA,[1],[1],[0],[0],[0],pA,prevB,prevA,vacB,vacA,recB,recA,cB,vBA,vAB,dBA,dAB,NB,NA,-1,AL,cFile);
              [QMNT(jj,ii)]=sum(proHB.*IB)*14*100000./NB;
         end
     end

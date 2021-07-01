@@ -1,6 +1,6 @@
 function CountryMatrix_Hospital(cFile,AL)
 
-load('Country_Data_April_12_2021.mat','CountryM','cstatusR')
+load('Country_Data_June_9_2021_Adherence_Level_100.mat','CountryM','cstatusR')
 TT=[[1:31]' cstatusR];
 TEX=sortrows(TT,2);
 
@@ -15,22 +15,22 @@ QM14=-1.*ones(NM);
 
 for ii=1:NM
     for jj=(ii+1):NM
-        [nageA,nageB,prevA,prevB,vacA,vacB,proHA,proHB,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,RA,RB,~,~,~,~,~,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),[],[]);
+        [nageA,nageB,prevA,prevB,vacA,vacB,proHA,proHB,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),AL);
         if(~isempty(prevA))
             
             vAB=(VTAB./NA);
             vBA=(VTBA./NB);
             
-             IA=InfectionsVOCAll(nageA,nageB,[1],[1],[0],[0],[0],RA,pA,d,prevA,prevB,vacA,vacB,recA,recB,cA,vAB,vBA,dAB,dBA,NA,NB,0,AL,cFile);
+             IA=InfectionsVOCAll(nageA,nageB,[1],[1],[2],[0],[0],pA,prevA,prevB,vacA,vacB,recA,recB,cA,vAB,vBA,dAB,dBA,NA,NB,0,AL,cFile);
              [QM0(ii,jj)]=sum(proHA.*IA)*14*100000./NA;
             
-             IB=InfectionsVOCAll(nageB,nageA,[1],[1],[0],[0],[0],RB,pA,d,prevB,prevA,vacB,vacA,recB,recA,cB,vBA,vAB,dBA,dAB,NB,NA,0,AL,cFile);
+             IB=InfectionsVOCAll(nageB,nageA,[1],[1],[2],[0],[0],pA,prevB,prevA,vacB,vacA,recB,recA,cB,vBA,vAB,dBA,dAB,NB,NA,0,AL,cFile);
              [QM0(jj,ii)]=sum(proHB.*IB)*14*100000./NB;
              
-             IA=InfectionsVOCAll(nageA,nageB,[1],[1],[0],[0],[0],RA,pA,d,prevA,prevB,vacA,vacB,recA,recB,cA,vAB,vBA,dAB,dBA,NA,NB,14,AL,cFile);
+             IA=InfectionsVOCAll(nageA,nageB,[1],[1],[2],[0],[0],pA,prevA,prevB,vacA,vacB,recA,recB,cA,vAB,vBA,dAB,dBA,NA,NB,14,AL,cFile);
              [QM14(ii,jj)]=sum(proHA.*IA)*14*100000./NA;
             
-             IB=InfectionsVOCAll(nageB,nageA,[1],[1],[0],[0],[0],RB,pA,d,prevB,prevA,vacB,vacA,recB,recA,cB,vBA,vAB,dBA,dAB,NB,NA,14,AL,cFile);
+             IB=InfectionsVOCAll(nageB,nageA,[1],[1],[2],[0],[0],pA,prevB,prevA,vacB,vacA,recB,recA,cB,vBA,vAB,dBA,dAB,NB,NA,14,AL,cFile);
              [QM14(jj,ii)]=sum(proHB.*IB)*14*100000./NB;
         end
     end
@@ -57,7 +57,7 @@ RRR=(QM0-QM14)./QM0;
 RRR=100.*RRR;
 RRR(QM0==-1)=-1;
 
-PlotQuarantineHospitalizationReduction(CountryM,RRR,CSR)
-print(gcf,['Figure_Country_Hospital_Reduction_NT.png'],'-dpng','-r600');
-print(gcf,['FigureS10.png'],'-dpng','-r600');
+% PlotQuarantineHospitalizationReduction(CountryM,RRR,CSR)
+% print(gcf,['Figure_Country_Hospital_Reduction_NT.png'],'-dpng','-r600');
+% print(gcf,['FigureS10.png'],'-dpng','-r600');
 end

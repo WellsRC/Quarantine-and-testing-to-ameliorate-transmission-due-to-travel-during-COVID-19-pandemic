@@ -58,8 +58,13 @@ ColTx=[0 0 0; 0 0 0; 1 1 1; 1 1 1];
 
 xx=[0.986957943925227,1.00;0.986957943925227,1.00;0.978780373831772,0.993780373831772;0.992799065420557,1.00];
 for jj=1:4
-    ff=find(CRS<CSTATUS(jj));
-    if(~isempty(ff))
+    ff=find(CRS<=CSTATUS(jj));
+    if(jj>1)
+        gg=find(CRS<=CSTATUS(jj)& CRS>CSTATUS(jj-1));
+    else
+        gg=1;
+    end
+    if(~isempty(ff)&&~isempty(gg))
         annotation('rectangle',[0.115+0.84 0.15+TempL(ff(end))-dTT 0.0175 dTT+TempL(flast)-TempL(ff(end))],'Facecolor',ColT(jj,:));
         
         annotation('textarrow',xx(jj,:),[0.15+mean([TempL(flast) TempL(ff(end))])-dTT./2 0.15+mean([TempL(flast) TempL(ff(end))])-dTT./2],'String',Stt{jj},'HorizontalAlignment','center','VerticalAlignment','middle','Fontsize',18,'color',ColTx(jj,:),'HeadStyle', 'none', 'LineStyle', 'none','TextRotation',270)  
@@ -77,8 +82,13 @@ TempL=(linspace(0,0.84,NC+1));
 dTT=TempL(2)-TempL(1);
 TTX=[1:NC];
 for jj=1:4
-    ff=find(CRS<CSTATUS(jj));
-    if(~isempty(ff))
+    ff=find(CRS<=CSTATUS(jj));
+    if(jj>1)
+        gg=find(CRS<=CSTATUS(jj)& CRS>CSTATUS(jj-1));
+    else
+        gg=1;
+    end
+    if(~isempty(ff)&&~isempty(gg))
         annotation('rectangle',[0.115+TempL(flast) 0.12 (TempL(ff(end))-TempL(flast))+dTT 0.03],'Facecolor',ColT(jj,:));
         annotation('textbox',[0.115+TempL(flast) 0.12 (TempL(ff(end))-TempL(flast))+dTT 0.03],'String',Stt{jj},'HorizontalAlignment','center','VerticalAlignment','middle','Fontsize',18,'color',ColTx(jj,:));
         
