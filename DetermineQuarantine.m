@@ -50,7 +50,7 @@ function [q1,q2] = DetermineQuarantine(qr,nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,R
         % Compute the inequality for country A
         [RIEQA(:,ii)]=CalculateInequalityVOCAll(nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,vAB,vBA,dAB,dBA,NA,NB,qr(ii),AL,cFile);
         % Compute the inequality for country B
-%         [RIEQB(:,ii)]=CalculateInequalityVOCAll(nageB,nageA,FVOCB,FVOCA,RVOC,REPSVOC,RNIVOC,pA,prevB,prevA,vacB,vacA,recB,recA,cB,vBA,vAB,dBA,dAB,NB,NA,qr(ii),AL,cFile);
+        [RIEQB(:,ii)]=CalculateInequalityVOCAll(nageB,nageA,FVOCB,FVOCA,RVOC,REPSVOC,RNIVOC,pA,prevB,prevA,vacB,vacA,recB,recA,cB,vBA,vAB,dBA,dAB,NB,NA,qr(ii),AL,cFile);
     end
     
     % We ran into issues of floating point percision error. This value was
