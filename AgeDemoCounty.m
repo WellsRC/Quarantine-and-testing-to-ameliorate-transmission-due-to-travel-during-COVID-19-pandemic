@@ -1,5 +1,7 @@
 function [Demo] = AgeDemoCounty(Country)
-T=readtable([pwd '\Country_Data\Age_Population.csv']);
+% T=readtable([pwd '\Country_Data\Age_Population.csv']);
+load('Country_Age_Population.mat');
+
 % Note: The csv file is population per thousand. This scale is not an issue
 % since we are normalizing to obtain the proportion of the population in
 % the age group. There is a separate file that provides the population size

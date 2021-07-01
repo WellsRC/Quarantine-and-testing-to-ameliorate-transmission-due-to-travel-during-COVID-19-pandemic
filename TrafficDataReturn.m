@@ -1,4 +1,4 @@
-function [prevA,prevB,vacupA,vacupB,recA,recB,NA,NB,cA,cB,proHA,proHB,DemoA,DemoB,RA,RB] = TrafficDataReturn(StatusA,StatusB,vacA,vacB,recA,recB,NA,NB,pA)
+function [prevA,prevB,vacupA,vacupB,recA,recB,NA,NB,cA,cB,proHA,proHB,DemoA,DemoB] = TrafficDataReturn(StatusA,StatusB,vacA,vacB,recA,recB,NA,NB,pA)
 
 Demo=[0.210888011 0.11534318 0.141457647 0.139470807 0.140165756 0.121345549 0.078708003 0.052621047];
 h=[0.1 0.5 1.1 1.4 2.9 5.8 9.3 26.2]./100;
@@ -71,22 +71,5 @@ PopAS=1-vacupB-prevB-recB;
                 
 proHB=1+(tempHB).*(1-prevB-recB)-recB-prevB; % NEED TO SCALE VAC UPTAKE HERE TO NOT COUNT THOSE ALREADY VACCINATED OR THAT WOULD BE INFECTED. THIS WAS NOT DONE EARLIER. Then need to remove recovered and those already infected
 proHB=h.*proHB./PopAS;
-
-
-load(['Quarantine_RTPCR_Exit_Duration=30.mat'],'R0');
-R0cA=R0;
-R0cB=R0;
-
-ts=8.29;
-tL=2.9;
-td=ts+20;
-SelfIsolate=1;
-RA=zeros(size(pA));
-RB=zeros(size(pA));
-for aa=1:length(pA)
-    RA(aa)=integral(@(t)InfectiousnessfromInfection(t,R0cA,R0cA,pA(aa),ts,tL,td,SelfIsolate),0,td);
-    RB(aa)=integral(@(t)InfectiousnessfromInfection(t,R0cB,R0cB,pA(aa),ts,tL,td,SelfIsolate),0,td);
-end
-
 end
 

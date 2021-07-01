@@ -1,5 +1,18 @@
 clear;
 clc;
+T=readtable([pwd '\Country_Data\Age_Population.csv']);
+save('Country_Age_Population.mat');
+clear;
+clc;
+T=readtable([pwd '\Country_Data\VaccinationData.csv']);
+save('Vaccination_Data.mat');
+clear;
+clc;
+T=readtable([pwd '\Country_Data\reference_hospitalization_all_locs.csv']);
+save('IHME_Data.mat');
+clear;
+clc;
+
 pA=[81.91 77.59 77.59 69.46 69.46 64.54 64.54 35.44]./100;
 AL=1;
 
@@ -71,7 +84,7 @@ end
 % Need to record the last country's epiddemic profile
 ii=NM;
 jj=NM-1;
-[~,prevMA,~,prevA,~,vacMA,~,vacupA,vacupB,proHMA,~,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,~,~,CAstatusR,~,VacupA,~,VOCBetaGH501YV2A,~,VOCAlpha20201201GRYA,~,VOCDeltaG478KV1A,~,DemoA,DemoB] = CountryDataReturnHospitalization({'April 12, 2021'},CountryM(ii),CountryM(jj),pA,cFile);
+[prevMA,~,prevA,prevB,vacMA,~,vacupA,vacupB,proHMA,~,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,CAstatusR,~,VacupA,~,VOCBetaGH501YV2A,~,VOCAlpha20201201GRYA,~,VOCDeltaG478KV1A,~,DemoA,DemoB] = CountryDataReturnHospitalization({'June 9, 2021'},CountryM(ii),CountryM(jj),pA);
 if(~isempty(prevA)&&~isempty(vacupA)&&~isempty(proHA)&&~isempty(recA)&&~isempty(cA)&&~isempty(NA))
     prev(ii,:)=prevA;
     prevM(ii,:,:)=prevMA;

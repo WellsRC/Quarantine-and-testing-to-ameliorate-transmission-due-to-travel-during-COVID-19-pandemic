@@ -11,7 +11,7 @@ h=[0.1 0.5 1.1 1.4 2.9 5.8 9.3 26.2]./100;
 
 
 
-T=readtable('VaccinationData.csv');
+load('Vaccination_Data.mat');
 tA=strcmp(CountryA,T.location);
 tB=strcmp(CountryB,T.location);
 
@@ -131,7 +131,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 DateN=datenum(Date);
 
-T=readtable('reference_hospitalization_all_locs.csv');
+load('IHME_Data.mat');
 tA=strcmp(CountryA,T.location_name);
 tB=strcmp(CountryB,T.location_name);
 

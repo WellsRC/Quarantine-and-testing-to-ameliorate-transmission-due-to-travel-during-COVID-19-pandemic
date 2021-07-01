@@ -1,7 +1,8 @@
 function [prevM] = CountryEpiDataVacCov(Country,DateN,N,Demo,vacM,rec,pA)
 
 % Read the data
-T=readtable([pwd '\Country_Data\reference_hospitalization_all_locs.csv']);
+% T=readtable([pwd '\Country_Data\reference_hospitalization_all_locs.csv']);
+load('IHME_Data.mat');
 %Find the country name
 t=strcmp(Country,T.location_name);
 %Confert data to numbers

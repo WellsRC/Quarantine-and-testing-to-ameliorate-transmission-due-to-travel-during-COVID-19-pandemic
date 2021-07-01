@@ -9,7 +9,8 @@ function [vacup,tempH,VacupALO,vacM,tempHM] = CountryVaccinationFirstStage(Count
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
 
 % Load the vaccination data
-T=readtable([pwd '\Country_Data\VaccinationData.csv']);
+% T=readtable([pwd '\Country_Data\VaccinationData.csv']);
+load('Vaccination_Data.mat');
 %Find the country of interest
 tA=strcmp(Country,T.location);
 % Transform the date

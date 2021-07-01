@@ -1,5 +1,6 @@
 function [rec,N] = RecoveredPopulation(Country,DateN,Demo)
-T=readtable([pwd '\Country_Data\reference_hospitalization_all_locs.csv']);
+% T=readtable([pwd '\Country_Data\reference_hospitalization_all_locs.csv']);
+load('IHME_Data.mat');
 tA=strcmp(Country,T.location_name);
 
 TDate=datenum(T.date);
