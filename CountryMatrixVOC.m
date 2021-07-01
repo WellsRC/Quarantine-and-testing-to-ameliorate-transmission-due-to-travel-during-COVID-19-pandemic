@@ -1,6 +1,6 @@
 function CountryMatrixVOC(cFile,AL)
 
-load('Country_Data_April_12_2021.mat','CountryM','cstatusR')
+load('Country_Data_June_9_2021.mat','CountryM','cstatusR')
 TT=[[1:31]' cstatusR];
 TEX=sortrows(TT,2);
 
@@ -12,35 +12,48 @@ NM=length(CountryM);
 QM=-1.*ones(NM);
 qR=[0:14];
 
-% https://www.nejm.org/doi/full/10.1056/NEJMc2100362
-%https://science.sciencemag.org/content/early/2021/03/03/science.abg3055 , https://www.nature.com/articles/s41586-021-03470-x
-RAlpha20201201GRY=0.82;
-% https://www.nejm.org/doi/full/10.1056/NEJMc2100362
-RBetaGH501YV2=0.5;
+[RAlpha20201201GRY,RBetaGH501YV2,RDeltaG478KV1]=FactorIncreaseVOC;
 
+T=[];
 for ii=1:NM
     for jj=(ii+1):NM
-        [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,VOCDeltaG478KV1A,VOCDeltaG478KV1B,VOCAlpha20201201GRYA,VOCAlpha20201201GRYB,VOCBetaGH501YV2A,VOCBetaGH501YV2B] = DataReturnSim(CountryM(ii),CountryM(jj),[],[]);
+        [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,VOCDeltaG478KV1A,VOCDeltaG478KV1B,VOCAlpha20201201GRYA,VOCAlpha20201201GRYB,VOCBetaGH501YV2A,VOCBetaGH501YV2B] = DataReturnSim(CountryM(ii),CountryM(jj),AL);
         if(~isempty(VOCDeltaG478KV1A)&&~isempty(VOCDeltaG478KV1B)&&~isempty(VOCBetaGH501YV2A)&&~isempty(VOCBetaGH501YV2B)&&~isempty(VOCAlpha20201201GRYA)&&~isempty(VOCAlpha20201201GRYB))
             if((VOCDeltaG478KV1A>=0)&&(VOCDeltaG478KV1B>=0)&&(VOCBetaGH501YV2A>=0)&&(VOCBetaGH501YV2B>=0)&&(VOCAlpha20201201GRYA>=0)&&(VOCAlpha20201201GRYB>=0))
                 vAB=(VTAB./NA);
                 vBA=(VTBA./NB);
-                [qA,qB] = DetermineQuarantine(qR,nageA,nageB,[1-VOCBetaGH501YV2A-VOCAlpha20201201GRYA-VOCDeltaG478KV1A VOCDeltaG478KV1A VOCAlpha20201201GRYA VOCBetaGH501YV2A],[1-VOCDeltaG478KV1B-VOCAlpha20201201GRYB-VOCBetaGH501YV2B VOCDeltaG478KV1B VOCAlpha20201201GRYB VOCBetaGH501YV2B],[0 RDeltaG478KV1 RAlpha20201201GRY RBetaGH501YV2],[0 0 0 0],zeros(1,4),pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,cFile);
+                FVOCA=[1-VOCBetaGH501YV2A-VOCAlpha20201201GRYA-VOCDeltaG478KV1A VOCDeltaG478KV1A VOCAlpha20201201GRYA VOCBetaGH501YV2A];
+                FVOCB=[1-VOCDeltaG478KV1B-VOCAlpha20201201GRYB-VOCBetaGH501YV2B VOCDeltaG478KV1B VOCAlpha20201201GRYB VOCBetaGH501YV2B];
+                RVOC=[0 RDeltaG478KV1 RAlpha20201201GRY RBetaGH501YV2];
+                REPSVOC=[0 0 0 0];
+                RNIVOC=[0 0 0 0];
+                [qA,qB] = DetermineQuarantine(qR,nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,cFile);
                 if(~isempty(qA))
                     QM(ii,jj)=qA;
                 else
-                    QM(ii,jj)=15;           
+                    QM(ii,jj)=15;    
+                    qA=15;
                 end
 
                 if(~isempty(qB))
                     QM(jj,ii)=qB;
                 else
-                    QM(jj,ii)=15;           
+                    QM(jj,ii)=15;  
+                    qB=15;
+                end
+                
+                if(isempty(T))
+                   T=table(nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,qA,qB); 
+                else
+                   Ttemp=table(nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,qA,qB); 
+                   T=[T;Ttemp];
                 end
             end
         end
     end
 end
+
+writetable(T,['VOC_Hellewell_et_al_' cFile '.csv']);
 
 SQ=sum(min(QM,0),2);
 

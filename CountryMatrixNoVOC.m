@@ -1,5 +1,5 @@
 function CountryMatrixNoVOC(cFile,AL)
-    load('Country_Data_April_12_2021.mat','CountryM','cstatusR')
+    load('Country_Data_June_9_2021.mat','CountryM','cstatusR')
     TT=[[1:31]' cstatusR];
     TEX=sortrows(TT,2);
 
@@ -20,10 +20,10 @@ function CountryMatrixNoVOC(cFile,AL)
     PHI=-1.*ones(NM);
 
     qR=[0:14];
-    
+    T=[];
     for ii=1:NM
         for jj=(ii+1):NM
-            [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),[],[]);
+            [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),AL);
             if(~isempty(prevA))
                 VAC(ii,jj)=sum(nageB.*vacB)./sum(nageA.*vacA);
                 PREV(ii,jj)=sum(nageB.*prevB)./sum(nageA.*prevA);
@@ -52,18 +52,27 @@ function CountryMatrixNoVOC(cFile,AL)
                 if(~isempty(qA))
                     QM(ii,jj)=qA;
                 else
-                    QM(ii,jj)=15;           
+                    QM(ii,jj)=15;    
+                    qA=15;
                 end
 
                 if(~isempty(qB))
                     QM(jj,ii)=qB;
                 else
-                    QM(jj,ii)=15;           
+                    QM(jj,ii)=15;  
+                    qB=15;
+                end
+                
+                if(isempty(T))
+                   T=table(nageA,nageB,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,qA,qB); 
+                else
+                   Ttemp=table(nageA,nageB,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,qA,qB); 
+                   T=[T;Ttemp];
                 end
             end
         end
     end
-
+    writetable(T,['No_VOC_Hellewell_et_al_' cFile '.csv']);
     % %%% Changed Republic of Ireland to Ireland to improve the visualization of
     % %%% the figure
     t=strcmp(CountryM,'United Kingdom');
@@ -74,20 +83,20 @@ function CountryMatrixNoVOC(cFile,AL)
     CountryM(t)={'Czechia'};
     PlotQuarantineMatrix(CountryM,QM,CSR)
     print(gcf,['Figure_Country_NoVOC_' cFile '_Adherence=' num2str(100*AL) '.png'],'-dpng','-r600');
-    print(gcf,['Figure_Country_NoVOC_' cFile '_Adherence=' num2str(100*AL) '.eps'],'-depsc','-r600');
     
-    SQ=sum(min(QM,0),2);
-    fnon=find(SQ>(-1.*NM+6));
+    if((AL==1)&&(strcmp(cFile,'Quarantine_RTPCR_Exit')))
+        SQ=sum(min(QM,0),2);
+        fnon=find(SQ>(-1.*NM+7));
 
-    QM=QM(fnon,:);
-    QM=QM(:,fnon);
+        QM=QM(fnon,:);
+        QM=QM(:,fnon);
 
-    CountryM=CountryM(fnon);
-    CSR=CSR(fnon);
+        CountryM=CountryM(fnon);
+        CSR=CSR(fnon);
 
-    PlotQuarantineMatrixSummary(CountryM,QM,CSR)
-    text(-2.125802579686395,24.29232995658466,0,'G','Fontsize',32,'FontWeight','bold')
-    print(gcf,['Figure_SummaryCountry_NoVOC_' cFile '_Adherence=' num2str(100*AL) '.eps'],'-depsc','-r600');
+        PlotQuarantineMatrixSummary(CountryM,QM,CSR)
+        text(-3.083382551869983,32.4587554269175,0,'G','Fontsize',32,'FontWeight','bold')
+        print(gcf,['Figure_1G.eps'],'-depsc','-r600');
+    end
 
-    save([cFile '_Country.mat']);
 end

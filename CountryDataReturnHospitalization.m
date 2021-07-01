@@ -1,4 +1,4 @@
-function [prevMA,prevMB,prevA,prevB,vacMA,vacMB,vacupA,vacupB,proHMA,proHMB,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,CAstatusR,CBstatusR,VacupALOA,VacupALOB,VOCBetaGH501YV2A,VOCBetaGH501YV2B,VOCAlpha20201201GRYA,VOCAlpha20201201GRYB,VOCDeltaG478KV1A,VOCDeltaG478KV1B,DemoA,DemoB] = CountryDataReturnHospitalization(Date,CountryA,CountryB,pA)
+function [prevA,prevB,vacupA,vacupB,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,CAstatusR,CBstatusR,VacupALOA,VacupALOB,VOCBetaGH501YV2A,VOCBetaGH501YV2B,VOCAlpha20201201GRYA,VOCAlpha20201201GRYB,VOCDeltaG478KV1A,VOCDeltaG478KV1B,DemoA,DemoB] = CountryDataReturnHospitalization(Date,CountryA,CountryB,pA,AL)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Demographics
@@ -11,8 +11,8 @@ function [prevMA,prevMB,prevA,prevB,vacMA,vacMB,vacupA,vacupB,proHMA,proHMB,proH
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 DateN=datenum(Date);
 
-[recA,NA] = RecoveredPopulation(CountryA,DateN,DemoA);
-[recB,NB] = RecoveredPopulation(CountryB,DateN,DemoB);
+[recA,NA] = RecoveredPopulation(CountryA,DateN,DemoA,pA,AL);
+[recB,NB] = RecoveredPopulation(CountryB,DateN,DemoB,pA,AL);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 % Vaccination Data
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
@@ -20,21 +20,21 @@ DateN=datenum(Date);
 % Get the first stage of the calcualtion for the vaccine aquaired immunity
 % and hospitaliation
 
-[vacupA,tempHA,VacupALOA,vacMA,tempHMA] = CountryVaccinationFirstStage(CountryA,DateN,NA,DemoA);
-[vacupB,tempHB,VacupALOB,vacMB,tempHMB] = CountryVaccinationFirstStage(CountryB,DateN,NB,DemoB);
+[vacupA,tempHA,VacupALOA] = CountryVaccinationFirstStage(CountryA,DateN,NA,DemoA);
+[vacupB,tempHB,VacupALOB] = CountryVaccinationFirstStage(CountryB,DateN,NB,DemoB);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 % Infected population
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 % Epidata
-[cA,prevA,CAstatusR] = CountryEpiData(CountryA,NA,DateN,DemoA,vacupA,recA,pA);
-[cB,prevB,CBstatusR] = CountryEpiData(CountryB,NB,DateN,DemoB,vacupB,recB,pA);
-% Prev under difference vaccine coverage
-[prevMA] = CountryEpiDataVacCov(CountryA,DateN,NA,DemoA,vacMA,recA,pA);
-[prevMB] = CountryEpiDataVacCov(CountryB,DateN,NB,DemoB,vacMB,recB,pA);
+[cA,prevA,CAstatusR] = CountryEpiData(CountryA,NA,DateN,DemoA,vacupA,recA,pA,AL);
+[cB,prevB,CBstatusR] = CountryEpiData(CountryB,NB,DateN,DemoB,vacupB,recB,pA,AL);
+% % Prev under difference vaccine coverage
+% [prevMA] = CountryEpiDataVacCov(CountryA,DateN,NA,DemoA,vacMA,recA,pA);
+% [prevMB] = CountryEpiDataVacCov(CountryB,DateN,NB,DemoB,vacMB,recB,pA);
 % Finsih calcualting vaccine immunity
-[vacupA,proHA,vacMA,proHMA] = CountryVaccinationSecondStage(DemoA,vacupA,tempHA,vacMA,tempHMA,recA,prevA,prevMA);
-[vacupB,proHB,vacMB,proHMB] = CountryVaccinationSecondStage(DemoB,vacupB,tempHB,vacMB,tempHMB,recB,prevB,prevMB);
+[vacupA,proHA] = CountryVaccinationSecondStage(vacupA,tempHA,recA,prevA);
+[vacupB,proHB] = CountryVaccinationSecondStage(vacupB,tempHB,recB,prevB);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Travel Data

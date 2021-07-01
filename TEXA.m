@@ -37,7 +37,7 @@ testtype{2}=beta;
 
 parfor jj=1:15
     RQS(jj)=((1./ts).*integral2(@(u,t)InfectiousnessfromInfectionTesting(t+u,u,[0 qA(jj)],testtype,R0S,R0A,0,ts,tL,td,SelfIsolate,betaRTPCR),0,ts,qA(jj),inf));
-    RQSN(jj)=((1./ts).*integral2(@(u,t)InfectiousnessfromInfectionTesting(t+u,u,[0 qA(jj)],testtype,R0S,R0A,0,ts,tL,td,0,betaRTPCR),0,max(ts-qA(jj)),qA(jj),inf));
+    RQSN(jj)=((1./ts).*integral2(@(u,t)InfectiousnessfromInfectionTesting(t+u,u,[0 qA(jj)],testtype,R0S,R0A,0,ts,tL,td,0,betaRTPCR),0,max(ts-qA(jj),0),qA(jj),inf));
     RQA(jj)=((1./td).*integral2(@(u,t)InfectiousnessfromInfectionTesting(t+u,u,[0 qA(jj)],testtype,R0S,R0A,1,ts,tL,td,0,betaRTPCR),0,td,qA(jj),inf)); 
 end
 

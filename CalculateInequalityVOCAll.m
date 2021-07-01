@@ -45,7 +45,7 @@ RQw=(1-pA).*((1-AL).*RQSN(qA==qAI)+AL.*RQS(qA==qAI))+pA.*RQA(qA==qAI);
 
 % No test: Post-quarantine transmission
 load(['NoTest.mat'],'qA','RQA','RQS','RQSN');
-RVw=(1-pA).*((1-AL).*RQSN(qA==qAI)+AL.*RQS(qA==qAI))+pA.*RQA(qA==qAI);
+RVw=(1-pA).*((1-AL).*RQSN(qA==0)+AL.*RQS(qA==0))+pA.*RQA(qA==0);
 
 % Effective reproductive number
 load(['Effective_Reproductive_Number.mat'],'RQA','RQS','RQSN');
