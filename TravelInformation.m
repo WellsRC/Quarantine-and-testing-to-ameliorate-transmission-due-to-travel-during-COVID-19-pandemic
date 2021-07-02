@@ -114,6 +114,17 @@ else
         else
             pgeo=[];
          end
+    elseif(strcmp(CountryEntering,'Sweden'))
+         DoS=7.30155898474969; % Based on the avergage duration of stay for the UK (as only info I could find)
+         T=readtable([pwd '\Country_Data\Sweden Inbound Bednight Data.xlsx'],'Range','A3:D258'); 
+         tB=strcmp(CountryLeaving,T.Country);
+         TravelDepart=(T.x2019(tB)./365)./DoS; % Need to divide by duration of stay as we do not have avialble information for number of travellers
+         x=[1:30];     
+         if((~isempty(DoS))&&(~isnan(DoS)))
+            pgeo=fmincon(@(z)(sum(x.*((z.*(1-z).^(x-1))./(1-(1-z)^30)))-DoS).^2,1./DoS,[],[],[],[],0,1);
+        else
+            pgeo=[];
+         end
     elseif(exist([pwd '\Country_Data\Destination_' CountryEntering{1} '-2019.xlsx'],'file'))
         % Country B entering Country A
        T=readtable([pwd '\Country_Data\Destination_' CountryEntering{1} '-2019.xlsx'],'Range','A7:J100');
