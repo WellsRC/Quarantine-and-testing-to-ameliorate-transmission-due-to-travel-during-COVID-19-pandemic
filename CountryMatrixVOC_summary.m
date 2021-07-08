@@ -1,7 +1,7 @@
-function CountryMatrixVOC_summary(cFile,CountryInclude,AL)
+function CountryMatrixVOC_summary(cFile,CountryInclude,AL,AQ)
 
-load('Country_Data_June_9_2021.mat','CountryM','cstatusR')
-TT=[[1:31]' cstatusR];
+load('Country_Data_June_27_2021_Adherence_Level_100.mat','CountryM','cstatusR')
+TT=[[1:29]' cstatusR];
 TEX=sortrows(TT,2);
 
 CountryM=CountryM(TEX(:,1));
@@ -25,7 +25,7 @@ for ii=1:NM
     if(sum(strcmp(CountryM(ii),CountryInclude))==1)
         for jj=(ii+1):NM
             if(sum(strcmp(CountryM(jj),CountryInclude))==1)
-                [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,VOCDeltaG478KV1A,VOCDeltaG478KV1B,VOCAlpha20201201GRYA,VOCAlpha20201201GRYB,VOCBetaGH501YV2A,VOCBetaGH501YV2B] = DataReturnSim(CountryM(ii),CountryM(jj),AL);
+                [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,VOCDeltaG478KV1A,VOCDeltaG478KV1B,VOCAlpha20201201GRYA,VOCAlpha20201201GRYB,VOCBetaGH501YV2A,VOCBetaGH501YV2B] = DataReturnSim(CountryM(ii),CountryM(jj),AL,cFile);
                 if(~isempty(VOCDeltaG478KV1A)&&~isempty(VOCDeltaG478KV1B)&&~isempty(VOCBetaGH501YV2A)&&~isempty(VOCBetaGH501YV2B)&&~isempty(VOCAlpha20201201GRYA)&&~isempty(VOCAlpha20201201GRYB))
                     if((VOCDeltaG478KV1A>=0)&&(VOCDeltaG478KV1B>=0)&&(VOCBetaGH501YV2A>=0)&&(VOCBetaGH501YV2B>=0)&&(VOCAlpha20201201GRYA>=0)&&(VOCAlpha20201201GRYB>=0))
                         
@@ -36,7 +36,7 @@ for ii=1:NM
                         RNIVOC=[0 0 0 0];
                         vAB=(VTAB./NA);
                         vBA=(VTBA./NB);
-                        [qA,qB] = DetermineQuarantine(qR,nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,cFile);
+                        [qA,qB] = DetermineQuarantine(qR,nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,AQ,cFile);
                         
                         if(~isempty(qA))
                             QM(ii,jj)=qA;
@@ -57,7 +57,7 @@ for ii=1:NM
                         RNIVOC=[0 0 0 0];
                         vAB=(VTAB./NA);
                         vBA=(VTBA./NB);
-                        [qA,qB] = DetermineQuarantine(qR,nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,cFile);
+                        [qA,qB] = DetermineQuarantine(qR,nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,AQ,cFile);
                         
                         if(~isempty(qA))
                             QMDeltaG478KV1(ii,jj)=qA;
@@ -78,7 +78,7 @@ for ii=1:NM
                         RNIVOC=[0 0 0 0];
                         vAB=(VTAB./NA);
                         vBA=(VTBA./NB);
-                        [qA,qB] = DetermineQuarantine(qR,nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,cFile);
+                        [qA,qB] = DetermineQuarantine(qR,nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,AQ,cFile);
                         
                         if(~isempty(qA))
                             QMAlpha20201201GRY(ii,jj)=qA;
@@ -99,7 +99,7 @@ for ii=1:NM
                         RNIVOC=[0 0 0 0];
                         vAB=(VTAB./NA);
                         vBA=(VTBA./NB);
-                        [qA,qB] = DetermineQuarantine(qR,nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,cFile);
+                        [qA,qB] = DetermineQuarantine(qR,nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,AQ,cFile);
                         
                         if(~isempty(qA))
                             QMBetaGH501YV2(ii,jj)=qA;
@@ -120,7 +120,7 @@ for ii=1:NM
                         RNIVOC=[0 0 0 0];
                         vAB=(VTAB./NA);
                         vBA=(VTBA./NB);
-                        [qA,qB] = DetermineQuarantine(qR,nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,cFile);
+                        [qA,qB] = DetermineQuarantine(qR,nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,AQ,cFile);
                         
                         if(~isempty(qA))
                             QMAllVOC(ii,jj)=qA;
@@ -172,17 +172,22 @@ CountryM=CountryM(fnon);
 CSR=CSR(fnon);
 PlotQuarantineMatrixSummaryVOC(CountryM,QMAllVOC,CSR)
 text(-1.119061166429583,13.411824324324336,'D','Fontsize',38,'FontWeight','bold');
-print(gcf,['Figure_Country_VOC_ONLY_Summary.eps'],'-depsc','-r600');
+print(gcf,['Figure_Country_VOC_ONLY_Summary_' cFile '_AL=' num2str(100*AL) '_AQ=' num2str(AQ*100) '.eps'],'-depsc','-r600');
 
 PlotQuarantineMatrixSummaryVOC(CountryM,QMDeltaG478KV1,CSR)
 text(-1.119061166429583,13.411824324324336,'A','Fontsize',38,'FontWeight','bold');
-print(gcf,['Figure_Country_VOC_Delta_ONLY_Summary.eps'],'-depsc','-r600');
+print(gcf,['Figure_Country_VOC_Delta_ONLY_Summary_' cFile '_AL=' num2str(100*AL) '_AQ=' num2str(AQ*100) '.eps'],'-depsc','-r600');
 
 PlotQuarantineMatrixSummaryVOC(CountryM,QMAlpha20201201GRY,CSR)
 text(-1.119061166429583,13.411824324324336,'B','Fontsize',38,'FontWeight','bold');
-print(gcf,['Figure_Country_VOC_Alpha_ONLY_Summary.eps'],'-depsc','-r600');
+print(gcf,['Figure_Country_VOC_Alpha_ONLY_Summary_' cFile '_AL=' num2str(100*AL) '_AQ=' num2str(AQ*100) '.eps'],'-depsc','-r600');
 
 PlotQuarantineMatrixSummaryVOC(CountryM,QMBetaGH501YV2,CSR)
 text(-1.119061166429583,13.411824324324336,'C','Fontsize',38,'FontWeight','bold');
-print(gcf,['Figure_Country_VOC_Beta_ONLY_Summary.eps'],'-depsc','-r600');
+print(gcf,['Figure_Country_VOC_Beta_ONLY_Summary_' cFile '_AL=' num2str(100*AL) '_AQ=' num2str(AQ*100) '.eps'],'-depsc','-r600');
+
+
+PlotQuarantineMatrixSummaryVOC(CountryM,QM,CSR)
+text(-1.119061166429583,13.411824324324336,'D','Fontsize',38,'FontWeight','bold');
+print(gcf,['Figure_Country_VOC_ALL_GENERAL__Summary_' cFile '_AL=' num2str(100*AL) '_AQ=' num2str(AQ*100) '.eps'],'-depsc','-r600');
 end

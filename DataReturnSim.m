@@ -1,5 +1,9 @@
-function [nageA,nageB,prevA,prevB,vacA,vacB,proHA,proHB,recA,recB,cA,cB,NA,NB,pgeoAB,VTAB,dAB,pgeoBA,VTBA,dBA,pA,VOCDeltaG478KV1A,VOCDeltaG478KV1B,VOCAlpha20201201GRYA,VOCAlpha20201201GRYB,VOCBetaGH501YV2A,VOCBetaGH501YV2B] = DataReturnSim(CountryA,CountryB,AL)
-load(['Country_Data_June_9_2021_Adherence_Level_' num2str(AL*100) '.mat'],'prev','rec','c','N','vac','proH','pgeoABM','VTABM','CountryM','pA','avgABM','Demo','VOCDeltaG478KV1','VOCAlpha20201201GRY','VOCBetaGH501YV2')
+function [nageA,nageB,prevA,prevB,vacA,vacB,proHA,proHB,recA,recB,cA,cB,NA,NB,pgeoAB,VTAB,dAB,pgeoBA,VTBA,dBA,pA,VOCDeltaG478KV1A,VOCDeltaG478KV1B,VOCAlpha20201201GRYA,VOCAlpha20201201GRYB,VOCBetaGH501YV2A,VOCBetaGH501YV2B] = DataReturnSim(CountryA,CountryB,AL,cFile)
+if(contains(cFile,'Shorter_Incubation'))
+    load(['Shorter_Incubation_Country_Data_June_27_2021_Adherence_Level_' num2str(AL*100) '.mat'],'prev','rec','c','N','vac','proH','pgeoABM','VTABM','CountryM','pA','avgABM','Demo','VOCDeltaG478KV1','VOCAlpha20201201GRY','VOCBetaGH501YV2')
+else
+    load(['Country_Data_June_27_2021_Adherence_Level_' num2str(AL*100) '.mat'],'prev','rec','c','N','vac','proH','pgeoABM','VTABM','CountryM','pA','avgABM','Demo','VOCDeltaG478KV1','VOCAlpha20201201GRY','VOCBetaGH501YV2')
+end
 tA=strcmp(CountryA,CountryM);
 tB=strcmp(CountryB,CountryM);
 

@@ -3,15 +3,13 @@ clear;
 
 figure('units','normalized','outerposition',[0.05 0.05 0.5 0.6]);
 subplot('Position',[0.14,0.193648648648649,0.84,0.78472972972973]);
-load('MLE-Estimate-RTPCR-Hill.mat','beta','TPtID','TDate','TResult','PtID','par');
+load('MLE-Estimate-RTPCR-Hill_Incubation_8_29_days.mat','beta','TPtID','TDate','TResult','PtID','par');
 TI=par(1:end-2);
 [~,b]=ismember(TPtID,PtID);
 dt=round(TDate'-TI(b(b>0)));
 t=linspace(0,40,1001);
 
-tL=2.9;
-
-p = PCRSens(t,beta,tL);
+p = PCRSens(t,beta);
 plot(t,p,'k','LineWidth',2)
 hold on;
  %scatter(dt(dt>0),TResult(dt>0),40,'k','filled')

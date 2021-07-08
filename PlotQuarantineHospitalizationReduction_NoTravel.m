@@ -3,7 +3,7 @@ figure('units','normalized','outerposition',[0.0 0.025 0.9 1]);
 subplot('Position',[0.115,0.15,0.84,0.7]);
 NC=length(Country);
 CSTATUS=[25 150 500 10^6]; % last entry is just to serve as an upper bound
-XB=[-40 -5 -2.5 -1 -0.5 0.5 1 2.5 5 200];
+XB=[-40 -5 -2.5 -1 -0.5 0.5 1 2.5 5 500];
 Q=QT;
 for jj=2:length(XB)
     Q(QT>=XB(jj-1) & QT<XB(jj))=jj-1;
@@ -37,7 +37,7 @@ colormap([cmap;0.65 0.65 0.65]);
 
 xxx=linspace(0,1,11);
 h.Ticks=[xxx(1:end-1) 0.005+mean(xxx(end-1:end))];%(xxx(2:end)+xxx(1:end-1))./2;
-h.TickLabels={'-10%','-5%','-2.5%','-1%','-0.5%','0.5%','1%','2.5%','5%','10%','N/A'};
+h.TickLabels={'-40%','-5%','-2.5%','-1%','-0.5%','0.5%','1%','2.5%','5%','500%','N/A'};
 
 
 h.Position=[0.115,0.06,0.84,0.0255];

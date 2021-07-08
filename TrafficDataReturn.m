@@ -1,4 +1,4 @@
-function [prevA,prevB,vacupA,vacupB,recA,recB,NA,NB,cA,cB,proHA,proHB,DemoA,DemoB] = TrafficDataReturn(StatusA,StatusB,vacA,vacB,recA,recB,NA,NB,pA)
+function [prevA,prevB,vacupA,vacupB,recA,recB,NA,NB,cA,cB,proHA,proHB,DemoA,DemoB] = TrafficDataReturn(StatusA,StatusB,vacA,vacB,recA,recB,NA,NB,pA,AL,Incubation)
 
 Demo=[0.210888011 0.11534318 0.141457647 0.139470807 0.140165756 0.121345549 0.078708003 0.052621047];
 h=[0.1 0.5 1.1 1.4 2.9 5.8 9.3 26.2]./100;
@@ -12,8 +12,8 @@ DemoB=Demo;
 recA=recA.*ones(size(pA));
 recB=recB.*ones(size(pA));
 
-cA=(StatusA./100000)/14;
-cB=(StatusB./100000)/14;
+cA=((StatusA./100000)/14);
+cB=((StatusB./100000)/14);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
 % Set-up first part of vaccination
@@ -46,10 +46,11 @@ end
 % Set-up prevalence and remaining vaccination
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
 PopAIM=1-vacupA.*(1-recA)-recA;
-Symptomatic=8.29.*cA.*(DemoA.*PopAIM)./(sum(DemoA.*PopAIM));
-Asymptomatic=28.29.*cA.*(DemoA.*PopAIM)./(sum(DemoA.*PopAIM));
+Symptomatic=(Incubation).*cA.*(DemoA.*PopAIM)./(sum(DemoA.*PopAIM));
+SymptomaticNoIsolation=(20+Incubation).*cA.*(DemoA.*PopAIM)./(sum(DemoA.*PopAIM));
+Asymptomatic=(20+Incubation).*cA.*(DemoA.*PopAIM)./(sum(DemoA.*PopAIM));
 
-prevA=((1-pA).*Symptomatic+pA.*Asymptomatic); %Do not need to divide to obtain prevalence as we adjusted fraction incidence above to be cases per person
+prevA=(AL.*(1-pA).*Symptomatic+(1-AL).*(1-pA).*SymptomaticNoIsolation+pA.*Asymptomatic); %Do not need to divide to obtain prevalence as we adjusted fraction incidence above to be cases per person
 
 vacupA=vacupA.*(1-prevA-recA); % NEED TO SCALE VAC UPTAKE HERE TO NOT COUNT THOSE ALREADY VACCINATED OR THAT WOULD BE INFECTED. THIS WAS NOT DONE EARLIER
 
@@ -60,10 +61,11 @@ proHA=h.*proHA./PopAS;
 
 
 PopAIM=1-vacupB.*(1-recB)-recB;
-Symptomatic=8.29.*cB.*(DemoB.*PopAIM)./(sum(DemoB.*PopAIM));
-Asymptomatic=28.29.*cB.*(DemoB.*PopAIM)./(sum(DemoB.*PopAIM));
+Symptomatic=(Incubation).*cB.*(DemoB.*PopAIM)./(sum(DemoB.*PopAIM));
+SymptomaticNoIsolation=(20+Incubation).*cB.*(DemoB.*PopAIM)./(sum(DemoB.*PopAIM));
+Asymptomatic=(20+Incubation).*cB.*(DemoB.*PopAIM)./(sum(DemoB.*PopAIM));
 
-prevB=((1-pA).*Symptomatic+pA.*Asymptomatic); %Do not need to divide to obtain prevalence as we adjusted fraction incidence above to be cases per person
+prevB=(AL.*(1-pA).*Symptomatic+(1-AL).*(1-pA).*SymptomaticNoIsolation+pA.*Asymptomatic); %Do not need to divide to obtain prevalence as we adjusted fraction incidence above to be cases per person
 
 vacupB=vacupB.*(1-prevB-recB); % NEED TO SCALE VAC UPTAKE HERE TO NOT COUNT THOSE ALREADY VACCINATED OR THAT WOULD BE INFECTED. THIS WAS NOT DONE EARLIER
 

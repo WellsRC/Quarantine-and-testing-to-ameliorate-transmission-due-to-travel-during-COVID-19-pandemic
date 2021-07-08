@@ -49,11 +49,11 @@ S=zeros(size(t));
         end
         S(t>=mm)=SensitivityTimeSamp(t(t>=mm),ts);
     else
-        PPA=LR(tt(f:end),testtype);
+        PPA=LR(tt(f:end)-ts,testtype);
         if(~isempty(V))
             S(t<mm)=pchip(Vx,PPA.*Sy,V);
         end
-        S(t>=mm)=SensitivityTimeSamp(t(t>=mm),ts).*LR(t(t>=mm),testtype);
+        S(t>=mm)=SensitivityTimeSamp(t(t>=mm),ts).*LR(t(t>=mm)-ts,testtype);
     end
 end
 

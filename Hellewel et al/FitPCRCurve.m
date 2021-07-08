@@ -49,14 +49,22 @@ for ii=1:length(PtID)
     end
 end
 
-LB=[UB-30 -4 -4];
-UB2=[UB log10(2) log10(2)];
-tL=2.9;
+LB=[UB-30 log10(0.01) -6];
+UB2=[UB log10(10) log10(1)];
+
 options = optimoptions('ga','PlotFcn', @gaplotbestf,'MaxGenerations',5*10^3,'FunctionTolerance',10^(-16),'UseParallel',true);
 
-[part,fvalt]=ga(@(x)LikelihoodPCRCurve([x],PtID,dstart,dlast,TPtID,TDate,TResult,tL),length(LB),[],[],[],[],LB,UB2,[],options);
+[part,fvalt]=ga(@(x)LikelihoodPCRCurve([x],PtID,dstart,dlast,TPtID,TDate,TResult),length(LB),[],[],[],[],LB,UB2,[],options);
 
 opts= optimset('MaxIter',10^4,'MaxFunEvals',10^4,'TolFun',10^(-16),'TolX',10^(-16),'UseParallel',false,'Display','off');
-[par,MLE]=fmincon(@(x)LikelihoodPCRCurve(x,PtID,dstart,dlast,TPtID,TDate,TResult,tL),part,[],[],[],[],LB,UB2,[],opts);
+[par,MLE]=fmincon(@(x)LikelihoodPCRCurve(x,PtID,dstart,dlast,TPtID,TDate,TResult),part,[],[],[],[],LB,UB2,[],opts);
+
 beta=10.^par(end-1:end);
-save('MLE-Estimate-RTPCR-Hill.mat');
+if(fvalt<MLE)
+    beta=10.^part(end-1:end);
+    MLE=fvalt;
+end
+%betat=log(4.96)+beta(1)^2;
+betat=log(7.223769956585773)+beta(1)^2;
+beta=[betat beta];
+save('MLE-Estimate-RTPCR-Hill_Incubation_8_29_days.mat');

@@ -1,7 +1,14 @@
 close all;
-load('Traffic_RTPCRTEST_Q.mat','QM');
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Compares quarantines between the EU- traffic light model and the country
+% paired analysis
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+cFile='Quarantine_RTPCR_Exit';
+AL=1;
+AQ=1;
+load(['Traffic_NO_VOC_Quarantine_' cFile '_AL=' num2str(100*AL) '_AQ=' num2str(AQ*100) '.mat'],'QM');
 QMG=QM;
-load('RTPCR_Test_Country.mat','QM','CSR');
+load(['Country_NO_VOC_Quarantine_' cFile '_AL=' num2str(AL*100) '_AQ=' num2str(100*AQ) '.mat'],'QM','CSR');
 
 
 Stt={'Green','Amber','Red','Dark Red'};
@@ -11,25 +18,33 @@ CStatus=[25 150 500 100000];
 
 figure('units','normalized','outerposition',[0.0 0.1 0.7 0.7]);
 subplot('Position',[0.14,0.335,0.851234939759036,0.6]);
-for ii=2:4
-    for jj=2:4
-        CQ=QM(CSR<CStatus(ii) & CSR>=CStatus(ii-1),:);
-        CQ=CQ(:,CSR<CStatus(jj) & CSR>=CStatus(jj-1));
+for ii=1:3
+    for jj=1:3
+        if(ii>1)
+            CQ=QM(CSR<CStatus(ii) & CSR>=CStatus(ii-1),:);
+        else
+            CQ=QM(CSR<CStatus(ii),:);
+        end
+        if(jj>1)
+            CQ=CQ(:,CSR<CStatus(jj) & CSR>=CStatus(jj-1));
+        else
+            CQ=CQ(:,CSR<CStatus(jj));
+        end
         CQ=CQ(CQ>=0 & CQ<=15);
-        scatter(1.5.*(ii-1)+(0.35.*(jj-3))+0.2.*(rand(size(CQ))-0.5),CQ,30,ColT(jj,:),'filled'); hold on;
-        plot(1.5.*(ii-1)+(0.35.*(jj-3))+linspace(-0.15,0.15,101),median(CQ).*ones(101,1),'-.','color',ColT(jj,:),'LineWidth',2);
+        scatter(1.5.*(ii)+(0.35.*(jj-2))+0.2.*(rand(size(CQ))-0.5),CQ,30,ColT(jj,:),'filled'); hold on;
+        plot(1.5.*(ii)+(0.35.*(jj-2))+linspace(-0.15,0.15,101),median(CQ).*ones(101,1),'-.','color',ColT(jj,:),'LineWidth',2);
         
-        plot(1.5.*(ii-1)+(0.35.*(jj-3))+linspace(-0.15,0.15,101),QMG(ii,jj).*ones(101,1),'color','k','LineWidth',2);
+        plot(1.5.*(ii)+(0.35.*(jj-2))+linspace(-0.15,0.15,101),QMG(ii,jj).*ones(101,1),'color','k','LineWidth',2);
     end
     
-    text(1.5.*(ii-1),16,Stt(ii),'HorizontalAlignment','center','Fontsize',24);
+    text(1.5.*(ii),16,Stt(ii),'HorizontalAlignment','center','Fontsize',24);
 end
 plot(2.25.*ones(101,1),linspace(-0.1,15,101),'color',[0.8 0.8 0.8],'LineWidth',2);
 plot(3.75.*ones(101,1),linspace(-0.1,15,101),'color',[0.8 0.8 0.8],'LineWidth',2);
 text(0.235162190896505,16.01381197928641,0,'A','Fontsize',32,'FontWeight','bold');
 ylim([-0.2 15]);
 xlim([0.9 5.1]);
-set(gca,'LineWidth',2,'tickdir','out','Fontsize',24,'XTick',[1.15 1.5 1.85 2.65 3 3.35 4.15 4.5 4.85],'XTickLabel',{'Amber','Red','Dark Red'},'YTick',[0:15],'YTickLabel',{'0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','No travel'})
+set(gca,'LineWidth',2,'tickdir','out','Fontsize',24,'XTick',[1.15 1.5 1.85 2.65 3 3.35 4.15 4.5 4.85],'XTickLabel',{'Green','Amber','Red'},'YTick',[0:15],'YTickLabel',{'0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','No travel'})
 xlabel('Status of origin country','Fontsize',26);
 ylabel({'Quarantine duration','(days)'},'Fontsize',26,'Position',[0.519522115056493,7.40000724643469]);
 xtickangle(90);
@@ -42,11 +57,12 @@ print(gcf,['RTPCR_Compare.png'],'-dpng','-r600');
 % No Test
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-close all;
-load('Traffic_NoTEST_Q.mat','QM');
+cFile='NoTest';
+AL=1;
+AQ=1;
+load(['Traffic_NO_VOC_Quarantine_' cFile '_AL=' num2str(100*AL) '_AQ=' num2str(AQ*100) '.mat'],'QM');
 QMG=QM;
-load('No_Test_Country.mat','QM','CSR');
+load(['Country_NO_VOC_Quarantine_' cFile '_AL=' num2str(AL*100) '_AQ=' num2str(100*AQ) '.mat'],'QM','CSR');
 
 
 Stt={'Green','Amber','Red','Dark Red'};
@@ -56,25 +72,33 @@ CStatus=[25 150 500 100000];
 
 figure('units','normalized','outerposition',[0.0 0.1 0.7 0.7]);
 subplot('Position',[0.14,0.335,0.851234939759036,0.6]);
-for ii=2:4
-    for jj=2:4
-        CQ=QM(CSR<CStatus(ii) & CSR>=CStatus(ii-1),:);
-        CQ=CQ(:,CSR<CStatus(jj) & CSR>=CStatus(jj-1));
+for ii=1:3
+    for jj=1:3
+        if(ii>1)
+            CQ=QM(CSR<CStatus(ii) & CSR>=CStatus(ii-1),:);
+        else
+            CQ=QM(CSR<CStatus(ii),:);
+        end
+        if(jj>1)
+            CQ=CQ(:,CSR<CStatus(jj) & CSR>=CStatus(jj-1));
+        else
+            CQ=CQ(:,CSR<CStatus(jj));
+        end
         CQ=CQ(CQ>=0 & CQ<=15);
-        scatter(1.5.*(ii-1)+(0.35.*(jj-3))+0.2.*(rand(size(CQ))-0.5),CQ,30,ColT(jj,:),'filled'); hold on;
-        plot(1.5.*(ii-1)+(0.35.*(jj-3))+linspace(-0.15,0.15,101),median(CQ).*ones(101,1),'-.','color',ColT(jj,:),'LineWidth',2);
+        scatter(1.5.*(ii)+(0.35.*(jj-2))+0.2.*(rand(size(CQ))-0.5),CQ,30,ColT(jj,:),'filled'); hold on;
+        plot(1.5.*(ii)+(0.35.*(jj-2))+linspace(-0.15,0.15,101),median(CQ).*ones(101,1),'-.','color',ColT(jj,:),'LineWidth',2);
         
-        plot(1.5.*(ii-1)+(0.35.*(jj-3))+linspace(-0.15,0.15,101),QMG(ii,jj).*ones(101,1),'color','k','LineWidth',2);
+        plot(1.5.*(ii)+(0.35.*(jj-2))+linspace(-0.15,0.15,101),QMG(ii,jj).*ones(101,1),'color','k','LineWidth',2);
     end
     
-    text(1.5.*(ii-1),16,Stt(ii),'HorizontalAlignment','center','Fontsize',24);
+    text(1.5.*(ii),16,Stt(ii),'HorizontalAlignment','center','Fontsize',24);
 end
 plot(2.25.*ones(101,1),linspace(-0.1,15,101),'color',[0.8 0.8 0.8],'LineWidth',2);
 plot(3.75.*ones(101,1),linspace(-0.1,15,101),'color',[0.8 0.8 0.8],'LineWidth',2);
 text(0.235162190896505,16.01381197928641,0,'B','Fontsize',32,'FontWeight','bold');
 ylim([-0.2 15]);
 xlim([0.9 5.1]);
-set(gca,'LineWidth',2,'tickdir','out','Fontsize',24,'XTick',[1.15 1.5 1.85 2.65 3 3.35 4.15 4.5 4.85],'XTickLabel',{'Amber','Red','Dark Red'},'YTick',[0:15],'YTickLabel',{'0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','No travel'})
+set(gca,'LineWidth',2,'tickdir','out','Fontsize',24,'XTick',[1.15 1.5 1.85 2.65 3 3.35 4.15 4.5 4.85],'XTickLabel',{'Green','Amber','Red'},'YTick',[0:15],'YTickLabel',{'0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','No travel'})
 xlabel('Status of origin country','Fontsize',26);
 ylabel({'Quarantine duration','(days)'},'Fontsize',26,'Position',[0.519522115056493,7.40000724643469]);
 xtickangle(90);
@@ -87,10 +111,13 @@ print(gcf,['No Test_Compare.png'],'-dpng','-r600');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-close all;
-load('Traffic_AgTEST_Q.mat','QM');
+cFile='Quarantine_BDVeritor_Exit';
+AL=1;
+AQ=1;
+load(['Traffic_NO_VOC_Quarantine_' cFile '_AL=' num2str(100*AL) '_AQ=' num2str(AQ*100) '.mat'],'QM');
 QMG=QM;
-load('Single_Ag_Test_Country.mat','QM','CSR');
+load(['Country_NO_VOC_Quarantine_' cFile '_AL=' num2str(AL*100) '_AQ=' num2str(100*AQ) '.mat'],'QM','CSR');
+
 
 
 Stt={'Green','Amber','Red','Dark Red'};
@@ -100,25 +127,33 @@ CStatus=[25 150 500 100000];
 
 figure('units','normalized','outerposition',[0.0 0.1 0.7 0.7]);
 subplot('Position',[0.14,0.335,0.851234939759036,0.6]);
-for ii=2:4
-    for jj=2:4
-        CQ=QM(CSR<CStatus(ii) & CSR>=CStatus(ii-1),:);
-        CQ=CQ(:,CSR<CStatus(jj) & CSR>=CStatus(jj-1));
+for ii=1:3
+    for jj=1:3
+        if(ii>1)
+            CQ=QM(CSR<CStatus(ii) & CSR>=CStatus(ii-1),:);
+        else
+            CQ=QM(CSR<CStatus(ii),:);
+        end
+        if(jj>1)
+            CQ=CQ(:,CSR<CStatus(jj) & CSR>=CStatus(jj-1));
+        else
+            CQ=CQ(:,CSR<CStatus(jj));
+        end
         CQ=CQ(CQ>=0 & CQ<=15);
-        scatter(1.5.*(ii-1)+(0.35.*(jj-3))+0.2.*(rand(size(CQ))-0.5),CQ,30,ColT(jj,:),'filled'); hold on;
-        plot(1.5.*(ii-1)+(0.35.*(jj-3))+linspace(-0.15,0.15,101),median(CQ).*ones(101,1),'-.','color',ColT(jj,:),'LineWidth',2);
+        scatter(1.5.*(ii)+(0.35.*(jj-2))+0.2.*(rand(size(CQ))-0.5),CQ,30,ColT(jj,:),'filled'); hold on;
+        plot(1.5.*(ii)+(0.35.*(jj-2))+linspace(-0.15,0.15,101),median(CQ).*ones(101,1),'-.','color',ColT(jj,:),'LineWidth',2);
         
-        plot(1.5.*(ii-1)+(0.35.*(jj-3))+linspace(-0.15,0.15,101),QMG(ii,jj).*ones(101,1),'color','k','LineWidth',2);
+        plot(1.5.*(ii)+(0.35.*(jj-2))+linspace(-0.15,0.15,101),QMG(ii,jj).*ones(101,1),'color','k','LineWidth',2);
     end
     
-    text(1.5.*(ii-1),16,Stt(ii),'HorizontalAlignment','center','Fontsize',24);
+    text(1.5.*(ii),16,Stt(ii),'HorizontalAlignment','center','Fontsize',24);
 end
 plot(2.25.*ones(101,1),linspace(-0.1,15,101),'color',[0.8 0.8 0.8],'LineWidth',2);
 plot(3.75.*ones(101,1),linspace(-0.1,15,101),'color',[0.8 0.8 0.8],'LineWidth',2);
 text(0.235162190896505,16.01381197928641,0,'C','Fontsize',32,'FontWeight','bold');
 ylim([-0.2 15]);
 xlim([0.9 5.1]);
-set(gca,'LineWidth',2,'tickdir','out','Fontsize',24,'XTick',[1.15 1.5 1.85 2.65 3 3.35 4.15 4.5 4.85],'XTickLabel',{'Amber','Red','Dark Red'},'YTick',[0:15],'YTickLabel',{'0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','No travel'})
+set(gca,'LineWidth',2,'tickdir','out','Fontsize',24,'XTick',[1.15 1.5 1.85 2.65 3 3.35 4.15 4.5 4.85],'XTickLabel',{'Green','Amber','Red'},'YTick',[0:15],'YTickLabel',{'0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','No travel'})
 xlabel('Status of origin country','Fontsize',26);
 ylabel({'Quarantine duration','(days)'},'Fontsize',26,'Position',[0.519522115056493,7.40000724643469]);
 xtickangle(90);
@@ -131,10 +166,12 @@ print(gcf,['Ag Test_Compare.png'],'-dpng','-r600');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-close all;
-load('Traffic_DualAgTEST_Q.mat','QM');
+cFile='Quarantine_BDVeritor_Entry_Exit';
+AL=1;
+AQ=1;
+load(['Traffic_NO_VOC_Quarantine_' cFile '_AL=' num2str(100*AL) '_AQ=' num2str(AQ*100) '.mat'],'QM');
 QMG=QM;
-load('Dual_Ag_Test_Country.mat','QM','CSR');
+load(['Country_NO_VOC_Quarantine_' cFile '_AL=' num2str(AL*100) '_AQ=' num2str(100*AQ) '.mat'],'QM','CSR');
 
 
 Stt={'Green','Amber','Red','Dark Red'};
@@ -144,25 +181,33 @@ CStatus=[25 150 500 100000];
 
 figure('units','normalized','outerposition',[0.0 0.1 0.7 0.7]);
 subplot('Position',[0.14,0.335,0.851234939759036,0.6]);
-for ii=2:4
-    for jj=2:4
-        CQ=QM(CSR<CStatus(ii) & CSR>=CStatus(ii-1),:);
-        CQ=CQ(:,CSR<CStatus(jj) & CSR>=CStatus(jj-1));
+for ii=1:3
+    for jj=1:3
+        if(ii>1)
+            CQ=QM(CSR<CStatus(ii) & CSR>=CStatus(ii-1),:);
+        else
+            CQ=QM(CSR<CStatus(ii),:);
+        end
+        if(jj>1)
+            CQ=CQ(:,CSR<CStatus(jj) & CSR>=CStatus(jj-1));
+        else
+            CQ=CQ(:,CSR<CStatus(jj));
+        end
         CQ=CQ(CQ>=0 & CQ<=15);
-        scatter(1.5.*(ii-1)+(0.35.*(jj-3))+0.2.*(rand(size(CQ))-0.5),CQ,30,ColT(jj,:),'filled'); hold on;
-        plot(1.5.*(ii-1)+(0.35.*(jj-3))+linspace(-0.15,0.15,101),median(CQ).*ones(101,1),'-.','color',ColT(jj,:),'LineWidth',2);
+        scatter(1.5.*(ii)+(0.35.*(jj-2))+0.2.*(rand(size(CQ))-0.5),CQ,30,ColT(jj,:),'filled'); hold on;
+        plot(1.5.*(ii)+(0.35.*(jj-2))+linspace(-0.15,0.15,101),median(CQ).*ones(101,1),'-.','color',ColT(jj,:),'LineWidth',2);
         
-        plot(1.5.*(ii-1)+(0.35.*(jj-3))+linspace(-0.15,0.15,101),QMG(ii,jj).*ones(101,1),'color','k','LineWidth',2);
+        plot(1.5.*(ii)+(0.35.*(jj-2))+linspace(-0.15,0.15,101),QMG(ii,jj).*ones(101,1),'color','k','LineWidth',2);
     end
     
-    text(1.5.*(ii-1),16,Stt(ii),'HorizontalAlignment','center','Fontsize',24);
+    text(1.5.*(ii),16,Stt(ii),'HorizontalAlignment','center','Fontsize',24);
 end
 plot(2.25.*ones(101,1),linspace(-0.1,15,101),'color',[0.8 0.8 0.8],'LineWidth',2);
 plot(3.75.*ones(101,1),linspace(-0.1,15,101),'color',[0.8 0.8 0.8],'LineWidth',2);
 text(0.235162190896505,16.01381197928641,0,'D','Fontsize',32,'FontWeight','bold');
 ylim([-0.2 15]);
 xlim([0.9 5.1]);
-set(gca,'LineWidth',2,'tickdir','out','Fontsize',24,'XTick',[1.15 1.5 1.85 2.65 3 3.35 4.15 4.5 4.85],'XTickLabel',{'Amber','Red','Dark Red'},'YTick',[0:15],'YTickLabel',{'0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','No travel'})
+set(gca,'LineWidth',2,'tickdir','out','Fontsize',24,'XTick',[1.15 1.5 1.85 2.65 3 3.35 4.15 4.5 4.85],'XTickLabel',{'Green','Amber','Red'},'YTick',[0:15],'YTickLabel',{'0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','No travel'})
 xlabel('Status of origin country','Fontsize',26);
 ylabel({'Quarantine duration','(days)'},'Fontsize',26,'Position',[0.519522115056493,7.40000724643469]);
 xtickangle(90);

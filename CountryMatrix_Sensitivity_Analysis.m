@@ -1,8 +1,14 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
+% Runs the sensntivity analysis for the coutnry pairings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
 clear;
 clc;
-load('Country_Data_April_12_2021.mat')
+load('Country_Data_June_27_2021_Adherence_Level_100.mat');
 
-tempV=VTABM./repmat(N,1,31);
+AL=1;
+AQ=1;
+
+tempV=VTABM./repmat(N,1,29);
 
 meddAB=median(avgABM(avgABM>=0));
 stddAB=std(avgABM(avgABM>=0));
@@ -24,13 +30,13 @@ mednage=median(Demo,1);
 stdnage=std(Demo,1);
 
 
-TT=[[1:31]' cstatusR];
+TT=[[1:29]' cstatusR];
 TEX=sortrows(TT,2);
 
 CountryM=CountryM(TEX(:,1));
 CSR=TEX(:,2);
 
-cFile={'Quarantine_RTPCR_Exit_Duration'};
+cFile='Quarantine_RTPCR_Exit';
 
 
 NM=length(CountryM);
@@ -51,7 +57,7 @@ RNIVOC=0;
 
 for ii=1:NM
     for jj=1:NM
-        [nageA,nageB,prevA,prevB,vacA,vacB,proHA,proHB,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,RA,RB,~,~,~,~,~,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),[],[],cFile);
+        [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),AL,cFile);
         if(~isempty(prevA))
             
             for pp=1:16
@@ -75,7 +81,7 @@ for ii=1:NM
                 
                 vAB=(VTAB./NA);
                 vBA=(VTBA./NB);
-                [qA,~] = DetermineQuarantine(qR,nageAtemp,nageBtemp,[1],[1],[0],[0],[0],RA,RB,pA,d,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,cFile);
+                [qA,~] = DetermineQuarantine(qR,nageA,nageB,[1],[1],[0],[0],[0],pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,AQ,cFile);
                 if(~isempty(qA))
                     QM(pp,ii,jj)=qA;
                 else
@@ -281,7 +287,7 @@ for ii=1:NM
                        % does not change
                        vBAtemp=(VTBA./NBtemp);
                 end
-                [qA,~] = DetermineQuarantine(qR,nageAtemp,nageBtemp,[1],[1],[0],[0],[0],RA,RB,pA,d,prevAtemp,prevBtemp,vacAtemp,vacBtemp,recAtemp,recBtemp,cAtemp,cBtemp,vABtemp,vBAtemp,dABtemp,dBAtemp,NAtemp,NBtemp,cFile);
+                [qA,~] = DetermineQuarantine(qR,nageAtemp,nageBtemp,[1],[1],[0],[0],[0],pA,prevAtemp,prevBtemp,vacAtemp,vacBtemp,recAtemp,recBtemp,cAtemp,cBtemp,vABtemp,vBAtemp,dABtemp,dBAtemp,NAtemp,NBtemp,AL,AQ,cFile);
                 if(~isempty(qA))
                     QMSA(pp,ii,jj)=qA;
                 else

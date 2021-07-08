@@ -4,7 +4,7 @@ clear;
 figure('units','normalized','outerposition',[0 0 1 1]);
 %%% RT-PCR Hellewell
 subplot('Position',[0.064894957983193,0.5917,0.424600840336135,0.39]);
-load('MLE-Estimate-RTPCR-Hill.mat','beta','TPtID','TDate','TResult','PtID','par');
+load('MLE-Estimate-RTPCR-Hill_Incubation_8_29_days.mat','beta','TPtID','TDate','TResult','PtID','par');
 TI=par(1:end-2);
 [~,b]=ismember(TPtID,PtID);
 dt=round(TDate'-TI(b(b>0)));
@@ -25,7 +25,7 @@ for ii=1:40
 end
 LL2=scatter(L,S,40,'k','filled');
 
-legend([LL1,LL2],{'Hill function (Based on infectivity curve)','Avg Test Result:Binned'},'Fontsize',20);
+legend([LL1,LL2],{'Estimated','Avg Test Result:Binned'},'Fontsize',20);
 
 box off;
 set(gca,'LineWidth',2,'tickdir','out','XTick',[0:5:50],'Xminortick','on','YTick',[0:0.1:1],'YminorTick','on','Fontsize',20);
@@ -65,7 +65,7 @@ clear;
 % RT-PCR vs Ag Test
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 subplot('Position',[0.063592436974789,0.111,0.424600840336134,0.39]);
-load('MLE-Estimate-RTPCR-Hill.mat','beta');
+load('MLE-Estimate-RTPCR-Hill_Incubation_8_29_days.mat','beta');
 betaPCR=beta;
 load('BDVeritor_Parameter.mat','beta');
 

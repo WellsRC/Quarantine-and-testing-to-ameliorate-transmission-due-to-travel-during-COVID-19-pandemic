@@ -1,10 +1,7 @@
-function CountryMatrixNoVOC(cFile,AL)
+function CountryMatrixNoVOC(cFile,AL,AQ)
 
-    T=[];
-for zzz=3:-1:1
-    AL=0.5+0.25.*(zzz-1)
-    load('Country_Data_June_9_2021.mat','CountryM','cstatusR')
-    TT=[[1:31]' cstatusR];
+    load('Country_Data_June_27_2021_Adherence_Level_100.mat','CountryM','cstatusR')
+    TT=[[1:29]' cstatusR];
     TEX=sortrows(TT,2);
 
     CountryM=CountryM(TEX(:,1));
@@ -26,7 +23,7 @@ for zzz=3:-1:1
     qR=[0:14];
     for ii=1:NM
         for jj=(ii+1):NM
-            [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),AL);
+            [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),AL,cFile);
             if(~isempty(prevA))
                 VAC(ii,jj)=sum(nageB.*vacB)./sum(nageA.*vacA);
                 PREV(ii,jj)=sum(nageB.*prevB)./sum(nageA.*prevA);
@@ -51,27 +48,25 @@ for zzz=3:-1:1
                 CC(ii,jj)=(vBA.*dBA)./(dAB.*vAB);
                 CC(jj,ii)=1./CC(ii,jj);
 
-                [qA,qB] = DetermineQuarantine(qR,nageA,nageB,[1],[1],[0],[0],[0],pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,cFile);
+                [qA,qB] = DetermineQuarantine(qR,nageA,nageB,[1],[1],[0],[0],[0],pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,AQ,cFile);
                 if(~isempty(qA))
                     QM(ii,jj)=qA;
                 else
-                    QM(ii,jj)=15;    
-                    qA=15;
+                    QM(ii,jj)=15;  
                 end
 
                 if(~isempty(qB))
                     QM(jj,ii)=qB;
                 else
-                    QM(jj,ii)=15;  
-                    qB=15;
+                    QM(jj,ii)=15; 
                 end
                 
-                if(isempty(T))
-                   T=table(nageA,nageB,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,qA,qB); 
-                else
-                   Ttemp=table(nageA,nageB,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,qA,qB); 
-                   T=[T;Ttemp];
-                end
+%                 if(isempty(T))
+%                    T=table(nageA,nageB,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,qA,qB); 
+%                 else
+%                    Ttemp=table(nageA,nageB,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,qA,qB); 
+%                    T=[T;Ttemp];
+%                 end
             end
         end
     end
@@ -83,13 +78,22 @@ for zzz=3:-1:1
     CountryM(t)={'Ireland'};
     t=strcmp(CountryM,'Czech Republic');
     CountryM(t)={'Czechia'};
-    PlotQuarantineMatrix(CountryM,QM,CSR)
-    print(gcf,['Figure_Country_NoVOC_' cFile '_Adherence=' num2str(100*AL) '.png'],'-dpng','-r600');
     
-    if((AL==1)&&(strcmp(cFile,'Quarantine_RTPCR_Exit')))
-        SQ=sum(min(QM,0),2);
-        fnon=find(SQ>(-1.*NM+7));
-
+    save(['Country_NO_VOC_Quarantine_' cFile '_AL=' num2str(AL*100) '_AQ=' num2str(100*AQ) '.mat']);
+    
+    PlotQuarantineMatrix(CountryM,QM,CSR)
+    print(gcf,['Figure_Country_NoVOC_' cFile '_Adherence=' num2str(100*AL) '_AQ=' num2str(100*AQ) '.png'],'-dpng','-r600');
+    
+    if((AL==1)&&(AQ==1)&&(strcmp(cFile,'Quarantine_RTPCR_Exit')))
+%         SQ=sum(min(QM,0),2);
+        CountryMSummary={'Austria';'Belgium';'Bulgaria';'Cyprus';'Czechia';'Estonia';'Finland';'Germany';'Greece';'Hungary';'Italy';'Luxembourg';'Poland';'Portugal';'Romania';'Slovakia';'Slovenia';'U.K.'};
+%         fnon=find(SQ>(-1.*NM+7));
+        fnon=[];
+        for kk=1:NM
+            if(sum(strcmp(CountryM(kk),CountryMSummary))==1)
+                fnon=[fnon;kk];
+            end
+        end
         QM=QM(fnon,:);
         QM=QM(:,fnon);
 
@@ -97,10 +101,10 @@ for zzz=3:-1:1
         CSR=CSR(fnon);
 
         PlotQuarantineMatrixSummary(CountryM,QM,CSR)
-        text(-3.083382551869983,32.4587554269175,0,'G','Fontsize',32,'FontWeight','bold')
+        text(-1.884495208337297,21.91316931982633,'G','Fontsize',32,'FontWeight','bold')
         print(gcf,['Figure_1G.eps'],'-depsc','-r600');
     end
-end
+% end
 
-    writetable(T,['No_VOC_Hellewell_et_al_' cFile '.csv']);
+%     writetable(T,['No_VOC_Hellewell_et_al_' cFile '.csv']);
 end

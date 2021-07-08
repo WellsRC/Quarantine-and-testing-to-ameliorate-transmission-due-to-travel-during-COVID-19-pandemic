@@ -1,4 +1,4 @@
-function [InfectionsA]=InfectionsVOCAll(nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevAw,prevBw,vacAw,vacBw,recAw,recBw,cAw,vAB,vBA,dAB,dBA,NA,NB,qAI,AL,cFile)
+function [InfectionsA]=InfectionsVOCAll(nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevAw,prevBw,vacAw,vacBw,recAw,recBw,cAw,vAB,vBA,dAB,dBA,NA,NB,qAI,AL,AQ,cFile)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 % Input
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
@@ -40,19 +40,41 @@ function [InfectionsA]=InfectionsVOCAll(nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNI
 
 
 if(qAI>=0)
-    
-    
-    % Testing and quanraitne: Post-quarantine transmission
-    load([cFile '.mat'],'qA','RQA','RQS','RQSN');
-    RQw=(1-pA).*((1-AL).*RQSN(qA==qAI)+AL.*RQS(qA==qAI))+pA.*RQA(qA==qAI);
+    if(contains(cFile,'Shorter_Incubation'))    
+        % Testing and quanraitne: Post-quarantine transmission
+        load([cFile '.mat'],'qA','RQA','RQS','RQSN');
+        RQwtemp=(1-pA).*((1-AL).*RQSN(qA==qAI)+AL.*RQS(qA==qAI))+pA.*RQA(qA==qAI);
 
-    % No test: Post-quarantine transmission
-    load(['NoTest.mat'],'qA','RQA','RQS','RQSN');
-    RVw=(1-pA).*((1-AL).*RQSN(qA==0)+AL.*RQS(qA==0))+pA.*RQA(qA==0);
+        % No test: Post-quarantine transmission
+        load(['Shorter_Incubation_NoTest.mat'],'qA','RQA','RQS','RQSN');
+        RVw=(1-pA).*((1-AL).*RQSN(qA==0)+AL.*RQS(qA==0))+pA.*RQA(qA==0);
 
-    % Effective reproductive number
-    load(['Effective_Reproductive_Number.mat'],'RQA','RQS','RQSN');
-    RAw=(1-pA).*((1-AL).*RQSN+AL.*RQS)+pA.*RQA;
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        % Account for the lack of adehrence to quarantine measure 
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        RQw=AQ.*RQwtemp+(1-AQ).*RVw;
+
+        % Effective reproductive number
+        load(['Shorter_Incubation_Effective_Reproductive_Number.mat'],'RQA','RQS','RQSN');
+        RAw=(1-pA).*((1-AL).*RQSN+AL.*RQS)+pA.*RQA;
+    else    
+        % Testing and quanraitne: Post-quarantine transmission
+        load([cFile '.mat'],'qA','RQA','RQS','RQSN');
+        RQwtemp=(1-pA).*((1-AL).*RQSN(qA==qAI)+AL.*RQS(qA==qAI))+pA.*RQA(qA==qAI);
+
+        % No test: Post-quarantine transmission
+        load(['NoTest.mat'],'qA','RQA','RQS','RQSN');
+        RVw=(1-pA).*((1-AL).*RQSN(qA==0)+AL.*RQS(qA==0))+pA.*RQA(qA==0);
+
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        % Account for the lack of adehrence to quarantine measure 
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        RQw=AQ.*RQwtemp+(1-AQ).*RVw;
+
+        % Effective reproductive number
+        load(['Effective_Reproductive_Number.mat'],'RQA','RQS','RQSN');
+        RAw=(1-pA).*((1-AL).*RQSN+AL.*RQS)+pA.*RQA;
+    end
 
 
     InfectionsA=zeros(size(nageA));
@@ -85,7 +107,7 @@ if(qAI>=0)
         % Calculate the inequality
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
-        T2A=sum(NA.*(1-(qAI+dAB).*vAB).*(cA.*nageA.*(1-phiAw)./(1-phiA)).*RA).*(nageA.*(1-phiAw));
+        T2A=sum(NA.*(1-(qAI.*AQ+dAB).*vAB).*(cA.*nageA.*(1-phiAw)./(1-phiA)).*RA).*(nageA.*(1-phiAw));
 
         T3A=sum(NB.*dBA.*vBA.*(cA.*(nageB.*(1-phiBw)./(1-phiA))).*RA).*(nageA.*(1-phiAw));
 
@@ -105,7 +127,12 @@ else
     InfectionsA=zeros(size(nageA));
     
     % Effective reproductive number
-    load(['Effective_Reproductive_Number.mat'],'RQA','RQS','RQSN');
+    
+    if(contains(cFile,'Shorter_Incubation'))  
+        load(['Shorter_Incubation_Effective_Reproductive_Number.mat'],'RQA','RQS','RQSN');        
+    else
+        load(['Effective_Reproductive_Number.mat'],'RQA','RQS','RQSN');
+    end
     RAw=(1-pA).*((1-AL).*RQSN+AL.*RQS)+pA.*RQA;
     for jj=1:length(FVOCA)
 

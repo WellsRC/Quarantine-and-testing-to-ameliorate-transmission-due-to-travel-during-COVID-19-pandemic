@@ -4,23 +4,32 @@ subplot('Position',[0.115,0.15,0.84,0.7]);
 NC=length(Country);
 CSTATUS=[25 150 500 10^6]; % last entry is just to serve as an upper bound
 
+QM=zeros(size(Q));
+QM(Q<1&Q>=0)=1;
+QM(Q<2&Q>=1)=2;
+QM(Q<3&Q>=2)=3;
+QM(Q<4&Q>=3)=4;
+QM(Q<5&Q>=4)=5;
+QM(Q<6&Q>=5)=6;
+QM(Q>=6)=7;
 % Specify the colormap for the table
-cmap=[1,1,1;0.894553363323212,0.926797389984131,0.892374753952026;0.789106726646423,0.853594779968262,0.784749448299408;0.683660149574280,0.780392169952393,0.677124202251434;0.578213512897492,0.707189559936523,0.569498896598816;0.472766876220703,0.633986949920654,0.461873650550842;0.367320269346237,0.560784339904785,0.354248374700546;0.261873632669449,0.487581700086594,0.246623098850250;0.156427010893822,0.414379090070725,0.138997822999954];
-cmapt=[0,0,0;0,0,0;0,0,0;0,0,0;0,0,0;0,0,0;0,0,0;1,1,1;1,1,1];
+cmap=[1,1,1;0.894553363323212,0.926797389984131,0.892374753952026; 0.789106726646423,0.853594779968262,0.784749448299408;0.578213512897492,0.707189559936523,0.569498896598816;0.367320269346237,0.560784339904785,0.354248374700546;0.261873632669449,0.487581700086594,0.246623098850250;0.156427010893822,0.414379090070725,0.138997822999954];
+cmapt=[0,0,0;0,0,0;0,0,0;0,0,0;1,1,1;1,1,1;1,1,1];
 for ii=NC:-1:1
     for jj=1:NC
        if((NC+1-ii)==jj)
           patch([-0.5 -0.5 0.5 0.5]+jj,[-0.5 0.5 0.5 -0.5]+ii,'k');
        else
             if(Q(NC+1-ii,jj)>=0)
-               patch([-0.5 -0.5 0.5 0.5]+jj,[-0.5 0.5 0.5 -0.5]+ii,cmap(floor(Q(NC+1-ii,jj))+1,:)); 
-               text(jj,ii,[num2str(Q(NC+1-ii,jj) ,'%2.1f') '%'],'Fontsize',13,'HorizontalAlignment','center','color',cmapt(floor(Q(NC+1-ii,jj))+1,:));
+               patch([-0.5 -0.5 0.5 0.5]+jj,[-0.5 0.5 0.5 -0.5]+ii,cmap(QM(NC+1-ii,jj),:)); 
+               text(jj,ii,[num2str(Q(NC+1-ii,jj) ,'%3.1f') '%'],'Fontsize',13,'HorizontalAlignment','center','color',cmapt(QM(NC+1-ii,jj),:));
            else
                patch([-0.5 -0.5 0.5 0.5]+jj,[-0.5 0.5 0.5 -0.5]+ii,[0.9 0.9 0.9]); 
            end
        end
     end
 end
+
 set(gca,'LineWidth',2,'tickdir','out','YTick',[1:NC],'Yminortick','off','YTickLabel',flip(Country),'Fontsize',18,'XAxisLocation','top','XTick',[1:NC],'Xminortick','off','XTickLabel',Country)
 xlim([0.5 NC+0.5])
 ylim([0.5 NC+0.5])
@@ -30,9 +39,9 @@ xlabel('Origin country','Fontsize',24,'Position',[15.499999999999998,36.71862518
 h=colorbar('southoutside');
 colormap([cmap;0.65 0.65 0.65]);
 
-xxx=linspace(0,1,11);
+xxx=linspace(0,1,9);
 h.Ticks=[xxx(1:end-1) 0.005+mean(xxx(end-1:end))];%(xxx(2:end)+xxx(1:end-1))./2;
-h.TickLabels={'0%','1%','2%','3%','4%','5%','6%','7%','8%','9%','N/A'};
+h.TickLabels={'0%','1%','2%','3%','4%','5%','6%','100+%','N/A'};
 
 
 h.Position=[0.115,0.06,0.84,0.0255];
@@ -53,8 +62,13 @@ ColTx=[0 0 0; 0 0 0; 1 1 1; 1 1 1];
 
 xx=[0.986957943925227,1.00;0.986957943925227,1.00;0.978780373831772,0.993780373831772;0.992799065420557,1.00];
 for jj=1:4
-    ff=find(CRS<CSTATUS(jj));
-    if(~isempty(ff))
+    ff=find(CRS<=CSTATUS(jj));
+    if(jj>1)
+        gg=find(CRS<=CSTATUS(jj)& CRS>CSTATUS(jj-1));
+    else
+        gg=1;
+    end
+    if(~isempty(ff)&&~isempty(gg))
         annotation('rectangle',[0.115+0.84 0.15+TempL(ff(end))-dTT 0.0175 dTT+TempL(flast)-TempL(ff(end))],'Facecolor',ColT(jj,:));
         
         annotation('textarrow',xx(jj,:),[0.15+mean([TempL(flast) TempL(ff(end))])-dTT./2 0.15+mean([TempL(flast) TempL(ff(end))])-dTT./2],'String',Stt{jj},'HorizontalAlignment','center','VerticalAlignment','middle','Fontsize',18,'color',ColTx(jj,:),'HeadStyle', 'none', 'LineStyle', 'none','TextRotation',270)  
@@ -72,8 +86,13 @@ TempL=(linspace(0,0.84,NC+1));
 dTT=TempL(2)-TempL(1);
 TTX=[1:NC];
 for jj=1:4
-    ff=find(CRS<CSTATUS(jj));
-    if(~isempty(ff))
+    ff=find(CRS<=CSTATUS(jj));
+    if(jj>1)
+        gg=find(CRS<=CSTATUS(jj)& CRS>CSTATUS(jj-1));
+    else
+        gg=1;
+    end
+    if(~isempty(ff)&&~isempty(gg))
         annotation('rectangle',[0.115+TempL(flast) 0.12 (TempL(ff(end))-TempL(flast))+dTT 0.03],'Facecolor',ColT(jj,:));
         annotation('textbox',[0.115+TempL(flast) 0.12 (TempL(ff(end))-TempL(flast))+dTT 0.03],'String',Stt{jj},'HorizontalAlignment','center','VerticalAlignment','middle','Fontsize',18,'color',ColTx(jj,:));
         

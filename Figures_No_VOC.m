@@ -7,43 +7,44 @@ clc;
 
 %% 100% Adherence
 % RT-PCR on Exit
-CountryMatrixNoVOC('Quarantine_RTPCR_Exit',1)
+CountryMatrixNoVOC('Quarantine_RTPCR_Exit',1,1)
 % RA test on Exit
-CountryMatrixNoVOC('Quarantine_BDVeritor_Exit',1)
+CountryMatrixNoVOC('Quarantine_BDVeritor_Exit',1,1)
 % RA test on Entry and Exit
-CountryMatrixNoVOC('Quarantine_BDVeritor_Entry_Exit',1)
+CountryMatrixNoVOC('Quarantine_BDVeritor_Entry_Exit',1,1)
+% NoTest
+CountryMatrixNoVOC('NoTest',1,1)
+
 
 %% 75% Adherence
 % RT-PCR on Exit
-CountryMatrixNoVOC('Quarantine_RTPCR_Exit',0.75)
+CountryMatrixNoVOC('Quarantine_RTPCR_Exit',0.75,1)
 % RA test on Exit
-CountryMatrixNoVOC('Quarantine_BDVeritor_Exit',0.75)
+CountryMatrixNoVOC('Quarantine_BDVeritor_Exit',0.75,1)
 % RA test on Entry and Exit
-CountryMatrixNoVOC('Quarantine_BDVeritor_Entry_Exit',0.75)
+CountryMatrixNoVOC('Quarantine_BDVeritor_Entry_Exit',0.75,1)
+% NoTest
+CountryMatrixNoVOC('NoTest',0.75,1)
 
 %% 50% Adherence
 % RT-PCR on Exit
-CountryMatrixNoVOC('Quarantine_RTPCR_Exit',0.50)
+CountryMatrixNoVOC('Quarantine_RTPCR_Exit',0.50,1)
 % RA test on Exit
-CountryMatrixNoVOC('Quarantine_BDVeritor_Exit',0.50)
+CountryMatrixNoVOC('Quarantine_BDVeritor_Exit',0.50,1)
 % RA test on Entry and Exit
-CountryMatrixNoVOC('Quarantine_BDVeritor_Entry_Exit',0.50)
+CountryMatrixNoVOC('Quarantine_BDVeritor_Entry_Exit',0.50,1)
+% NoTest
+CountryMatrixNoVOC('NoTest',0.5,1)
 
 %% 25% Adherence
 % RT-PCR on Exit
-CountryMatrixNoVOC('Quarantine_RTPCR_Exit',0.25)
+CountryMatrixNoVOC('Quarantine_RTPCR_Exit',0.25,1)
 % RA test on Exit
-CountryMatrixNoVOC('Quarantine_BDVeritor_Exit',0.25)
+CountryMatrixNoVOC('Quarantine_BDVeritor_Exit',0.25,1)
 % RA test on Entry and Exit
-CountryMatrixNoVOC('Quarantine_BDVeritor_Entry_Exit',0.25)
-
-%% 0% Adherence
-% RT-PCR on Exit
-CountryMatrixNoVOC('Quarantine_RTPCR_Exit',0)
-% RA test on Exit
-CountryMatrixNoVOC('Quarantine_BDVeritor_Exit',0)
-% RA test on Entry and Exit
-CountryMatrixNoVOC('Quarantine_BDVeritor_Entry_Exit',0)
+CountryMatrixNoVOC('Quarantine_BDVeritor_Entry_Exit',0.25,1)
+% NoTest
+CountryMatrixNoVOC('NoTest',0.25,1)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Wells et al
@@ -51,40 +52,32 @@ CountryMatrixNoVOC('Quarantine_BDVeritor_Entry_Exit',0)
 
 %% 100% Adherence
 % RT-PCR on Exit
-CountryMatrixNoVOC('NatComm-Quarantine_RTPCR_Exit',1)
+CountryMatrixNoVOC('NatComm-Quarantine_RTPCR_Exit',1,1)
 % RA test on Exit
-CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Exit',1)
+CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Exit',1,1)
 % RA test on Entry and Exit
-CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Entry_Exit',1)
+CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Entry_Exit',1,1)
 
 %% 75% Adherence
 % RT-PCR on Exit
-CountryMatrixNoVOC('NatComm-Quarantine_RTPCR_Exit',0.75)
+CountryMatrixNoVOC('NatComm-Quarantine_RTPCR_Exit',0.75,1)
 % RA test on Exit
-CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Exit',0.75)
+CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Exit',0.75,1)
 % RA test on Entry and Exit
-CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Entry_Exit',0.75)
+CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Entry_Exit',0.75,1)
 
 %% 50% Adherence
 % RT-PCR on Exit
-CountryMatrixNoVOC('NatComm-Quarantine_RTPCR_Exit',0.50)
+CountryMatrixNoVOC('NatComm-Quarantine_RTPCR_Exit',0.50,1)
 % RA test on Exit
-CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Exit',0.50)
+CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Exit',0.50,1)
 % RA test on Entry and Exit
-CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Entry_Exit',0.50)
+CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Entry_Exit',0.50,1)
 
 %% 25% Adherence
 % RT-PCR on Exit
-CountryMatrixNoVOC('NatComm-Quarantine_RTPCR_Exit',0.25)
+CountryMatrixNoVOC('NatComm-Quarantine_RTPCR_Exit',0.25,1)
 % RA test on Exit
-CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Exit',0.25)
+CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Exit',0.25,1)
 % RA test on Entry and Exit
-CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Entry_Exit',0.25)
-
-%% 0% Adherence
-% RT-PCR on Exit
-CountryMatrixNoVOC('NatComm-Quarantine_RTPCR_Exit',0)
-% RA test on Exit
-CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Exit',0)
-% RA test on Entry and Exit
-CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Entry_Exit',0)
+CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Entry_Exit',0.25,1)

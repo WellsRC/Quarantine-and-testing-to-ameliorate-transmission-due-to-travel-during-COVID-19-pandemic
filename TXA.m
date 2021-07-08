@@ -1,7 +1,7 @@
 % Random entry in qiaratine with testing on exit
 clear;
 
-pobj=parpool(16); % Parallel pool
+% pobj=parpool(16); % Parallel pool
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Ag Test
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -26,14 +26,14 @@ R0S=R0; % Set R0 for symptomatic
 R0A=R0; % Set R0 for asymptomatic
 
 
-load('MLE-Estimate-RTPCR-Hill.mat','beta');
+load('MLE-Estimate-RTPCR-Hill_Incubation_8_29_days.mat','beta');
 betaRTPCR=beta;
 
-load('BDVeritor_Parameter.mat','beta');
+load('BD Veritor_LR_Parameters.mat','beta');
 testtype=cell(1,1);
 testtype{1}=beta;
 
-parfor jj=1:15 
+for jj=1:15 
     RQS(jj)=((1./ts).*integral2(@(u,t)InfectiousnessfromInfectionTesting(t+u,u,qA(jj),testtype,R0S,R0A,0,ts,tL,td,SelfIsolate,betaRTPCR),0,ts,qA(jj),inf));
     RQSN(jj)=((1./ts).*integral2(@(u,t)InfectiousnessfromInfectionTesting(t+u,u,qA(jj),testtype,R0S,R0A,0,ts,tL,td,0,betaRTPCR),0,max(ts-qA(jj),0),qA(jj),inf));
     RQA(jj)=((1./td).*integral2(@(u,t)InfectiousnessfromInfectionTesting(t+u,u,qA(jj),testtype,R0S,R0A,1,ts,tL,td,0,betaRTPCR),0,td,qA(jj),inf));         

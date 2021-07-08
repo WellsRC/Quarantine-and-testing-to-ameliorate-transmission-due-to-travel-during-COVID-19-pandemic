@@ -1,10 +1,7 @@
-function CountryMatrixVOC(cFile,AL)
+function CountryMatrixVOC(cFile,AL,AQ)
 
-T=[];
-for zzz=3:-1:1
-    AL=0.5+0.25.*(zzz-1)
-load('Country_Data_June_9_2021_Adherence_Level_100.mat','CountryM','cstatusR')
-TT=[[1:31]' cstatusR];
+load('Country_Data_June_27_2021_Adherence_Level_100.mat','CountryM','cstatusR')
+TT=[[1:29]' cstatusR];
 TEX=sortrows(TT,2);
 
 CountryM=CountryM(TEX(:,1));
@@ -19,7 +16,7 @@ qR=[0:14];
 
 for ii=1:NM
     for jj=(ii+1):NM
-        [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,VOCDeltaG478KV1A,VOCDeltaG478KV1B,VOCAlpha20201201GRYA,VOCAlpha20201201GRYB,VOCBetaGH501YV2A,VOCBetaGH501YV2B] = DataReturnSim(CountryM(ii),CountryM(jj),AL);
+        [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,VOCDeltaG478KV1A,VOCDeltaG478KV1B,VOCAlpha20201201GRYA,VOCAlpha20201201GRYB,VOCBetaGH501YV2A,VOCBetaGH501YV2B] = DataReturnSim(CountryM(ii),CountryM(jj),AL,cFile);
         if(~isempty(VOCDeltaG478KV1A)&&~isempty(VOCDeltaG478KV1B)&&~isempty(VOCBetaGH501YV2A)&&~isempty(VOCBetaGH501YV2B)&&~isempty(VOCAlpha20201201GRYA)&&~isempty(VOCAlpha20201201GRYB))
             if((VOCDeltaG478KV1A>=0)&&(VOCDeltaG478KV1B>=0)&&(VOCBetaGH501YV2A>=0)&&(VOCBetaGH501YV2B>=0)&&(VOCAlpha20201201GRYA>=0)&&(VOCAlpha20201201GRYB>=0))
                 vAB=(VTAB./NA);
@@ -29,37 +26,37 @@ for ii=1:NM
                 RVOC=[0 RDeltaG478KV1 RAlpha20201201GRY RBetaGH501YV2];
                 REPSVOC=[0 0 0 0];
                 RNIVOC=[0 0 0 0];
-                [qA,qB] = DetermineQuarantine(qR,nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,cFile);
+                [qA,qB] = DetermineQuarantine(qR,nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,AQ,cFile);
                 if(~isempty(qA))
                     QM(ii,jj)=qA;
                 else
-                    QM(ii,jj)=15;    
-                    qA=15;
+                    QM(ii,jj)=15;   
                 end
 
                 if(~isempty(qB))
                     QM(jj,ii)=qB;
                 else
                     QM(jj,ii)=15;  
-                    qB=15;
                 end
                 
-                if(isempty(T))
-                   T=table(nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,qA,qB); 
-                else
-                   Ttemp=table(nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,qA,qB); 
-                   T=[T;Ttemp];
-                end
+%                 if(isempty(T))
+%                    T=table(nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,qA,qB); 
+%                 else
+%                    Ttemp=table(nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,qA,qB); 
+%                    T=[T;Ttemp];
+%                 end
             end
         end
     end
 end
 
 
+save(['Country_VOC_Quarantine_' cFile '_AL=' num2str(AL*100) '_AQ=' num2str(100*AQ) '.mat']);
+
 SQ=sum(min(QM,0),2);
 
 fnon=find(SQ>(-1.*NM));
-save(['Country_VOC_' cFile '.mat']);
+% save(['Country_VOC_' cFile '.mat']);
 QM=QM(fnon,:);
 QM=QM(:,fnon);
 
@@ -78,7 +75,6 @@ CSR=CSR(fnon);
 PlotQuarantineMatrix(CountryM,QM,CSR)
 
 print(gcf,['Figure_Country_VOC_' cFile '_Full.png'],'-dpng','-r600');
-end
 
-writetable(T,['VOC_Hellewell_et_al_' cFile '.csv']);
+% writetable(T,['VOC_Hellewell_et_al_' cFile '.csv']);
 end

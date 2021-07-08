@@ -26,7 +26,7 @@ R0S=R0; % Set R0 for symptomatic
 R0A=R0; % Set R0 for asymptomatic
 
 
-load('BDVeritor_Parameter.mat','beta');
+load('BD Veritor_LR_Parameters.mat','beta');
 testtype=cell(1,1);
 testtype{1}=beta;
 

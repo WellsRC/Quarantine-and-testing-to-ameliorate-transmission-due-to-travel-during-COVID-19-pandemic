@@ -1,87 +1,86 @@
 ﻿Country,Total,Number,Percentage
-United Kingdom,"255,596","2,953",6.4
-USA,"186,492","2,664",45.9
-Germany,"100,096","2,603",77.5
-Denmark,"59,119","2,190",93.5
-Sweden,"51,619",215,85.7
-France,"31,245","1,340",75.7
-Netherlands,"26,361","1,075",88.5
-Italy,"21,807",504,54.5
-Switzerland,"21,198",616,79.2
-Canada,"17,844",0,0
-Belgium,"17,141",873,66
-Spain,"17,123",673,58.4
-Poland,"14,391",240,91.6
-Republic of Ireland,"13,282",140,93.3
-Japan,"11,982",71,67.6
-Lithuania,"9,075",372,89.2
-Israel,"7,918",15,45.5
-Norway,"7,350",268,87
-Slovenia,"7,029",0,0
-Finland,"5,864",0,0
-Greece,"5,429",10,17.9
-Portugal,"4,679",435,40.2
+United Kingdom,"265,502","1,708",3.9
+USA,"192,738","2,718",38.9
+Germany,"101,246","2,237",63.9
+Denmark,"59,585","2,653",83.8
+Sweden,"53,823","1,435",64
+France,"31,461","1,016",63.2
+Netherlands,"27,084","1,239",80.2
+Italy,"22,454",646,48.8
+Switzerland,"21,409",512,71.6
+Japan,"21,142",73,79.3
+Canada,"20,018",0,0
+Spain,"18,508",638,57.6
+Belgium,"18,245",835,68.1
+Poland,"14,591",240,85.4
+Ireland,"13,927",244,67.6
+Lithuania,"9,084",41,78.8
+Israel,"8,015",0,0
+Norway,"7,702",319,82
+Slovenia,"7,470",140,95.9
+Finland,"5,865",0,0
+Greece,"5,440",2,66.7
+Portugal,"4,856",391,32.3
+Slovakia,"3,982",115,95.8
 Luxembourg,"3,975",0,0
-Slovakia,"3,861",112,94.9
-Croatia,"3,856",65,74.7
-Austria,"3,354",58,48.7
-Czech Republic,"3,314",52,59.1
-India,"3,085",0,0
+Croatia,"3,941",38,79.2
+Austria,"3,518",185,41.3
+Czech Republic,"3,451",118,82.5
+India,"3,159",0,0
+Latvia,"3,145",0,0
+Estonia,"2,842",0,0
 Bulgaria,"2,755",0,0
-Estonia,"2,685",0,0
-Latvia,"1,205",0,0
-Mexico,"1,117",123,19
-Thailand,688,13,76.5
-Philippines,623,0,0
-Romania,608,21,77.8
-Turkey,605,0,0
-South Korea,579,0,0
-Aruba,546,6,9.5
-Australia,458,27,16.6
-Brazil,457,0,0
-Kenya,375,1,50
-Cambodia,324,76,73.8
-Russia,324,2,0.8
+Mexico,"1,266",128,18
+Thailand,690,10,23.8
+Romania,646,16,76.2
+Philippines,631,0,0
+Turkey,606,0,0
+South Korea,587,3,1.3
+Aruba,549,6,14
+Brazil,476,0,0
+Australia,459,23,14.2
+Kenya,452,0,0
+Cambodia,348,75,68.8
+Sint Maarten,334,118,99.2
+Russia,324,0,0
 Curacao,308,0,0
-Sint Maarten,307,91,98.9
-United States,295,0,0
 Ghana,294,0,0
 North Macedonia,232,0,0
-Qatar,207,0,0
+Qatar,213,0,0
 Singapore,187,2,0.8
-Sri Lanka,181,8,72.7
-Pakistan,176,0,0
+Sri Lanka,186,6,4.4
+Pakistan,177,0,0
+Bonaire,167,8,100
 Kazakhstan,160,0,0
-Bonaire,159,0,0
-Malta,147,3,30
+Malta,147,1,12.5
 New Zealand,146,0,0
-Nigeria,141,0,0
-Chile,135,0,0
-Gibraltar,130,0,0
-South Africa,123,37,7.7
-Argentina,123,0,0
-Ecuador,105,3,6.4
-Morocco,100,0,0
+Chile,144,7,3.4
+Nigeria,142,0,0
+South Africa,138,15,4.2
+Gibraltar,131,0,0
+Argentina,126,0,0
+Ecuador,123,5,10.6
+China,116,3,6
+Canary Islands,110,0,0
+Morocco,101,0,0
 Costa Rica,98,0,0
-China,96,5,14.7
-Bangladesh,90,2,8.7
+Bangladesh,91,2,3.6
 Colombia,87,0,0
 Jordan,81,0,0
-Usa,70,0,0
 Iraq,64,0,0
 Guadeloupe,63,2,100
-Reunion,59,1,0.8
+Bosnia and Herzegovina,63,11,84.6
+Reunion,59,1,1.2
 Angola,53,0,0
 Gambia,53,0,0
 Ukraine,52,0,0
-Indonesia,49,1,0.4
-Iran,45,0,0
+Iran,50,0,0
+Indonesia,49,0,0
 French Guiana,43,0,0
 Guam,39,0,0
 Gabon,35,0,0
 Guinea Bissau,33,0,0
 Taiwan,32,0,0
-Bosnia and Herzegovina,32,1,100
 Hungary,29,0,0
 Djibouti,28,0,0
 Palestine,27,0,0
@@ -90,7 +89,7 @@ Vietnam,25,0,0
 Serbia,23,0,0
 Georgia,23,0,0
 Martinique,22,0,0
-Kuwait,22,7,58.3
+Kuwait,22,0,0
 United Arab Emirates,21,0,0
 Togo,21,0,0
 Barbados,20,0,0
@@ -99,29 +98,31 @@ Iceland,20,0,0
 Senegal,20,0,0
 Uganda,17,1,2.9
 Lebanon,16,0,0
+Jamaica,15,0,0
 Cote d'Ivoire,15,0,0
 Suriname,15,0,0
-Bahrain,15,1,33.3
-Jamaica,14,0,0
+Bahrain,15,0,0
 Cameroon,14,0,0
 Armenia,14,0,0
 Egypt,13,0,0
 Guinea,12,0,0
-Nepal,11,1,5.9
+Nepal,11,0,0
+Malaysia,11,0,0
 Wallis and Futuna,10,0,0
 Cyprus,10,0,0
-Malaysia,9,0,0
 Trinidad and Tobago,9,0,0
 Peru,8,0,0
+Dominican Republic,8,0,0
 Democratic Republic of the Congo,8,0,0
 Rwanda,7,0,0
 Liechtenstein,7,0,0
 Montenegro,7,0,0
+Antigua and Barbuda,5,0,0
 Cayman Islands,5,0,0
 Turks and Caicos Islands,5,0,0
-Dominican Republic,4,0,0
 Paraguay,4,0,0
 Dominica,4,0,0
+Puerto Rico,4,3,75
 Kosovo,3,0,0
 Ethiopia,3,0,0
 Tunisia,3,0,0
@@ -144,10 +145,9 @@ Bermuda,2,0,0
 Myanmar,2,0,0
 Mozambique,1,0,0
 Equatorial Guinea,1,0,0
-morocco,1,0,0
 Mauritius,1,0,0
-Bosni and Herzegovina,1,0,0
 Belize,1,0,0
+Northern Mariana Islands,1,0,0
 Haiti,1,0,0
 Zambia,1,0,0
 Guatemala,1,0,0
