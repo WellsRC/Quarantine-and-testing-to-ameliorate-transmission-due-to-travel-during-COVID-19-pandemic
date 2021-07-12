@@ -56,7 +56,24 @@ if(contains(cFile,'Shorter_Incubation'))
     % Effective reproductive number
     load(['Shorter_Incubation_Effective_Reproductive_Number.mat'],'RQA','RQS','RQSN');
     RAw=(1-pA).*((1-AL).*RQSN+AL.*RQS)+pA.*RQA;
-else    
+elseif(contains(cFile,'Longer_Incubation'))    
+    % Testing and quanraitne: Post-quarantine transmission
+    load([cFile '.mat'],'qA','RQA','RQS','RQSN');
+    RQwtemp=(1-pA).*((1-AL).*RQSN(qA==qAI)+AL.*RQS(qA==qAI))+pA.*RQA(qA==qAI);
+
+    % No test: Post-quarantine transmission
+    load(['Longer_Incubation_NoTest.mat'],'qA','RQA','RQS','RQSN');
+    RVw=(1-pA).*((1-AL).*RQSN(qA==0)+AL.*RQS(qA==0))+pA.*RQA(qA==0);
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Account for the lack of adehrence to quarantine measure 
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    RQw=AQ.*RQwtemp+(1-AQ).*RVw;
+
+    % Effective reproductive number
+    load(['Longer_Incubation_Effective_Reproductive_Number.mat'],'RQA','RQS','RQSN');
+    RAw=(1-pA).*((1-AL).*RQSN+AL.*RQS)+pA.*RQA;
+else        
     % Testing and quanraitne: Post-quarantine transmission
     load([cFile '.mat'],'qA','RQA','RQS','RQSN');
     RQwtemp=(1-pA).*((1-AL).*RQSN(qA==qAI)+AL.*RQS(qA==qAI))+pA.*RQA(qA==qAI);

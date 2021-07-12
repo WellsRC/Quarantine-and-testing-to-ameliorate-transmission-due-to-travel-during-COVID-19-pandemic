@@ -23,7 +23,7 @@ REPSVOC=0;
 RNIVOC=0;
 for ii=1:NM
     for jj=(ii+1):NM
-        [nageA,nageB,prevA,prevB,vacA,vacB,proHA,proHB,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),AL);
+        [nageA,nageB,prevA,prevB,vacA,vacB,proHA,proHB,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),AL,cFile);
         if(~isempty(prevA))
             
             vAB=(VTAB./NA);

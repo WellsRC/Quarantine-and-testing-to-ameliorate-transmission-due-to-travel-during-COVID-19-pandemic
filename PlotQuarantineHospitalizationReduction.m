@@ -22,7 +22,11 @@ for ii=NC:-1:1
        else
             if(Q(NC+1-ii,jj)>=0)
                patch([-0.5 -0.5 0.5 0.5]+jj,[-0.5 0.5 0.5 -0.5]+ii,cmap(QM(NC+1-ii,jj),:)); 
-               text(jj,ii,[num2str(Q(NC+1-ii,jj) ,'%3.1f') '%'],'Fontsize',13,'HorizontalAlignment','center','color',cmapt(QM(NC+1-ii,jj),:));
+               if(Q(NC+1-ii,jj)<100)
+                text(jj,ii,[num2str(Q(NC+1-ii,jj) ,'%3.1f') '%'],'Fontsize',13,'HorizontalAlignment','center','color',cmapt(QM(NC+1-ii,jj),:));
+               else
+                text(jj,ii,[num2str(Q(NC+1-ii,jj) ,'%3.1f') '%'],'Fontsize',10,'HorizontalAlignment','center','color',cmapt(QM(NC+1-ii,jj),:));   
+               end
            else
                patch([-0.5 -0.5 0.5 0.5]+jj,[-0.5 0.5 0.5 -0.5]+ii,[0.9 0.9 0.9]); 
            end

@@ -152,7 +152,7 @@ QML=QM;
 load(['Country_NO_VOC_Quarantine_Shorter_Incubation_Quarantine_RTPCR_Exit_AL=100_AQ=100.mat'],'QM');
 
 fprintf('=============================================================================== \n');
-fprintf('8.29 day incubatino period vs 5.7 day incubation period et al \n');
+fprintf('8.29 day incubatino period vs 5.72 day incubation period et al \n');
 fprintf('=============================================================================== \n');
 
 
@@ -160,12 +160,36 @@ dQ=QM-QMH;
 
 perC=length(dQ(QM>=0 & dQ==0))./length(dQ(QM>=0));
 
-fprintf('Percentage of the specified quarantines that DID NOT CHANGE: %3.1f %% \n',100*perC);
+fprintf('Percentage of the specified quarantines that DID NOT CHANGE for shorter incubation: %3.1f %% \n',100*perC);
 
 diffMed=median(QM(QM>=0 & dQ~=0))-median(QML(QM>=0 & dQ~=0));
 
 fprintf('Change in the median quarantine due to the shorter incubation period: %3.2f \n',diffMed);
 
+
+
+load(['Country_NO_VOC_Quarantine_Quarantine_RTPCR_Exit_AL=100_AQ=100.mat'],'QM');
+QML=QM;
+load(['Country_NO_VOC_Quarantine_Longer_Incubation_Quarantine_RTPCR_Exit_AL=100_AQ=100.mat'],'QM');
+
+fprintf('=============================================================================== \n');
+fprintf('8.29 day incubatino period vs 11.7 day incubation period et al \n');
+fprintf('=============================================================================== \n');
+
+
+dQ=QM-QMH;
+
+perC=length(dQ(QM>=0 & dQ==0))./length(dQ(QM>=0));
+
+fprintf('Percentage of the specified quarantines that DID NOT CHANGE for longer incubation: %3.1f %% \n',100*perC);
+
+diffMed=median(QM(QM>=0 & dQ~=0))-median(QML(QM>=0 & dQ~=0));
+
+fprintf('Change in the median quarantine due to the longer incubation period: %3.2f \n',diffMed);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+% Adeherence
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 
 fprintf('=============================================================================== \n');
 fprintf('Adherence to self-isolation \n');
@@ -197,7 +221,7 @@ fprintf('Percentage of pairs that changed quarantine duration for 25%% adherence
 
 
 fprintf('=============================================================================== \n');
-fprintf('Adherence to duarantine \n');
+fprintf('Adherence to quarantine \n');
 fprintf('=============================================================================== \n');
 load(['Country_NO_VOC_Quarantine_Quarantine_RTPCR_Exit_AL=100_AQ=100.mat'],'QM');
 QM100=QM;

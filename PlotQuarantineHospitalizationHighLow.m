@@ -35,7 +35,7 @@ xlim([0.5 NC+0.5])
 ylim([0.5 NC+0.5])
 ylabel('Destination country','Fontsize',24)
 xtickangle(45)
-xlabel('Origin country','Fontsize',24,'Position',[15.499999999999998,36.71862518089725,0])
+xlabel('Origin country','Fontsize',24,'Position',[15.499999999999998,36.71862518089725*29/31,0])
 text(0.439499304589706,-2.852387843704779,'Less than the median hospitalization rate in destination country','Fontsize',20,'color',cmap(1,:))
 text(0.439499304589706,-4.256150506512306,'Greater than the median hospitalization rate in destination country','Fontsize',20,'color',cmap(3,:))
 % h=colorbar('southoutside');

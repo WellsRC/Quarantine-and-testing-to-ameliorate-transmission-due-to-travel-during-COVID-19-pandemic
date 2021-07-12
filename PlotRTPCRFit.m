@@ -40,25 +40,24 @@ subplot('Position',[0.563592436974789,0.5917,0.424600840336135,0.39]);
 % BD Veritor
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 tt=4;
-load('BDVeritor_Parameter.mat');
-ts=8.29;
-t=linspace(8.29,50,1001);
+load('BD Veritor_LR_Parameters.mat');
+t=linspace(0,50,1001);
 
 LL1=plot(t,LR(t,beta),'r','LineWidth',2); 
 hold on;
 
-plot(8.29.*ones(101,1),linspace(0,1,101),':','color',[0.75 0.75 0.75],'LineWidth',2);
-LL2=scatter(Dt+ts,S(1,:)./S(2,:),30,'r','filled');
-xlim([8 50]);
+plot(zeros(101,1),linspace(0,1,101),':','color',[0.75 0.75 0.75],'LineWidth',2);
+LL2=scatter(Dt,S(1,:)./S(2,:),30,'r','filled');
+xlim([-0.2 30]);
 set(gca,'LineWidth',2,'tickdir','out','XTick',[0:5:50],'Xminortick','on','YTick',[0:0.1:1],'YminorTick','on','Fontsize',20);
 ylabel({'Percent','postive agreement'},'Fontsize',22);
-xlabel('Days post-infection','Fontsize',22);
+xlabel('Days post-symptom onset','Fontsize',22);
 
 legend([LL1,LL2],{'Estimated PPA','Emperical PPA'},'Fontsize',20);
 
 box off;
 
-text(0.805933250927065,1.002389162561576,'B','Fontsize',32,'FontWeight','bold');
+text(-5.4,1.002389162561576,'B','Fontsize',32,'FontWeight','bold');
 clear;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
@@ -67,7 +66,7 @@ clear;
 subplot('Position',[0.063592436974789,0.111,0.424600840336134,0.39]);
 load('MLE-Estimate-RTPCR-Hill_Incubation_8_29_days.mat','beta');
 betaPCR=beta;
-load('BDVeritor_Parameter.mat','beta');
+load('BD Veritor_LR_Parameters.mat','beta');
 
 t=linspace(0,50,1001);
 S = TestSensitivity(t,8.29,2.9,inf,[],betaPCR);
@@ -92,7 +91,7 @@ text(-6.30407911001236,0.995,'C','Fontsize',32,'FontWeight','bold');
 clear;
 subplot('Position',[0.563592436974789,0.111,0.424600840336134,0.39]);
 
-load('BDVeritor_Parameter.mat','beta');
+load('BD Veritor_LR_Parameters.mat','beta');
 
 t=linspace(0,50,1001);
 S = TestSensitivityOLD(t,8.29,2.9,inf,[],0);
