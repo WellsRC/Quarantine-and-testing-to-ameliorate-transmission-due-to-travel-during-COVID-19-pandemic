@@ -26,7 +26,7 @@ R0S=R0; % Set R0 for symptomatic
 R0A=R0; % Set R0 for asymptomatic
 
 
-load('MLE-Estimate-RTPCR-Hill.mat','beta');
+load('MLE-Estimate-RTPCR-Hill_Incubation_8_29_days.mat','beta');
 betaRTPCR=beta;
 
 testtype=cell(1,1);
