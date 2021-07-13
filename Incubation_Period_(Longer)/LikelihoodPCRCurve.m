@@ -2,7 +2,7 @@ function L = LikelihoodPCRCurve(x,PtID,dstart,dlast,TPtID,TDate,TResult)
 beta=10.^x(end-1:end);
 
 % Shorter incubation period
-betat=log(11.3757871819244)+beta(1)^2;
+betat=log(11.375787181924398)+beta(1)^2;
 beta=[betat beta];
 TI=x(1:end-2);
 [~,Lstart] = DistIncubation(dstart-TI);

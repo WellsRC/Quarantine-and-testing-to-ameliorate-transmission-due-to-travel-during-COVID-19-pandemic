@@ -64,6 +64,6 @@ if(fvalt<MLE)
     beta=10.^part(end-1:end);
     MLE=fvalt;
 end
-betat=log(11.3757871819244)+beta(1)^2;
+betat=log(11.375787181924398)+beta(1)^2;
 beta=[betat beta];
 save('MLE-Estimate-RTPCR-Hill_Incubation_11_7_days.mat');

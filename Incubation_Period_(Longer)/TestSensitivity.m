@@ -17,8 +17,8 @@ function S = TestSensitivity(t,ts,tL,td,testtype,beta)
 % Code
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-av=[1.2666756];
-bv=[2.833497723426254];
+av=[10.024035];
+bv=[0.939245823173824];
 
 LatentPeriod=[2.9];
 a=av(tL==LatentPeriod);
