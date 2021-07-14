@@ -27,8 +27,8 @@ set(gca,'LineWidth',2,'tickdir','out','YTick',[1:NC],'Yminortick','off','YTickLa
 xlim([0.5 NC+0.5])
 ylim([0.5 NC+0.5])
 ylabel('Destination country','Fontsize',24)
-xtickangle(45)
-xlabel('Origin country','Fontsize',24,'Units','normalize','Position',[0.460678972382031,1.166352225405358])
+xtickangle(45) 
+xlabel('Origin country','Fontsize',24,'Units','normalize','Position',[0.449552407708874,1.16779])
 h=colorbar('southoutside');
 colormap([cmap;0.9 0.9 0.9]);
 

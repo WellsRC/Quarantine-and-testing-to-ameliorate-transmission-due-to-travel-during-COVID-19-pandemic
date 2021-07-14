@@ -1,6 +1,8 @@
 function TrafficLightAnalysis(cFile,AL,AQ)
 if(contains(cFile,'Shorter'))
     Incubation=5.723;
+elseif(contains(cFile,'Longer'))
+    Incubation=11.6616;
 else
     Incubation=8.29;
 end

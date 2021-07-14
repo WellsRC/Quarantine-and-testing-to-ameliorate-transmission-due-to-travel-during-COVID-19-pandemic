@@ -26,7 +26,7 @@ xlim([0.5 NC+0.5])
 ylim([0.5 NC+0.5])
 ylabel('Destination country','Fontsize',24)
 xtickangle(45)
-xlabel('Origin country','Fontsize',24,'Position',[15.499999999999998,36.71862518089725,0])
+xlabel('Origin country','Fontsize',24,'Units','normalize','Position',[0.449552407708874,1.16779])
 h=colorbar('southoutside');
 colormap([cmap;0.65 0.65 0.65]);
 

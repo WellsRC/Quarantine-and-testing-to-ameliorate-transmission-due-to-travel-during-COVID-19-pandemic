@@ -19,7 +19,11 @@ for ii=NC:-1:1
        else
             if(Q(NC+1-ii,jj)>=0)
                patch([-0.5 -0.5 0.5 0.5]+jj,[-0.5 0.5 0.5 -0.5]+ii,cmap(floor(Q(NC+1-ii,jj)),:)); 
-               text(jj,ii,[num2str(QT(NC+1-ii,jj) ,'%3.2f')],'Fontsize',13,'HorizontalAlignment','center','color',cmapt(floor(Q(NC+1-ii,jj)),:));
+               if(round(QT(NC+1-ii,jj),2)==0)
+                    text(jj,ii,[num2str(abs(QT(NC+1-ii,jj)) ,'%3.2f')],'Fontsize',13,'HorizontalAlignment','center','color',cmapt(floor(Q(NC+1-ii,jj)),:)); % the abs is used such that -0.00 does not appear in the table
+               else
+                   text(jj,ii,[num2str(QT(NC+1-ii,jj) ,'%3.2f')],'Fontsize',13,'HorizontalAlignment','center','color',cmapt(floor(Q(NC+1-ii,jj)),:));
+               end
            else
                patch([-0.5 -0.5 0.5 0.5]+jj,[-0.5 0.5 0.5 -0.5]+ii,[0.9 0.9 0.9]); 
            end
@@ -31,7 +35,7 @@ xlim([0.5 NC+0.5])
 ylim([0.5 NC+0.5])
 ylabel('Destination country','Fontsize',24)
 xtickangle(45)
-xlabel('Origin country','Fontsize',24,'Position',[15.499999999999998,36.71862518089725,0])
+xlabel('Origin country','Fontsize',24,'Units','normalize','Position',[0.449552407708874,1.16779])
 h=colorbar('southoutside');
 colormap([cmap;0.65 0.65 0.65]);
 

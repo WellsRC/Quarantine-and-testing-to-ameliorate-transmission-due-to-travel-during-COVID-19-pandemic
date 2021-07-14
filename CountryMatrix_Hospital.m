@@ -57,7 +57,7 @@ PlotQuarantineHospitalizationHighLow(CountryM,QM0,CSR)
 print(gcf,['Figure_Country_Hospital_High_Low_No_Travel_' cFile '_AL=' num2str(AL*100) '_AQ=' num2str(AQ*100) '.png'],'-dpng','-r600');
 
 
-RRR=(QM0-QM14)./QM0;
+RRR=(QM0-QM14)./abs(QM0); % abs is to account for any negative imminent infections
 RRR=100.*RRR;
 RRR(QM0==-1)=-1;
 

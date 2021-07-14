@@ -12,17 +12,29 @@ for ii=NC:-1:1
        if((NC+1-ii)==jj)
           patch([-0.5 -0.5 0.5 0.5]+jj,[-0.5 0.5 0.5 -0.5]+ii,'k');
        else
-            if(Q(NC+1-ii,jj)>=0)
+            if(Q(NC+1-ii,jj)~=-1)
                temp=Q(NC+1-ii,:); 
-               if(round(Q(NC+1-ii,jj),1)<round(median((temp(temp>=0))),1)) 
+               if(round(Q(NC+1-ii,jj),1)<round(median((temp(temp~=-1))),1)) 
                     patch([-0.5 -0.5 0.5 0.5]+jj,[-0.5 0.5 0.5 -0.5]+ii,cmap(1,:)); 
-                    text(jj,ii,num2str(Q(NC+1-ii,jj),'%3.1f'),'Fontsize',14,'HorizontalAlignment','center','color',cmapt(1,:));
-               elseif(round(Q(NC+1-ii,jj),1)==round(median((temp(temp>=0))),1)) 
+                    if(round(Q(NC+1-ii,jj),1)==0)
+                        text(jj,ii,num2str(abs(Q(NC+1-ii,jj)),'%3.1f'),'Fontsize',14,'HorizontalAlignment','center','color',cmapt(1,:)); % this ensures that the table does not produce -0.0
+                    else
+                        text(jj,ii,num2str(Q(NC+1-ii,jj),'%3.1f'),'Fontsize',14,'HorizontalAlignment','center','color',cmapt(1,:));
+                    end
+               elseif(round(Q(NC+1-ii,jj),1)==round(median((temp(temp~=-1))),1)) 
                     patch([-0.5 -0.5 0.5 0.5]+jj,[-0.5 0.5 0.5 -0.5]+ii,cmap(2,:)); 
-                    text(jj,ii,num2str(Q(NC+1-ii,jj),'%3.1f'),'Fontsize',14,'HorizontalAlignment','center','color',cmapt(2,:));
+                    if(round(Q(NC+1-ii,jj),1)==0)
+                        text(jj,ii,num2str(abs(Q(NC+1-ii,jj)),'%3.1f'),'Fontsize',14,'HorizontalAlignment','center','color',cmapt(2,:)); % this ensures that the table does not produce -0.0
+                    else
+                        text(jj,ii,num2str(Q(NC+1-ii,jj),'%3.1f'),'Fontsize',14,'HorizontalAlignment','center','color',cmapt(2,:));
+                    end
                else
                     patch([-0.5 -0.5 0.5 0.5]+jj,[-0.5 0.5 0.5 -0.5]+ii,cmap(3,:)); 
-                    text(jj,ii,num2str(Q(NC+1-ii,jj),'%3.1f'),'Fontsize',14,'HorizontalAlignment','center','color',cmapt(3,:));
+                    if(round(Q(NC+1-ii,jj),1)==0)
+                        text(jj,ii,num2str(abs(Q(NC+1-ii,jj)),'%3.1f'),'Fontsize',14,'HorizontalAlignment','center','color',cmapt(3,:)); % this ensures that the table does not produce -0.0
+                    else
+                        text(jj,ii,num2str(Q(NC+1-ii,jj),'%3.1f'),'Fontsize',14,'HorizontalAlignment','center','color',cmapt(3,:));
+                    end
                end                   
            else
                patch([-0.5 -0.5 0.5 0.5]+jj,[-0.5 0.5 0.5 -0.5]+ii,[0.9 0.9 0.9]); 
@@ -35,7 +47,7 @@ xlim([0.5 NC+0.5])
 ylim([0.5 NC+0.5])
 ylabel('Destination country','Fontsize',24)
 xtickangle(45)
-xlabel('Origin country','Fontsize',24,'Position',[15.499999999999998,36.71862518089725*29/31,0])
+xlabel('Origin country','Fontsize',24,'Units','normalize','Position',[0.449552407708874,1.16779])
 text(0.439499304589706,-2.852387843704779,'Less than the median hospitalization rate in destination country','Fontsize',20,'color',cmap(1,:))
 text(0.439499304589706,-4.256150506512306,'Greater than the median hospitalization rate in destination country','Fontsize',20,'color',cmap(3,:))
 % h=colorbar('southoutside');
