@@ -33,8 +33,6 @@ QMH=-1.*ones(15,101);
 QMI=-1.*ones(15,101);
 QMHI=-1.*ones(15,101);
 
-d=30;
-
 qR=[0:14];
 FVOCA=1;
 FVOCB=1;

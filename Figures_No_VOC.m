@@ -71,6 +71,14 @@ CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Exit',1,1)
 CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Entry_Exit',1,1)
 
 
+%% 100% Adherence
+% RT-PCR on Exit
+TrafficLightAnalysis('NatComm-Quarantine_RTPCR_Exit',1,1)
+% RA test on Exit
+TrafficLightAnalysis('NatComm-Quarantine_BDVeritor_Exit',1,1)
+% RA test on Entry and Exit
+TrafficLightAnalysis('NatComm-Quarantine_BDVeritor_Entry_Exit',1,1)
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Shorter incubation period
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

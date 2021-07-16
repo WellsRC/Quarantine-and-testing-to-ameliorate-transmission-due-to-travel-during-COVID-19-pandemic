@@ -33,7 +33,7 @@ TDate=datenum(T.date);
 fDate=DateN==TDate;
 findx=find(t&fDate);
 
-c=T.confirmed_infections(findx)./N;
+c=mean(T.confirmed_infections((findx-13):findx))./N; % Daily fractional incidence
 PopIM=1-vacup.*(1-rec)-rec; % NEED TO SCALE VAC UPTAKE HERE TO NOT COUNT THOSE ALREADY VACCINATED
 Symptomatic=sum(T.confirmed_infections((findx-5):(findx))).*(Demo.*PopIM)./(sum(Demo.*PopIM)); % Distribute the number of infections over this past time based on immunity level
 SymptomaticNoIsolation=sum(T.confirmed_infections((findx-25):(findx))).*(Demo.*PopIM)./(sum(Demo.*PopIM)); % Distribute the number of infections over this past time based on immunity level

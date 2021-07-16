@@ -33,11 +33,11 @@ TDate=datenum(T.date);
 fDate=DateN==TDate;
 findx=find(t&fDate);
 
-c=T.confirmed_infections(findx)./N;
+c=mean(T.confirmed_infections((findx-13):findx))./N; % Daily fractional incidence
 PopIM=1-vacup.*(1-rec)-rec; % NEED TO SCALE VAC UPTAKE HERE TO NOT COUNT THOSE ALREADY VACCINATED
 Symptomatic=sum(T.confirmed_infections((findx-11):(findx))).*(Demo.*PopIM)./(sum(Demo.*PopIM)); % Distribute the number of infections over this past time based on immunity level
-SymptomaticNoIsolation=sum(T.confirmed_infections((findx-11):(findx))).*(Demo.*PopIM)./(sum(Demo.*PopIM)); % Distribute the number of infections over this past time based on immunity level
-Asymptomatic=sum(T.confirmed_infections((findx-11):(findx))).*(Demo.*PopIM)./(sum(Demo.*PopIM)); % Distribute the number of infections over this past time based on immunity level
+SymptomaticNoIsolation=sum(T.confirmed_infections((findx-31):(findx))).*(Demo.*PopIM)./(sum(Demo.*PopIM)); % Distribute the number of infections over this past time based on immunity level
+Asymptomatic=sum(T.confirmed_infections((findx-31):(findx))).*(Demo.*PopIM)./(sum(Demo.*PopIM)); % Distribute the number of infections over this past time based on immunity level
 % Determine the age based prev based on asympotmtic proportion of the age
 % class
 prev=(AL.*(1-pA).*Symptomatic+(1-AL).*(1-pA).*SymptomaticNoIsolation+pA.*Asymptomatic)./(Demo.*N);

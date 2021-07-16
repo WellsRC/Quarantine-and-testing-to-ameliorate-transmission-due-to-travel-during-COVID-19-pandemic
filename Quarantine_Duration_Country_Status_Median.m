@@ -140,7 +140,7 @@ fprintf('Minimum difference in the specified quarantine (Remove border closure):
 fprintf('Maximum difference in the specified quarantine: %3.2f \n',max(dQ(QM>=0)));
 fprintf('Minimum difference in the specified quarantine: %3.2f \n',min(dQ(QM>=0)));
 
-perC=length(dQ(QM>=0 & dQ<=0))./length(dQ(QM>=0));
+perC=length(dQ(QM>=0 & dQ<0))./length(dQ(QM>=0));
 fprintf('Percentage of the specified quarantines that decreased: %3.1f %% \n',100*perC);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
@@ -167,14 +167,17 @@ diffMed=median(QM(QM>=0 & dQ~=0))-median(QML(QM>=0 & dQ~=0));
 fprintf('Change in the median quarantine due to the shorter incubation period: %3.2f \n',diffMed);
 
 
+fprintf('Percent 0-day quarantines for the shorter incubation period: %3.1f %% \n',100.*length(QM(QM==0))./length(QM(QM>=0)));
+fprintf('Percent 0-day quarantines for the baseline incubation period: %3.1f %% \n',100.*length(QMH(QMH==0))./length(QMH(QMH>=0)));
 
-load(['Country_NO_VOC_Quarantine_Quarantine_RTPCR_Exit_AL=100_AQ=100.mat'],'QM');
-QML=QM;
-load(['Country_NO_VOC_Quarantine_Longer_Incubation_Quarantine_RTPCR_Exit_AL=100_AQ=100.mat'],'QM');
 
 fprintf('=============================================================================== \n');
 fprintf('8.29 day incubatino period vs 11.7 day incubation period et al \n');
 fprintf('=============================================================================== \n');
+
+load(['Country_NO_VOC_Quarantine_Quarantine_RTPCR_Exit_AL=100_AQ=100.mat'],'QM');
+QML=QM;
+load(['Country_NO_VOC_Quarantine_Longer_Incubation_Quarantine_RTPCR_Exit_AL=100_AQ=100.mat'],'QM');
 
 
 dQ=QM-QMH;
@@ -186,6 +189,9 @@ fprintf('Percentage of the specified quarantines that DID NOT CHANGE for longer 
 diffMed=median(QM(QM>=0 & dQ~=0))-median(QML(QM>=0 & dQ~=0));
 
 fprintf('Change in the median quarantine due to the longer incubation period: %3.2f \n',diffMed);
+
+fprintf('Percent 0-day quarantines for the longer incubation period: %3.1f  %%\n',100.*length(QM(QM==0))./length(QM(QM>=0)));
+fprintf('Percent 0-day quarantines for the baseline incubation period: %3.1f %% \n',100.*length(QMH(QMH==0))./length(QMH(QMH>=0)));
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 % Adeherence
