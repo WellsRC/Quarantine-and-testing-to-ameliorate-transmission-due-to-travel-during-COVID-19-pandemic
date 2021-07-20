@@ -53,9 +53,9 @@ ColTx=[0 0 0; 0 0 0; 1 1 1; 1 1 1];
 
 xx=[0.986957943925227,1.00;0.986957943925227,1.00;0.978780373831772,0.993780373831772;0.992799065420557,1.00];
 for jj=1:4
-    ff=find(CRS<=CSTATUS(jj));
+    ff=find(CRS<CSTATUS(jj));
     if(jj>1)
-        gg=find(CRS<=CSTATUS(jj)& CRS>CSTATUS(jj-1));
+        gg=find(CRS<CSTATUS(jj)& CRS>=CSTATUS(jj-1));
     else
         gg=1;
     end
@@ -77,9 +77,9 @@ TempL=(linspace(0,0.84,NC+1));
 dTT=TempL(2)-TempL(1);
 TTX=[1:NC];
 for jj=1:4
-    ff=find(CRS<=CSTATUS(jj));
+    ff=find(CRS<CSTATUS(jj));
     if(jj>1)
-        gg=find(CRS<=CSTATUS(jj)& CRS>CSTATUS(jj-1));
+        gg=find(CRS<CSTATUS(jj)& CRS>=CSTATUS(jj-1));
     else
         gg=1;
     end

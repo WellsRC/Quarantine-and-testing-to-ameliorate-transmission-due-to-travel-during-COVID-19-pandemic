@@ -68,5 +68,5 @@ RRR=(QM0-QMNT);
 RRR(QM0==-1)=-1;
 
 PlotQuarantineHospitalizationAbsReduction_NoTravel(CountryM,RRR,CSR)
-print(gcf,['Figure_Country_Hospital_Relative_Reduction_No_Travel_' cFile '_AL=' num2str(AL*100) '_AQ=' num2str(AQ*100) '.png'],'-dpng','-r600');
+print(gcf,['Figure_Country_Hospital_Reduction_No_Travel_' cFile '_AL=' num2str(AL*100) '_AQ=' num2str(AQ*100) '.png'],'-dpng','-r600');
 end
