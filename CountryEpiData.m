@@ -1,4 +1,4 @@
-function [c,prev,CstatusR] = CountryEpiData(Country,N,DateN,Demo,vacup,rec,pA,AL)
+function [c,prev,CstatusR] = CountryEpiData(Country,N,DateN,Demo,vacup,rec,pA,AL,IncubationP)
 
 % Read the data
 % T=readtable([pwd '\Country_Data\reference_hospitalization_all_locs.csv']);
@@ -33,11 +33,15 @@ TDate=datenum(T.date);
 fDate=DateN==TDate;
 findx=find(t&fDate);
 
+
+tindix=round(IncubationP);
+
+
 c=mean(T.confirmed_infections((findx-13):findx))./N; % Daily fractional incidence
 PopIM=1-vacup.*(1-rec)-rec; % NEED TO SCALE VAC UPTAKE HERE TO NOT COUNT THOSE ALREADY VACCINATED
-Symptomatic=sum(T.confirmed_infections((findx-7):(findx))).*(Demo.*PopIM)./(sum(Demo.*PopIM)); % Distribute the number of infections over this past time based on immunity level
-SymptomaticNoIsolation=sum(T.confirmed_infections((findx-27):(findx))).*(Demo.*PopIM)./(sum(Demo.*PopIM)); % Distribute the number of infections over this past time based on immunity level
-Asymptomatic=sum(T.confirmed_infections((findx-27):(findx))).*(Demo.*PopIM)./(sum(Demo.*PopIM)); % Distribute the number of infections over this past time based on immunity level
+Symptomatic=sum(T.confirmed_infections((findx-(tindix-1)):(findx))).*(Demo.*PopIM)./(sum(Demo.*PopIM)); % Distribute the number of infections over this past time based on immunity level
+SymptomaticNoIsolation=sum(T.confirmed_infections((findx-(20+tindix-1)):(findx))).*(Demo.*PopIM)./(sum(Demo.*PopIM)); % Distribute the number of infections over this past time based on immunity level
+Asymptomatic=sum(T.confirmed_infections((findx-(20+tindix-1)):(findx))).*(Demo.*PopIM)./(sum(Demo.*PopIM)); % Distribute the number of infections over this past time based on immunity level
 % Determine the age based prev based on asympotmtic proportion of the age
 % class
 prev=(AL.*(1-pA).*Symptomatic+(1-AL).*(1-pA).*SymptomaticNoIsolation+pA.*Asymptomatic)./(Demo.*N);

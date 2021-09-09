@@ -4,7 +4,7 @@ T=readtable([pwd '\Country_Data\Age_Population.csv']);
 save('Country_Age_Population.mat');
 clear;
 clc;
-T=readtable([pwd '\Country_Data\VaccinationData.csv']);
+T=readtable([pwd '\Country_Data\VaccineDoses_Age_Country_Adjusted.csv']);
 save('Vaccination_Data.mat');
 clear;
 clc;
@@ -13,12 +13,14 @@ save('IHME_Data.mat');
 clear;
 clc;
 
+IncubationP=5.723;
+DateInter={'August 8, 2021'};
 pA=[81.91 77.59 77.59 69.46 69.46 64.54 64.54 35.44]./100;
 for nn=4:-1:0
     AL=nn./4;
 
 
-    CountryM={'Austria';'Belgium';'Bulgaria';'Cyprus';'Czech Republic';'Denmark';'Estonia';'Finland';'France';'Germany';'Greece';'Hungary';'Republic of Ireland';'Italy';'Lithuania';'Luxembourg';'Malta';'Netherlands';'Norway';'Poland';'Portugal';'Romania';'Russia';'Serbia';'Slovakia';'Slovenia';'Spain';'Turkey';'United Kingdom'};
+    CountryM={'Austria';'Belgium';'Bulgaria';'Cyprus';'Czech Republic';'Denmark';'Estonia';'Finland';'France';'Germany';'Greece';'Hungary';'Republic of Ireland';'Italy';'Lithuania';'Luxembourg';'Malta';'Netherlands';'Norway';'Poland';'Portugal';'Romania';'Slovakia';'Slovenia';'Spain';'United Kingdom'};
     NM=length(CountryM);
 
 
@@ -44,7 +46,7 @@ for nn=4:-1:0
 
     for ii=1:NM-1
         for jj=(ii+1):NM        
-            [prevA,prevB,vacupA,vacupB,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,CAstatusR,~,VacupA,~,VOCBetaGH501YV2A,~,VOCAlpha20201201GRYA,~,VOCDeltaG478KV1A,~,DemoA,DemoB] = CountryDataReturnHospitalization({'June 27, 2021'},CountryM(ii),CountryM(jj),pA,AL);
+            [prevA,prevB,vacupA,vacupB,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,CAstatusR,~,VacupA,~,VOCBetaGH501YV2A,~,VOCAlpha20201201GRYA,~,VOCDeltaG478KV1A,~,DemoA,DemoB] = CountryDataReturnIncubation(DateInter,CountryM(ii),CountryM(jj),pA,AL,IncubationP);
             if(~isempty(prevA)&&~isempty(vacupA)&&~isempty(proHA)&&~isempty(recA)&&~isempty(cA)&&~isempty(NA))
                 if(~isempty(prevA)&&~isempty(vacupA)&&~isempty(proHA)&&~isempty(recA)&&~isempty(cA)&&~isempty(NA)&&~isempty(pgeoAB)&&~isempty(VTAB)&&~isempty(DemoA)&&~isempty(DemoB)&&~isempty(prevB)&&~isempty(vacupB)&&~isempty(proHB)&&~isempty(recB)&&~isempty(cB)&&~isempty(NB)&&~isempty(pgeoBA)&&~isempty(VTBA))
                     avgABM(ii,jj)=avgdAB;
@@ -82,7 +84,7 @@ for nn=4:-1:0
     % Need to record the last country's epiddemic profile
     ii=NM;
     jj=NM-1;
-    [prevA,prevB,vacupA,vacupB,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,CAstatusR,~,VacupA,~,VOCBetaGH501YV2A,~,VOCAlpha20201201GRYA,~,VOCDeltaG478KV1A,~,DemoA,DemoB] = CountryDataReturnHospitalization({'June 27, 2021'},CountryM(ii),CountryM(jj),pA,AL);
+    [prevA,prevB,vacupA,vacupB,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,CAstatusR,~,VacupA,~,VOCBetaGH501YV2A,~,VOCAlpha20201201GRYA,~,VOCDeltaG478KV1A,~,DemoA,DemoB] = CountryDataReturnIncubation(DateInter,CountryM(ii),CountryM(jj),pA,AL,IncubationP);
     if(~isempty(prevA)&&~isempty(vacupA)&&~isempty(proHA)&&~isempty(recA)&&~isempty(cA)&&~isempty(NA))
         prev(ii,:)=prevA;
         Demo(ii,:)=DemoA;
@@ -104,5 +106,5 @@ for nn=4:-1:0
         end
     end
 
-    save(['Country_Data_June_27_2021_Adherence_Level_' num2str(nn*25) '.mat'],'prev','rec','c','N','vac','proH','avgABM','pgeoABM','VTABM','CountryM','pA','cstatusR','Vacup','VOCBetaGH501YV2','VOCAlpha20201201GRY','VOCDeltaG478KV1','Demo')
+    save(['Country_Data_' DateInter '_Incubation=' num2str(IncubationP) '_Adherence_Level_' num2str(nn*25) '.mat'],'prev','rec','c','N','vac','proH','avgABM','pgeoABM','VTABM','CountryM','pA','cstatusR','Vacup','VOCBetaGH501YV2','VOCAlpha20201201GRY','VOCDeltaG478KV1','Demo')
 end

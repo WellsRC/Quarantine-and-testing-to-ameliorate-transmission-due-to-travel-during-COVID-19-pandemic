@@ -1,4 +1,14 @@
 function [TravelDepart,DoS,pgeo] = TravelInformation(CountryLeaving,CountryEntering)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% https://ec.europa.eu/eurostat/databrowser/view/AVIA_PAOCC__custom_761331/default/table?lang=en
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% multiple source
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if(strcmp(CountryEntering,'United Kingdom'))
     % Country A data (i.e. entering the UK)
     T=readtable([pwd '\Country_Data\Travel_Into_UK.xlsx'],'Sheet','2.10','Range','A13:M77');
@@ -48,7 +58,7 @@ else
         end
     elseif(strcmp(CountryEntering,'Turkey'))
         % Country B entering Turkey
-        DoS=5.7; % There is only a single number and no specified by individual country; assumes the average length of stay in a hotel
+        DoS=5.71611459209829; % There is only a single number and no specified by individual country; assumes the average length of stay in a hotel
         x=[1:30];
         pgeo=fmincon(@(z)(sum(x.*((z.*(1-z).^(x-1))./(1-(1-z)^30)))-DoS).^2,1./DoS,[],[],[],[],0,1);
         T=readtable([pwd '\Country_Data\Destination_Turkey.xls'],'Range','A4:V123');

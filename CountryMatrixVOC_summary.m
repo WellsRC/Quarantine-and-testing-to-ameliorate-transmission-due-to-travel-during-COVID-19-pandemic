@@ -29,8 +29,8 @@ for ii=1:NM
                 if(~isempty(VOCDeltaG478KV1A)&&~isempty(VOCDeltaG478KV1B)&&~isempty(VOCBetaGH501YV2A)&&~isempty(VOCBetaGH501YV2B)&&~isempty(VOCAlpha20201201GRYA)&&~isempty(VOCAlpha20201201GRYB))
                     if((VOCDeltaG478KV1A>=0)&&(VOCDeltaG478KV1B>=0)&&(VOCBetaGH501YV2A>=0)&&(VOCBetaGH501YV2B>=0)&&(VOCAlpha20201201GRYA>=0)&&(VOCAlpha20201201GRYB>=0))
                         
-                        FVOCA=[1-VOCBetaGH501YV2A-VOCAlpha20201201GRYA-VOCDeltaG478KV1A VOCDeltaG478KV1A VOCAlpha20201201GRYA VOCBetaGH501YV2A];
-                        FVOCB=[1-VOCDeltaG478KV1B-VOCAlpha20201201GRYB-VOCBetaGH501YV2B VOCDeltaG478KV1B VOCAlpha20201201GRYB VOCBetaGH501YV2B];
+                        FVOCA=[max(1-VOCBetaGH501YV2A-VOCAlpha20201201GRYA-VOCDeltaG478KV1A,0) VOCDeltaG478KV1A VOCAlpha20201201GRYA VOCBetaGH501YV2A];
+                        FVOCB=[max(1-VOCDeltaG478KV1B-VOCAlpha20201201GRYB-VOCBetaGH501YV2B,0) VOCDeltaG478KV1B VOCAlpha20201201GRYB VOCBetaGH501YV2B];
                         RVOC=[0 RDeltaG478KV1 RAlpha20201201GRY RBetaGH501YV2];
                         REPSVOC=[0 0 0 0];
                         RNIVOC=[0 0 0 0];

@@ -1,4 +1,4 @@
-function [rec,N] = RecoveredPopulation(Country,DateN,Demo,pA,AL)
+function [rec,N] = RecoveredPopulation(Country,DateN,Demo,pA,AL,IncubationP)
 % T=readtable([pwd '\Country_Data\reference_hospitalization_all_locs.csv']);
 load('IHME_Data.mat');
 t=strcmp(Country,T.location_name);
@@ -25,9 +25,12 @@ rec=T.inf_cuml_mean(t & fDate).*ones(size(Demo));
 
 % %%% Determine active infections to discount from those that are recovered
 findx=find(t&fDate);
-Symptomatic=sum(T.confirmed_infections((findx-7):(findx))); % Distribute the number of infections over this past time based on immunity level
-SymptomaticNoIsolation=sum(T.confirmed_infections((findx-27):(findx))); % Distribute the number of infections over this past time based on immunity level
-Asymptomatic=sum(T.confirmed_infections((findx-27):(findx))); % Distribute the number of infections over this past time based on immunity level
+
+tindix=round(IncubationP);
+
+Symptomatic=sum(T.confirmed_infections((findx-(tindix-1)):(findx))); % Distribute the number of infections over this past time based on immunity level
+SymptomaticNoIsolation=sum(T.confirmed_infections((findx-(20+tindix-1)):(findx))); % Distribute the number of infections over this past time based on immunity level
+Asymptomatic=sum(T.confirmed_infections((findx-(20+tindix-1)):(findx))); % Distribute the number of infections over this past time based on immunity level
 
 ActiveI=sum(Demo.*(AL.*(1-pA).*Symptomatic+(1-AL).*(1-pA).*SymptomaticNoIsolation+pA.*Asymptomatic));
 

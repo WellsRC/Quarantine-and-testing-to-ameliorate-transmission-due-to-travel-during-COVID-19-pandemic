@@ -11,124 +11,83 @@ function [vacup,tempH,VacupALO] = CountryVaccinationFirstStage(Country,DateN,N,D
 % Load the vaccination data
 % T=readtable([pwd '\Country_Data\VaccinationData.csv']);
 load('Vaccination_Data.mat');
-%Find the country of interest
-tA=strcmp(Country,T.location);
-% Transform the date
-TDate=datenum(T.date);
-% Find the date of interets
-fDate=DateN==TDate;
-% Determine in the entry is NaN
-tp=~isnan(T.people_vaccinated)&~isnan(T.people_fully_vaccinated);
-
-if(sum(tA&fDate&tp)>0)
-    % If we have data for that specified date
-    vacup1=(T.people_vaccinated(tA&fDate))./N; % Proportion of the population that have received at least one dose
-    vacup2=(T.people_fully_vaccinated(tA&fDate))./N; % Proportion of the population fully immunized
-    VacupALO=T.people_vaccinated(tA&fDate)./N; % Proportion of the population that have received at least one dose
+tA=strcmp(T.Country,Country);
+if(sum(tA)>0)
+    fDate=datenum(T.ReportingWeek)<=DateN & datenum(T.ReportingWeek)>DateN-7 ;
+    %age=[0-19 20-29 30-39 40-49 50-59 60-69 70-79 80-100];
+    V=[T.x_18Years./(N.*Demo(1)) (T.x18_24Years+T.x25_49Years)./sum(N.*Demo(2:4)) (T.x18_24Years+T.x25_49Years)./sum(N.*Demo(2:4)) (T.x18_24Years+T.x25_49Years)./sum(N.*Demo(2:4)) T.x50_59Years./(N.*Demo(5)) T.x60_69Years./(N.*Demo(6)) T.x70_79Years./(N.*Demo(7)) T.x80_Years./sum(N.*Demo(8:end))];
+    Vtot=[T.x_18Years+T.x18_24Years+T.x25_49Years+T.x50_59Years+T.x60_69Years+T.x70_79Years+T.x80_Years];
+    tfirst=strcmp(T.Dose,'First');
+    tfull=strcmp(T.Dose,'Full');
     
-    agep=flip(Demo); % needs to flip the age demographics as we prioritize the elderly
-    ccvac=cumsum(agep); % cumulative sum to determine when other age classes become prioritized
-    ccvac=flip([0 ccvac(1:end-1)]); % The first threshold should be zero as no one is yet vaccinated. We flip this as we will loop through the lower age class first
-    vacup=zeros(size(epsvT1));
-    tempH=zeros(size(epsvT1));
-    for aa=1:length(epsvT1)
-        pvac1=min(max(vacup1-ccvac(aa),0)./Demo(aa),1); % proportion of the age class to receive at least one dose
-        pvac2=min(max(vacup2-ccvac(aa),0)./Demo(aa),1); % proportion of the age class fully immunized
+    VacupALO=Vtot(tA&fDate&tfirst)./N;
+    if(sum(tA&fDate)>0)
+            pvac1=V(tA&fDate&tfirst,:); % proportion of the age class to receive at least one dose
+            pvac2=V(tA&fDate&tfull,:); % proportion of the age class fully immunized
+            pvac1=pvac1-pvac2; % the proprition of the population partially immunized
+
+            % Vaccine coverage based on age-dose-specific efficacy (Note: have notyet removed prev. or recovery)
+            vacup=(epsvT1.*pvac1+epsvT2.*pvac2); % Do not want to scale by prevalence or seroprevlance as we need to weigh later by immunity
+            % Temp variable for determining hospitalization. Other components
+            % will be added later
+            tempH=-(pvac1+pvac2)+((1-epsvT1).*(1-epsvH1).*pvac1+(1-epsvT2).*(1-epsvH2).*pvac2); % Subtract prevalence later prevalence as we need to weigh later by immunity
+    end
+elseif(strcmp('United Kingdom',Country))
+    load([pwd '\Country_Data\UK_Vaccination_Age.mat'])
+    
+    fDate=DateWeek<=DateN & DateWeek>DateN-7 ;    
+    
+    if(sum(fDate)>0)
+        VacupALO=VTot(fDate);
+            pvac1=V1(fDate,:); % proportion of the age class to receive at least one dose
+            pvac2=V2(fDate,:); % proportion of the age class fully immunized
+            pvac1=pvac1-pvac2; % the proprition of the population partially immunized
+
+            % Vaccine coverage based on age-dose-specific efficacy (Note: have notyet removed prev. or recovery)
+            vacup=(epsvT1.*pvac1+epsvT2.*pvac2); % Do not want to scale by prevalence or seroprevlance as we need to weigh later by immunity
+            % Temp variable for determining hospitalization. Other components
+            % will be added later
+            tempH=-(pvac1+pvac2)+((1-epsvT1).*(1-epsvH1).*pvac1+(1-epsvT2).*(1-epsvH2).*pvac2); % Subtract prevalence later prevalence as we need to weigh later by immunity
+    end
+elseif(strcmp('Germany',Country))
+    %age=[0-19 20-29 30-39 40-49 50-59 60-69 70-79 80-100];
+    
+    load([pwd '\Country_Data\Germany_Age_Vaccination.mat'])
+    fDate=Date==DateN;
+    Vone=[VFirstC(fDate,1)./(N.*Demo(1)) VFirstC(fDate,2)./(N.*sum(Demo(2:5))) VFirstC(fDate,2)./(N.*sum(Demo(2:5))) VFirstC(fDate,2)./(N.*sum(Demo(2:5))) VFirstC(fDate,2)./(N.*sum(Demo(2:5))) VFirstC(fDate,2)./(N.*sum(Demo(2:5))) VFirstC(fDate,3)./(N.*sum(Demo(6:end))) VFirstC(fDate,3)./(N.*sum(Demo(6:end)))];
+    Vsecond=[VTwoC(fDate,1)./(N.*Demo(1)) VTwoC(fDate,2)./(N.*sum(Demo(2:5))) VTwoC(fDate,2)./(N.*sum(Demo(2:5))) VTwoC(fDate,2)./(N.*sum(Demo(2:5))) VTwoC(fDate,2)./(N.*sum(Demo(2:5))) VTwoC(fDate,2)./(N.*sum(Demo(2:5))) VTwoC(fDate,3)./(N.*sum(Demo(6:end))) VTwoC(fDate,3)./(N.*sum(Demo(6:end)))];
+    
+    VacupALO=sum(VFirstC(fDate,1:3))./N;
+    if(sum(fDate)>0)
+        pvac1=Vone; % proportion of the age class to receive at least one dose
+        pvac2=Vsecond; % proportion of the age class fully immunized
         pvac1=pvac1-pvac2; % the proprition of the population partially immunized
-        
+
         % Vaccine coverage based on age-dose-specific efficacy (Note: have notyet removed prev. or recovery)
-        vacup(aa)=(epsvT1(aa).*pvac1+epsvT2(aa).*pvac2); % Do not want to scale by prevalence or seroprevlance as we need to weigh later by immunity
+        vacup=(epsvT1.*pvac1+epsvT2.*pvac2); % Do not want to scale by prevalence or seroprevlance as we need to weigh later by immunity
         % Temp variable for determining hospitalization. Other components
         % will be added later
-        tempH(aa)=-(pvac1+pvac2)+((1-epsvT1(aa)).*(1-epsvH1(aa)).*pvac1+(1-epsvT2(aa)).*(1-epsvH2(aa)).*pvac2); % Subtract prevalence later prevalence as we need to weigh later by immunity
+        tempH=-(pvac1+pvac2)+((1-epsvT1).*(1-epsvH1).*pvac1+(1-epsvT2).*(1-epsvH2).*pvac2); % Subtract prevalence later prevalence as we need to weigh later by immunity
     end
+elseif(strcmp('Netherlands',Country))
+    load([pwd '\Country_Data\Vaccination_Netherlands.mat'],'V1','V2','Date')
+    fDate=Date<=DateN & Date>DateN-7 ;
     
-%     % Determine the different coverage for the country
-%     % [vacup,tempH,VacupALO,vacM,tempHM] = CountryVaccinationFirstStage(Country,DateN,N,Demo)
-%     % Determine the lag between the different coverage in case we want to
-%     % "project" coverage for the different countries
-%     lagV=vacup1-vacup2;
-%     agep=flip(Demo); % needs to flip the age demographics as we prioritize the elderly
-%     ccvac=cumsum(agep); % cumulative sum to determine when other age classes become prioritized
-%     ccvac=flip([0 ccvac(1:end-1)]); % The first threshold should be zero as no one is yet vaccinated. We flip this as we will loop through the lower age class first
-%     vacM=zeros(101,length(epsvT1));
-%     tempHM=zeros(101,length(epsvT1));
-%     for vvv=1:101
-%         for aa=1:length(epsvT1)
-%             VA=(vvv-1)./100; % proportion of the populationto receive at least one dose
-%             VA2=max(VA-lagV,0); % proportion of the population fully vaccinated
-%             pvac1=min(max(VA-ccvac(aa),0)./Demo(aa),1); % proportion of the age class to receive at least one dose
-%             pvac2=min(max(VA2-ccvac(aa),0)./Demo(aa),1); % proportion of the age class fully immunized
-%             pvac1=pvac1-pvac2; % the proprition of the population partially immunized
-% 
-%             % Vaccine coverage based on age-dose-specific efficacy (Note: have notyet removed prev. or recovery)
-%             vacM(vvv,aa)=(epsvT1(aa).*pvac1+epsvT2(aa).*pvac2); % Do not want to scale by prevalence as we need to weigh later by immunity
-%             % Temp variable for determining hospitalization. Other components
-%             % will be added later
-%             tempHM(vvv,aa)=-(pvac1+pvac2)+((1-epsvT1(aa)).*(1-epsvH1(aa)).*pvac1+(1-epsvT2(aa)).*(1-epsvH2(aa)).*pvac2); % Subtract prevalence later prevalence as we need to weigh later by immunity
-%         end
-%     end
-    
-elseif(sum(tA&tp)>0)
-    
-    % If we have NO data for that specified date
-    PeopleVaccinated=pchip(TDate(tA&tp),T.people_vaccinated(tA&tp),DateN); % Inteprolate the number of people who have received at least one dose
-    PeopleFullyVaccinated=pchip(TDate(tA&tp),T.people_fully_vaccinated(tA&tp),DateN); %Inteprolate the number of people who are fully immunized     
-
-
-    vacup1=(PeopleVaccinated)./N; % proportion to receive at least one dose
-    vacup2=(PeopleFullyVaccinated)./N; % proportion fully immunized
-    VacupALO=PeopleVaccinated./N; % proportion to receive at least one dose
-    
-    
-    agep=flip(Demo); % needs to flip the age demographics as we prioritize the elderly
-    ccvac=cumsum(agep); % cumulative sum to determine when other age classes become prioritized
-    ccvac=flip([0 ccvac(1:end-1)]); % The first threshold should be zero as no one is yet vaccinated. We flip this as we will loop through the lower age class first
-    vacup=zeros(size(epsvT1));
-    tempH=zeros(size(epsvT1));
-    for aa=1:length(epsvT1)
-        pvac1=min(max(vacup1-ccvac(aa),0)./Demo(aa),1); % proportion of the age class to receive at least one dose
-        pvac2=min(max(vacup2-ccvac(aa),0)./Demo(aa),1); % proportion of the age class fully immunized
+    if(sum(fDate)>0)
+        VacupALO=sum(V1(fDate,:).*Demo);
+        pvac1=V1(fDate,:); % proportion of the age class to receive at least one dose
+        pvac2=V2(fDate,:); % proportion of the age class fully immunized
         pvac1=pvac1-pvac2; % the proprition of the population partially immunized
-        
+
         % Vaccine coverage based on age-dose-specific efficacy (Note: have notyet removed prev. or recovery)
-        vacup(aa)=(epsvT1(aa).*pvac1+epsvT2(aa).*pvac2); % Do not want to scale by prevalence or seroprevlance as we need to weigh later by immunity
+        vacup=(epsvT1.*pvac1+epsvT2.*pvac2); % Do not want to scale by prevalence or seroprevlance as we need to weigh later by immunity
         % Temp variable for determining hospitalization. Other components
         % will be added later
-        tempH(aa)=-(pvac1+pvac2)+((1-epsvT1(aa)).*(1-epsvH1(aa)).*pvac1+(1-epsvT2(aa)).*(1-epsvH2(aa)).*pvac2); % Subtract prevalence later prevalence as we need to weigh later by immunity
+        tempH=-(pvac1+pvac2)+((1-epsvT1).*(1-epsvH1).*pvac1+(1-epsvT2).*(1-epsvH2).*pvac2); % Subtract prevalence later prevalence as we need to weigh later by immunity
     end
-    
-%     % Determine for different vaccine coverages in the country
-%     % Determine the lag between the different coverage in case we want to
-%     % [vacup,tempH,VacupALO,vacM,tempHM] = CountryVaccinationFirstStage(Country,DateN,N,Demo)
-%     % "project" coverage for the different countries
-%     lagV=vacup1-vacup2;
-%     agep=flip(Demo); % needs to flip the age demographics as we prioritize the elderly
-%     ccvac=cumsum(agep); % cumulative sum to determine when other age classes become prioritized
-%     ccvac=flip([0 ccvac(1:end-1)]); % The first threshold should be zero as no one is yet vaccinated. We flip this as we will loop through the lower age class first
-%     vacM=zeros(101,length(epsvT1));
-%     tempHM=zeros(101,length(epsvT1));
-%     for vvv=1:101
-%         for aa=1:length(epsvT1)
-%             VA=(vvv-1)./100; % proportion of the populationto receive at least one dose
-%             VA2=max(VA-lagV,0); % proportion of the population fully vaccinated
-%             pvac1=min(max(VA-ccvac(aa),0)./Demo(aa),1); % proportion of the age class to receive at least one dose
-%             pvac2=min(max(VA2-ccvac(aa),0)./Demo(aa),1); % proportion of the age class fully immunized
-%             pvac1=pvac1-pvac2; % the proprition of the population partially immunized
-% 
-%             % Vaccine coverage based on age-dose-specific efficacy (Note: have notyet removed prev. or recovery)
-%             vacM(vvv,aa)=(epsvT1(aa).*pvac1+epsvT2(aa).*pvac2); % Do not want to scale by prevalence as we need to weigh later by immunity
-%             % Temp variable for determining hospitalization. Other components
-%             % will be added later
-%             tempHM(vvv,aa)=-(pvac1+pvac2)+((1-epsvT1(aa)).*(1-epsvH1(aa)).*pvac1+(1-epsvT2(aa)).*(1-epsvH2(aa)).*pvac2); % Subtract prevalence later prevalence as we need to weigh later by immunity
-%         end
-%     end
 else
-    % There is no data
     vacup=[];
     tempH=[];
     VacupALO=[];
-end
-
 end
 
