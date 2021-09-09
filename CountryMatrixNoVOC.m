@@ -1,7 +1,7 @@
 function CountryMatrixNoVOC(cFile,AL,AQ)
 
-    load('Country_Data_June_27_2021_Adherence_Level_100.mat','CountryM','cstatusR')
-    TT=[[1:29]' cstatusR];
+    load(['Country_Data_June_27_2021_Adherence_Level_' num2str(AL*100) '.mat'],'CountryM','cstatusR')
+    TT=[[1:length(CountryM)]' cstatusR];
     TEX=sortrows(TT,2);
 
     CountryM=CountryM(TEX(:,1));

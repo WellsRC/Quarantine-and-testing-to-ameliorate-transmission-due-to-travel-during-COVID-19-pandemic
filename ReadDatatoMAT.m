@@ -106,5 +106,5 @@ for nn=4:-1:0
         end
     end
 
-    save(['Country_Data_' DateInter '_Incubation=' num2str(IncubationP) '_Adherence_Level_' num2str(nn*25) '.mat'],'prev','rec','c','N','vac','proH','avgABM','pgeoABM','VTABM','CountryM','pA','cstatusR','Vacup','VOCBetaGH501YV2','VOCAlpha20201201GRY','VOCDeltaG478KV1','Demo')
+    save(['Country_Data_' DateInter{1} '_Incubation=' num2str(IncubationP) '_Adherence_Level_' num2str(nn*25) '.mat'],'prev','rec','c','N','vac','proH','avgABM','pgeoABM','VTABM','CountryM','pA','cstatusR','Vacup','VOCBetaGH501YV2','VOCAlpha20201201GRY','VOCDeltaG478KV1','Demo')
 end
