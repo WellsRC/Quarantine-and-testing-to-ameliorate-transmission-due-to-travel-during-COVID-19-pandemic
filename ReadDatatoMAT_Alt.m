@@ -1,10 +1,10 @@
 clear;
 clc;
 
-IncubationP=8.29;
-DateInterV={'20-Jun-2021','27-Jun-2021',    '04-Jul-2021',    '11-Jul-2021',    '18-Jul-2021',    '25-Jul-2021',    '01-Aug-2021',    '08-Aug-2021'};
+IncubationP=5.723;
+DateInterV={'20-Jun-2021','27-Jun-2021',    '04-Jul-2021',    '11-Jul-2021',    '18-Jul-2021',    '25-Jul-2021',    '01-Aug-2021'};
 pA=[81.91 77.59 77.59 69.46 69.46 64.54 64.54 35.44]./100;
-for nn=1:8
+for nn=1:7
     AL=1;
     DateInter=DateInterV{nn};
     

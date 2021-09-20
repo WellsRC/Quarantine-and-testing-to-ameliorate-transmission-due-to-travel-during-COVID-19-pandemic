@@ -3,12 +3,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
 clear;
 clc;
-load('Country_Data_June_27_2021_Adherence_Level_100.mat');
+DateI={'August 8, 2021'};
+IncubationP=5.723;
+load('Country_Data_August 8, 2021_Incubation=5.723_Adherence_Level_100.mat');
 
 AL=1;
 AQ=1;
 
-tempV=VTABM./repmat(N,1,29);
+tempV=VTABM./repmat(N,1,length(CountryM));
 
 meddAB=median(avgABM(avgABM>=0));
 stddAB=std(avgABM(avgABM>=0));
@@ -30,13 +32,13 @@ mednage=median(Demo,1);
 stdnage=std(Demo,1);
 
 
-TT=[[1:29]' cstatusR];
+TT=[[1:length(CountryM)]' cstatusR];
 TEX=sortrows(TT,2);
 
 CountryM=CountryM(TEX(:,1));
 CSR=TEX(:,2);
 
-cFile='Quarantine_RTPCR_Exit';
+cFile='Shorter_Incubation_Quarantine_RTPCR_Exit';
 
 
 NM=length(CountryM);
@@ -57,7 +59,7 @@ RNIVOC=0;
 
 for ii=1:NM
     for jj=1:NM
-        [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),AL,cFile);
+        [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),AL,DateI,IncubationP);
         if(~isempty(prevA))
             
             for pp=1:16

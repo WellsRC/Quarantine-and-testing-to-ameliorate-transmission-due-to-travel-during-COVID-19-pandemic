@@ -1,14 +1,7 @@
-function TrafficLightAnalysis(cFile,AL,AQ)
-if(contains(cFile,'Shorter'))
-    Incubation=5.723;
-elseif(contains(cFile,'Longer'))
-    Incubation=11.6616;
-else
-    Incubation=8.29;
-end
-load(['Country_Data_June_27_2021_Adherence_Level_' num2str(AL*100) '.mat'],'pA','N','VTABM','avgABM','rec','Vacup');
+function TrafficLightAnalysis(cFile,DateI,AL,AQ,IncubationP)
+load(['Country_Data_' DateI{1} '_Incubation=' num2str(IncubationP) '_Adherence_Level_' num2str(AL*100) '.mat'],'pA','N','VTABM','avgABM','rec','Vacup');
 rec=rec(:,1); % currently immunity is uniform. can take the first row and then compute the mean later
-VABtemp=VTABM./repmat(N,1,29);
+VABtemp=VTABM./repmat(N,1,length(N));
 VABtemp=mean(VABtemp(VABtemp>=0));
 
 recAU=mean(rec(~isnan(rec)));
@@ -39,7 +32,7 @@ REPSVOC=0;
 RNIVOC=0;
 for ii=1:NM
     for jj=1:NM
-        [prevA,prevB,vacupA,vacupB,recA,recB,NA,NB,cA,cB,~,~,nageA,nageB] = TrafficDataReturn(StatusC(ii),StatusC(jj),vacA,vacB,recAU,recBU,NA,NB,pA,AL,Incubation);
+        [prevA,prevB,vacupA,vacupB,recA,recB,NA,NB,cA,cB,~,~,nageA,nageB] = TrafficDataReturn(StatusC(ii),StatusC(jj),recAU,recBU,NA,NB,pA,AL,DateI,IncubationP);
             
         [qA,~] = DetermineQuarantine(qR,nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacupA,vacupB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,AQ,cFile);
         if(~isempty(qA))
@@ -49,7 +42,7 @@ for ii=1:NM
         end
     end
 end
-save(['Traffic_NO_VOC_Quarantine_' cFile '_AL=' num2str(100*AL) '_AQ=' num2str(AQ*100) '.mat']);
+save(['Traffic_NO_VOC_Quarantine_' cFile '_AL=' num2str(100*AL) '_AQ=' num2str(AQ*100) '_' DateI{1} '.mat']);
 if(contains(cFile,'RTPCR_Exit'))
     splotn=2;
 elseif(contains(cFile,'NoTest'))
@@ -60,4 +53,4 @@ else
     splotn=3;
 end
 PlotQuarantineMatrixTraffic({'25','150','500','1000'},QM,splotn)
-print(gcf,['Figure3_' cFile '.eps'],'-depsc','-r600');
+print(gcf,['Figure3_' cFile '_' DateI{1} '.eps'],'-depsc','-r600');

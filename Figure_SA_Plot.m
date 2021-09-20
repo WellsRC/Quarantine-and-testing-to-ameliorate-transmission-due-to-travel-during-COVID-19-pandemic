@@ -32,7 +32,7 @@ figure('units','normalized','outerposition',[0.0 0.05 1 0.6]);
         if(ii<=16)
             subplot('Position',[0.05+0.33.*(ii-(1+3*(jj-1))),0.245,0.28,0.68]); 
             bar([-15:15],[PInc(STDPI(ii),:); PDec(STDPI(ii),:)],'Stacked','LineStyle','none');
-            text(-7.4,550*0.98,['Standard deviation:' num2str(STDP(STDPI(ii)),'%4.3f')],'Fontsize',18);
+            text(-7.4,450*0.98,['Standard deviation:' num2str(STDP(STDPI(ii)),'%4.3f')],'Fontsize',18);
             title(Name(STDPI(ii)),'Fontsize',14)
             fprintf([Name{STDPI(ii)} '\n']);
             NBCR=PInc(STDPI(ii),1)+PDec(STDPI(ii),1);
@@ -42,7 +42,7 @@ figure('units','normalized','outerposition',[0.0 0.05 1 0.6]);
             fprintf('Removal border closure: %4.3f \n \n',100.*(NBCR./NSum));
             
             xlim([-10.5 10.5]);
-            ylim([0 550])
+            ylim([0 450])
             box off;
             set(gca,'XTick',[-10:1:10],'Fontsize',18,'LineWidth',2','Tickdir','out');
             xtickangle(90);
@@ -51,7 +51,7 @@ figure('units','normalized','outerposition',[0.0 0.05 1 0.6]);
             if(jj*ii==1)
                 legend('Increase in parameter','Decrease in parameter','Fontsize',16,'Position',[0.184523812920398,0.73303303593272,0.14075629912442,0.10540540250572])
             end
-            text(-8.663658536585366*21/13,371.14.*550/350,char(64+ii),'Fontsize',32','FontWeight','bold');
+            text(-8.663658536585366*21/13,371.14.*450/350,char(64+ii),'Fontsize',32','FontWeight','bold');
         end
     end
     print(gcf,['SA-' num2str(jj) '.png'],'-dpng','-r600');

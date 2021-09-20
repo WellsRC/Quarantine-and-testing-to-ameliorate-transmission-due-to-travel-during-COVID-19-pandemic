@@ -6,121 +6,75 @@ clc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% 100% Adherence
-% RT-PCR on Exit
-CountryMatrixNoVOC('Quarantine_RTPCR_Exit',1,1)
-% RA test on Exit
-CountryMatrixNoVOC('Quarantine_BDVeritor_Exit',1,1)
-% RA test on Entry and Exit
-CountryMatrixNoVOC('Quarantine_BDVeritor_Entry_Exit',1,1)
-% NoTest
-CountryMatrixNoVOC('NoTest',1,1)
+IncubationP=5.723;
+DateI={'August 8, 2021'};
+switch IncubationP
+    case 5.723
+        cFile={'Shorter_Incubation_Quarantine_RTPCR_Exit','Shorter_Incubation_Quarantine_BDVeritor_Exit','Shorter_Incubation_Quarantine_BDVeritor_Entry_Exit','Shorter_Incubation_NoTest'};
+    case 8.29
+        cFile={'Quarantine_RTPCR_Exit','Quarantine_BDVeritor_Exit','Quarantine_BDVeritor_Entry_Exit','NoTest'};
+    case 11.66
+        cFile={'Longer_Incubation_Quarantine_RTPCR_Exit','Longer_Incubation_Quarantine_BDVeritor_Exit','Longer_Incubation_Quarantine_BDVeritor_Entry_Exit','Longer_Incubation_NoTest'};
+end
 
-% RT-PCR on Exit
-CountryMatrix_Hospital('Quarantine_RTPCR_Exit',1,1)
-% RA test on Exit
-CountryMatrix_Hospital('Quarantine_BDVeritor_Exit',1,1)
-% RA test on Entry and Exit
-CountryMatrix_Hospital('Quarantine_BDVeritor_Entry_Exit',1,1)
-% NoTest
-CountryMatrix_Hospital('NoTest',1,1)
+DateInterV={'20-Jun-2021','27-Jun-2021',    '04-Jul-2021',    '11-Jul-2021',    '18-Jul-2021',    '25-Jul-2021',    '01-Aug-2021','August 8, 2021'};
 
-%Not test
-CountryMatrix_Hospital_NoTravel('NoTest',1,1)
-
-
-%% 100% Adherence
-% RT-PCR on Exit
-TrafficLightAnalysis('Quarantine_RTPCR_Exit',1,1)
-% RA test on Exit
-TrafficLightAnalysis('Quarantine_BDVeritor_Exit',1,1)
-% RA test on Entry and Exit
-TrafficLightAnalysis('Quarantine_BDVeritor_Entry_Exit',1,1)
-% NoTest
-TrafficLightAnalysis('NoTest',1,1)
-
-%% 75% Adherence to self isolation
-% RT-PCR on Exit
-CountryMatrixNoVOC('Quarantine_RTPCR_Exit',0.75,1)
-
-%% 50% Adherenceto self isolation
-% RT-PCR on Exit 
-CountryMatrixNoVOC('Quarantine_RTPCR_Exit',0.50,1)
-
-%% 25% Adherenceto self isolation
-% RT-PCR on Exit 
-CountryMatrixNoVOC('Quarantine_RTPCR_Exit',0.25,1)
+for ii=1:4
+    CountryMatrixNoVOC(cFile{ii},DateI,1,1,IncubationP);
+        
+    TrafficLightAnalysis(cFile{ii},DateI,1,1,IncubationP);
+    
+    CountryMatrixNoVOCAirline(cFile{ii},DateI,1,1,IncubationP);
+end
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+% % Alternative Dates
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 
 
-%% 75% Adherence to Quaratnine
-CountryMatrixNoVOC('Quarantine_RTPCR_Exit',1,0.75)
-%% 50% Adherence to Quaratnine
-CountryMatrixNoVOC('Quarantine_RTPCR_Exit',1,0.5)
-%% 25% Adherence to Quaratnine
-CountryMatrixNoVOC('Quarantine_RTPCR_Exit',1,0.25)
+CountryMatrixNoVOCTimeVary(cFile{1},DateInterV,1,1,IncubationP)
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Wells et al
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+% Adherence
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 
-%% 100% Adherence
-% RT-PCR on Exit
-CountryMatrixNoVOC('NatComm-Quarantine_RTPCR_Exit',1,1)
-% RA test on Exit
-CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Exit',1,1)
-% RA test on Entry and Exit
-CountryMatrixNoVOC('NatComm-Quarantine_BDVeritor_Entry_Exit',1,1)
+for ii=3:-1:1
+    CountryMatrixNoVOC(cFile{1},DateI,0.25*ii,1,IncubationP);
+    CountryMatrixNoVOC(cFile{1},DateI,1,0.25*ii,IncubationP);
+end
 
 
-%% 100% Adherence
-% RT-PCR on Exit
-TrafficLightAnalysis('NatComm-Quarantine_RTPCR_Exit',1,1)
-% RA test on Exit
-TrafficLightAnalysis('NatComm-Quarantine_BDVeritor_Exit',1,1)
-% RA test on Entry and Exit
-TrafficLightAnalysis('NatComm-Quarantine_BDVeritor_Entry_Exit',1,1)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+% Incubation Period
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+IncubationP=8.29;
+DateI={'August 8, 2021'};
+switch IncubationP
+    case 5.723
+        cFile={'Shorter_Incubation_Quarantine_RTPCR_Exit','Shorter_Incubation_Quarantine_BDVeritor_Exit','Shorter_Incubation_Quarantine_BDVeritor_Entry_Exit','Shorter_Incubation_NoTest'};
+    case 8.29
+        cFile={'Quarantine_RTPCR_Exit','Quarantine_BDVeritor_Exit','Quarantine_BDVeritor_Entry_Exit','NoTest'};
+    case 11.66
+        cFile={'Longer_Incubation_Quarantine_RTPCR_Exit','Longer_Incubation_Quarantine_BDVeritor_Exit','Longer_Incubation_Quarantine_BDVeritor_Entry_Exit','Longer_Incubation_NoTest'};
+end
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Shorter incubation period
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+for ii=1:4
+    CountryMatrixNoVOC(cFile{ii},DateI,1,1,IncubationP);
+    TrafficLightAnalysis(cFile{ii},DateI,1,1,IncubationP);
+end
 
-% RT-PCR on Exit
-CountryMatrixNoVOC('Shorter_Incubation_Quarantine_RTPCR_Exit',1,1)
-% RA test on Exit
-CountryMatrixNoVOC('Shorter_Incubation_Quarantine_BDVeritor_Exit',1,1)
-% RA test on Entry and Exit
-CountryMatrixNoVOC('Shorter_Incubation_Quarantine_BDVeritor_Entry_Exit',1,1)
-% NoTest
-CountryMatrixNoVOC('Shorter_Incubation_NoTest',1,1)
+IncubationP=11.66;
+DateI={'August 8, 2021'};
+switch IncubationP
+    case 5.723
+        cFile={'Shorter_Incubation_Quarantine_RTPCR_Exit','Shorter_Incubation_Quarantine_BDVeritor_Exit','Shorter_Incubation_Quarantine_BDVeritor_Entry_Exit','Shorter_Incubation_NoTest'};
+    case 8.29
+        cFile={'Quarantine_RTPCR_Exit','Quarantine_BDVeritor_Exit','Quarantine_BDVeritor_Entry_Exit','NoTest'};
+    case 11.66
+        cFile={'Longer_Incubation_Quarantine_RTPCR_Exit','Longer_Incubation_Quarantine_BDVeritor_Exit','Longer_Incubation_Quarantine_BDVeritor_Entry_Exit','Longer_Incubation_NoTest'};
+end
 
-% RT-PCR on Exit
-TrafficLightAnalysis('Shorter_Incubation_Quarantine_RTPCR_Exit',1,1)
-% RA test on Exit
-TrafficLightAnalysis('Shorter_Incubation_Quarantine_BDVeritor_Exit',1,1)
-% RA test on Entry and Exit
-TrafficLightAnalysis('Shorter_Incubation_Quarantine_BDVeritor_Entry_Exit',1,1)
-% NoTest
-TrafficLightAnalysis('Shorter_Incubation_NoTest',1,1)
+for ii=1:4
+    CountryMatrixNoVOC(cFile{ii},DateI,1,1,IncubationP);
+    TrafficLightAnalysis(cFile{ii},DateI,1,1,IncubationP);
+end
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Longer incubation period
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-% RT-PCR on Exit
-CountryMatrixNoVOC('Longer_Incubation_Quarantine_RTPCR_Exit',1,1)
-% RA test on Exit
-CountryMatrixNoVOC('Longer_Incubation_Quarantine_BDVeritor_Exit',1,1)
-% RA test on Entry and Exit
-CountryMatrixNoVOC('Longer_Incubation_Quarantine_BDVeritor_Entry_Exit',1,1)
-% NoTest
-CountryMatrixNoVOC('Longer_Incubation_NoTest',1,1)
-
-% RT-PCR on Exit
-TrafficLightAnalysis('Longer_Incubation_Quarantine_RTPCR_Exit',1,1)
-% RA test on Exit
-TrafficLightAnalysis('Longer_Incubation_Quarantine_BDVeritor_Exit',1,1)
-% RA test on Entry and Exit
-TrafficLightAnalysis('Longer_Incubation_Quarantine_BDVeritor_Entry_Exit',1,1)
-% NoTest
-TrafficLightAnalysis('Longer_Incubation_NoTest',1,1)

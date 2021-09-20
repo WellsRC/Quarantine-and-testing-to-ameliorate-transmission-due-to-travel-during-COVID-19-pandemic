@@ -5,7 +5,7 @@ clear;
 % tiers
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
 
-load(['Country_NO_VOC_Quarantine_Quarantine_RTPCR_Exit_AL=100_AQ=100.mat'],'QM','CSR');
+load(['Country_NO_VOC_Quarantine_Shorter_Incubation_Quarantine_RTPCR_Exit_AL=100_AQ=100_August 8, 2021.mat'],'QM','CSR');
 
 CSTATUS=[25 150 500 10^6]; % last entry is just to serve as an upper bound
 fprintf('=============================================================================== \n');
@@ -102,54 +102,25 @@ end
 fprintf('=============================================================================== \n');
 fprintf('Varaints of concern \n');
 fprintf('=============================================================================== \n');
-load(['Country_NO_VOC_Quarantine_Quarantine_RTPCR_Exit_AL=100_AQ=100.mat'],'QM','CSR');
+load(['Country_NO_VOC_Quarantine_Shorter_Incubation_Quarantine_RTPCR_Exit_AL=100_AQ=100_August 8, 2021.mat'],'QM','CSR');
 
 QMNVOC=QM;
 
-load(['Country_VOC_Quarantine_Quarantine_RTPCR_Exit_AL=100_AQ=100.mat'],'QM');
+load(['Country_VOC_Quarantine_Shorter_Incubation_Quarantine_RTPCR_Exit_AL=100_AQ=100_August 8, 2021.mat'],'QM');
 
 
 fprintf('Median quarantine duration when NOT accounting for VOC: %3.2f \n',median(QMNVOC(QMNVOC>=0)));
 fprintf('Median quarantine duration when NOT accounting for VOC (same pairs as VOC analysis): %3.2f \n',median(QMNVOC(QM>=0)));
-fprintf('Median increase in quarantine duration when accoutning for VOC: %3.2f \n',median(QM(QM>=0)));
+fprintf('Median quarantine duration when accoutning for VOC: %3.2f \n',median(QM(QM>=0)));
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
-% Wells et al vs Hellewell et al
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-load(['Country_NO_VOC_Quarantine_Quarantine_RTPCR_Exit_AL=100_AQ=100.mat'],'QM');
-QMH=QM;
-load(['Country_NO_VOC_Quarantine_NatComm-Quarantine_RTPCR_Exit_AL=100_AQ=100.mat'],'QM');
-
-fprintf('=============================================================================== \n');
-fprintf('Wells et al vs Hellewell et al \n');
-fprintf('=============================================================================== \n');
-
-fprintf('Median quarantine for Hellewell et al: %3.2f \n',median(QMH(QMH>=0)));
-fprintf('Median quarantine for Wells et al: %3.2f \n',median(QM(QM>=0)));
-
-fprintf('Median non-zero quarantine for Hellewell et al: %3.2f \n',median(QMH(QMH>0)));
-fprintf('Median non-zero quarantine for Wells et al: %3.2f \n',median(QM(QM>0)));
-
-dQ=QM-QMH;
-fprintf('Maximum difference in the specified quarantine (Remove border closure): %3.2f \n',max(dQ(QM>=0 & QM<15)));
-fprintf('Minimum difference in the specified quarantine (Remove border closure): %3.2f \n',min(dQ(QM>=0 & QM<15)));
-
-
-fprintf('Maximum difference in the specified quarantine: %3.2f \n',max(dQ(QM>=0)));
-fprintf('Minimum difference in the specified quarantine: %3.2f \n',min(dQ(QM>=0)));
-
-perC=length(dQ(QM>=0 & dQ<0))./length(dQ(QM>=0));
-fprintf('Percentage of the specified quarantines that decreased: %3.1f %% \n',100*perC);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 % Incubation period
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-load(['Country_NO_VOC_Quarantine_Quarantine_RTPCR_Exit_AL=100_AQ=100.mat'],'QM');
-QML=QM;
-load(['Country_NO_VOC_Quarantine_Shorter_Incubation_Quarantine_RTPCR_Exit_AL=100_AQ=100.mat'],'QM');
+load(['Country_NO_VOC_Quarantine_Shorter_Incubation_Quarantine_RTPCR_Exit_AL=100_AQ=100_August 8, 2021.mat'],'QM');
+QMH=QM;
+load(['Country_NO_VOC_Quarantine_Quarantine_RTPCR_Exit_AL=100_AQ=100_August 8, 2021.mat'],'QM');
 
 fprintf('=============================================================================== \n');
 fprintf('8.29 day incubatino period vs 5.72 day incubation period et al \n');
@@ -160,24 +131,24 @@ dQ=QM-QMH;
 
 perC=length(dQ(QM>=0 & dQ==0))./length(dQ(QM>=0));
 
-fprintf('Percentage of the specified quarantines that DID NOT CHANGE for shorter incubation: %3.1f %% \n',100*perC);
+fprintf('Percentage of the specified quarantines that DID NOT CHANGE for increase to 8.29 day incubation period: %3.1f %% \n',100*perC);
 
-diffMed=median(QM(QM>=0 & dQ~=0))-median(QML(QM>=0 & dQ~=0));
+diffMed=median(QM(QM>=0 & dQ~=0))-median(QMH(QM>=0 & dQ~=0));
 
-fprintf('Change in the median quarantine due to the shorter incubation period: %3.2f \n',diffMed);
+fprintf('Change in the median quarantine due to the increase in incubation period to 8.29 days: %3.2f \n',diffMed);
 
 
-fprintf('Percent 0-day quarantines for the shorter incubation period: %3.1f %% \n',100.*length(QM(QM==0))./length(QM(QM>=0)));
+fprintf('Percent 0-day quarantines for increase in incubation period to 8.29 days: %3.1f %% \n',100.*length(QM(QM==0))./length(QM(QM>=0)));
 fprintf('Percent 0-day quarantines for the baseline incubation period: %3.1f %% \n',100.*length(QMH(QMH==0))./length(QMH(QMH>=0)));
 
 
 fprintf('=============================================================================== \n');
-fprintf('8.29 day incubatino period vs 11.7 day incubation period et al \n');
+fprintf('5.72 day incubatino period vs 11.7 day incubation period et al \n');
 fprintf('=============================================================================== \n');
 
-load(['Country_NO_VOC_Quarantine_Quarantine_RTPCR_Exit_AL=100_AQ=100.mat'],'QM');
-QML=QM;
-load(['Country_NO_VOC_Quarantine_Longer_Incubation_Quarantine_RTPCR_Exit_AL=100_AQ=100.mat'],'QM');
+load(['Country_NO_VOC_Quarantine_Shorter_Incubation_Quarantine_RTPCR_Exit_AL=100_AQ=100_August 8, 2021.mat'],'QM');
+QMH=QM;
+load(['Country_NO_VOC_Quarantine_Longer_Incubation_Quarantine_RTPCR_Exit_AL=100_AQ=100_August 8, 2021.mat'],'QM');
 
 
 dQ=QM-QMH;
@@ -186,7 +157,7 @@ perC=length(dQ(QM>=0 & dQ==0))./length(dQ(QM>=0));
 
 fprintf('Percentage of the specified quarantines that DID NOT CHANGE for longer incubation: %3.1f %% \n',100*perC);
 
-diffMed=median(QM(QM>=0 & dQ~=0))-median(QML(QM>=0 & dQ~=0));
+diffMed=median(QM(QM>=0 & dQ~=0))-median(QMH(QM>=0 & dQ~=0));
 
 fprintf('Change in the median quarantine due to the longer incubation period: %3.2f \n',diffMed);
 
@@ -200,13 +171,13 @@ fprintf('Percent 0-day quarantines for the baseline incubation period: %3.1f %% 
 fprintf('=============================================================================== \n');
 fprintf('Adherence to self-isolation \n');
 fprintf('=============================================================================== \n');
-load(['Country_NO_VOC_Quarantine_Quarantine_RTPCR_Exit_AL=100_AQ=100.mat'],'QM');
+load(['Country_NO_VOC_Quarantine_Shorter_Incubation_Quarantine_RTPCR_Exit_AL=100_AQ=100_August 8, 2021.mat'],'QM');
 QM100=QM;
-load(['Country_NO_VOC_Quarantine_Quarantine_RTPCR_Exit_AL=75_AQ=100.mat'],'QM');
+load(['Country_NO_VOC_Quarantine_Shorter_Incubation_Quarantine_RTPCR_Exit_AL=75_AQ=100_August 8, 2021.mat'],'QM');
 QM75=QM;
-load(['Country_NO_VOC_Quarantine_Quarantine_RTPCR_Exit_AL=50_AQ=100.mat'],'QM');
+load(['Country_NO_VOC_Quarantine_Shorter_Incubation_Quarantine_RTPCR_Exit_AL=50_AQ=100_August 8, 2021.mat'],'QM');
 QM50=QM;
-load(['Country_NO_VOC_Quarantine_Quarantine_RTPCR_Exit_AL=25_AQ=100.mat'],'QM');
+load(['Country_NO_VOC_Quarantine_Shorter_Incubation_Quarantine_RTPCR_Exit_AL=25_AQ=100_August 8, 2021.mat'],'QM');
 QM25=QM;
 
 
@@ -229,16 +200,48 @@ fprintf('Percentage of pairs that changed quarantine duration for 25%% adherence
 fprintf('=============================================================================== \n');
 fprintf('Adherence to quarantine \n');
 fprintf('=============================================================================== \n');
-load(['Country_NO_VOC_Quarantine_Quarantine_RTPCR_Exit_AL=100_AQ=100.mat'],'QM');
+load(['Country_NO_VOC_Quarantine_Shorter_Incubation_Quarantine_RTPCR_Exit_AL=100_AQ=100_August 8, 2021.mat'],'QM');
 QM100=QM;
-load(['Country_NO_VOC_Quarantine_Quarantine_RTPCR_Exit_AL=100_AQ=75.mat'],'QM');
+load(['Country_NO_VOC_Quarantine_Shorter_Incubation_Quarantine_RTPCR_Exit_AL=100_AQ=75_August 8, 2021.mat'],'QM');
 QM75=QM;
-load(['Country_NO_VOC_Quarantine_Quarantine_RTPCR_Exit_AL=100_AQ=50.mat'],'QM');
+load(['Country_NO_VOC_Quarantine_Shorter_Incubation_Quarantine_RTPCR_Exit_AL=100_AQ=50_August 8, 2021.mat'],'QM');
 QM50=QM;
-load(['Country_NO_VOC_Quarantine_Quarantine_RTPCR_Exit_AL=100_AQ=25.mat'],'QM');
+load(['Country_NO_VOC_Quarantine_Shorter_Incubation_Quarantine_RTPCR_Exit_AL=100_AQ=25_August 8, 2021.mat'],'QM');
 QM25=QM;
 
 fprintf('Percentage of pairs that require no travel for 100%% adherence to quarantine: %3.1f \n',100*length(QM100(QM100==15))./length(QM100(QM100>=0)));
 fprintf('Percentage of pairs that require no travel for 75%% adherence to quarantine: %3.1f \n',100*length(QM75(QM75==15))./length(QM75(QM75>=0)));
 fprintf('Percentage of pairs that require no travel for 50%% adherence to quarantine: %3.1f \n',100*length(QM50(QM50==15))./length(QM50(QM50>=0)));
 fprintf('Percentage of pairs that require no travel for 25%% adherence to quarantine: %3.1f \n',100*length(QM25(QM25==15))./length(QM25(QM25>=0)));
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
+% AIRLINE DATA
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+fprintf('=============================================================================== \n');
+fprintf('Airline data\n');
+fprintf('=============================================================================== \n');
+
+load(['Country_NO_VOC_Quarantine_Shorter_Incubation_Quarantine_RTPCR_Exit_AL=100_AQ=100_August 8, 2021.mat'],'QM');
+QMB=QM;
+load('Country_NO_VOC_Quarantine_Shorter_Incubation_NoTest_AL=100_AQ=100_AIRLINE_August 8, 2021.mat','QM');
+
+
+QRB=QMB(QM>=0 & QMB>=0);
+QR=QM(QM>=0 & QMB>=0);
+
+
+fprintf('Percent 0-day quarantines for baseline: %3.1f  %%\n',100.*length(QRB(QRB==0))./length(QRB(QRB>=0)));
+fprintf('Percent 0-day quarantines for Airline: %3.1f %% \n',100.*length(QR(QR==0))./length(QR(QR>=0)));
+
+
+fprintf('Percent closures for baseline: %3.1f  %%\n',100.*length(QRB(QRB==15))./length(QRB(QRB>=0)));
+fprintf('Percent closures for Airline: %3.1f %% \n',100.*length(QR(QR==15))./length(QR(QR>=0)));
+
+dQ=QRB-QR;
+fprintf('Percentage that are the different quarantine: %3.1f %% \n',100.*sum(dQ~=0)./length(dQ));
+fprintf('Median among those that are different: %3.1f \n',median(dQ(dQ~=0)));
+
+fprintf('Median among those that are different (No Closures): %3.1f  \n',median(dQ(dQ~=0 & QR<15 & QRB<15)));

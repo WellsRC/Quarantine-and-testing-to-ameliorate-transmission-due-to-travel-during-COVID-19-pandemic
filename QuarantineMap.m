@@ -37,8 +37,8 @@ for ii=1:length(Country)
         geoshow(X(ts), 'FaceColor', cmap(QM(ii)+1,:),'LineWidth',1.5)
     end
 end
-text(mean([-0.1886    0.8640]),1.53568281938326,CountryS,'Fontsize',20,'HorizontalAlignment','center');
-set(gca,'Xlim',[-0.1886    0.8640],'Ylim',[0.6 1.5],'visible','off');
-text(-0.2475,1.533700440528635,char(64+splot),'Fontsize',32,'FontWeight','bold')
+text(mean([-0.1886    0.56]),1.5848,CountryS,'Fontsize',20,'HorizontalAlignment','center');
+set(gca,'Xlim',[-0.1886    0.56],'Ylim',[0.62 1.55],'visible','off');
+text(-0.2475,1.5848,char(64+splot),'Fontsize',32,'FontWeight','bold')
 end
 

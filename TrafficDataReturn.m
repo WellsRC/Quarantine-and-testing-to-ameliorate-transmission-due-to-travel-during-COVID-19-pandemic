@@ -1,9 +1,11 @@
-function [prevA,prevB,vacupA,vacupB,recA,recB,NA,NB,cA,cB,proHA,proHB,DemoA,DemoB] = TrafficDataReturn(StatusA,StatusB,vacA,vacB,recA,recB,NA,NB,pA,AL,Incubation)
+function [prevA,prevB,vacupA,vacupB,recA,recB,NA,NB,cA,cB,proHA,proHB,DemoA,DemoB] = TrafficDataReturn(StatusA,StatusB,recA,recB,NA,NB,pA,AL,Date,Incubation)
 
 Demo=[0.210888011 0.11534318 0.141457647 0.139470807 0.140165756 0.121345549 0.078708003 0.052621047];
 h=[0.1 0.5 1.1 1.4 2.9 5.8 9.3 26.2]./100;
-epsT=[50 50 50 48 48 48 47 47]./100;
-epsH=[50 50 50 74 74 74 57 57]./100;
+
+
+
+[epsvT1,epsvT2,epsvH1,epsvH2] = VaccineEfficacy;
 
 
 DemoA=Demo;
@@ -17,30 +19,60 @@ cB=((StatusB./100000)/14);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
 % Set-up first part of vaccination
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
-agep=flip(DemoA);
-ccvac=cumsum(agep);
-ccvac=flip([0 ccvac(1:end-1)]);
-vacupA=zeros(size(epsT));
-tempHA=zeros(size(epsT));
-for aa=1:length(recA)
-    pvac=min(max(vacA-ccvac(aa),0)./DemoA(aa),1);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55fDate=datenum(T.ReportingWeek)<=DateN & datenum(T.ReportingWeek)>DateN-7 ;
+%age=[0-19 20-29 30-39 40-49 50-59 60-69 70-79 80-100];
+DateN=datenum(Date);
 
-    vacupA(aa)=epsT(aa).*pvac; % Do not want to scale by prevalence or seroprevlance as we need to weigh later by immunity
-    tempHA(aa)=-(pvac)+((1-epsT(aa)).*(1-epsH(aa)).*pvac); % Subtract prevalence later prevalence as we need to weigh later by immunity
-end
+load('DateEurope_Vaccinate.mat');
+DateV={Date_One{:,1}};
+fDate=datenum(DateV)<=DateN & datenum(DateV)>DateN-7 ;
+T=[Date_One{fDate,2:end}];
 
-agep=flip(DemoB);
-ccvac=cumsum(agep);
-ccvac=flip([0 ccvac(1:end-1)]);
-vacupB=zeros(size(epsT));
-tempHB=zeros(size(epsT));
-for aa=1:length(recB)
-    pvac=min(max(vacB-ccvac(aa),0)./DemoB(aa),1);
+% [20-24 25-49]
+WDV=[39710692 256376663]; % Age demographics for 20-49 age group across Europe
+V1=[T(1) (T(2).*WDV(1)+T(3).*WDV(2))./sum(WDV) (T(2).*WDV(1)+T(3).*WDV(2))./sum(WDV) (T(2).*WDV(1)+T(3).*WDV(2))./sum(WDV) T(4) T(5) T(6) T(7)];
 
-    vacupB(aa)=epsT(aa).*pvac; % Do not want to scale by prevalence or seroprevlance as we need to weigh later by immunity
-    tempHB(aa)=-(pvac)+((1-epsT(aa)).*(1-epsH(aa)).*pvac); % Subtract prevalence later prevalence as we need to weigh later by immunity
-end
+
+DateV={Date_Full{:,1}};
+fDate=datenum(DateV)<=DateN & datenum(DateV)>DateN-7 ;
+T=[Date_Full{fDate,2:end}];
+
+V2=[T(1) (T(2).*WDV(1)+T(3).*WDV(2))./sum(WDV) (T(2).*WDV(1)+T(3).*WDV(2))./sum(WDV) (T(2).*WDV(1)+T(3).*WDV(2))./sum(WDV) T(4) T(5) T(6) T(7)];
+
+pvac1=V1; % proportion of the age class to receive at least one dose
+pvac2=V2; % proportion of the age class fully immunized
+pvac1=pvac1-pvac2; % the proprition of the population partially immunized
+
+% Vaccine coverage based on age-dose-specific efficacy (Note: have notyet removed prev. or recovery)
+vacupA=(epsvT1.*pvac1+epsvT2.*pvac2); % Do not want to scale by prevalence or seroprevlance as we need to weigh later by immunity
+% Temp variable for determining hospitalization. Other components
+% will be added later
+tempHA=-(pvac1+pvac2)+((1-epsvT1).*(1-epsvH1).*pvac1+(1-epsvT2).*(1-epsvH2).*pvac2); % Subtract prevalence later prevalence as we need to weigh later by immunity
+
+DateV={Date_One{:,1}};
+fDate=datenum(DateV)<=DateN & datenum(DateV)>DateN-7 ;
+T=[Date_One{fDate,2:end}];
+
+% [20-24 25-49]
+WDV=[39710692 256376663]; % Age demographics for 20-49 age group across Europe
+V1=[T(1) (T(2).*WDV(1)+T(3).*WDV(2))./sum(WDV) (T(2).*WDV(1)+T(3).*WDV(2))./sum(WDV) (T(2).*WDV(1)+T(3).*WDV(2))./sum(WDV) T(4) T(5) T(6) T(7)];
+
+
+DateV={Date_Full{:,1}};
+fDate=datenum(DateV)<=DateN & datenum(DateV)>DateN-7 ;
+T=[Date_Full{fDate,2:end}];
+
+V2=[T(1) (T(2).*WDV(1)+T(3).*WDV(2))./sum(WDV) (T(2).*WDV(1)+T(3).*WDV(2))./sum(WDV) (T(2).*WDV(1)+T(3).*WDV(2))./sum(WDV) T(4) T(5) T(6) T(7)];
+
+pvac1=V1; % proportion of the age class to receive at least one dose
+pvac2=V2; % proportion of the age class fully immunized
+pvac1=pvac1-pvac2; % the proprition of the population partially immunized
+
+% Vaccine coverage based on age-dose-specific efficacy (Note: have notyet removed prev. or recovery)
+vacupB=(epsvT1.*pvac1+epsvT2.*pvac2); % Do not want to scale by prevalence or seroprevlance as we need to weigh later by immunity
+% Temp variable for determining hospitalization. Other components
+% will be added later
+tempHB=-(pvac1+pvac2)+((1-epsvT1).*(1-epsvH1).*pvac1+(1-epsvT2).*(1-epsvH2).*pvac2); % Subtract prevalence later prevalence as we need to weigh later by immunity
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
 % Set-up prevalence and remaining vaccination

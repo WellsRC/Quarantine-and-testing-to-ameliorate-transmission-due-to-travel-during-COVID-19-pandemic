@@ -6,16 +6,20 @@ clear;
 clc;
 AL=1;
 AQ=1;
-CountrySS={'Romania','Czech Republic','Finland','Luxembourg','Cyprus','United Kingdom'};
-for ccc=1:6
-    load('Country_Data_June_27_2021_Adherence_Level_100.mat','CountryM','cstatusR')
-    TT=[[1:29]' cstatusR];
+CountrySS={'Poland','Czech Republic','Germany','Bulgaria','Italy','Finland','Greece','United Kingdom'};
+
+IncubationP=5.723;
+DateI={'August 8, 2021'};
+
+for ccc=1:8
+    load(['Country_Data_' DateI{1} '_Incubation=' num2str(IncubationP) '_Adherence_Level_' num2str(AL*100) '.mat'],'CountryM','cstatusR')
+    TT=[[1:length(CountryM)]' cstatusR];
     TEX=sortrows(TT,2);
 
     CountryM=CountryM(TEX(:,1));
     CSR=TEX(:,2);
 
-    cFile='Quarantine_RTPCR_Exit';
+    cFile='Shorter_Incubation_Quarantine_RTPCR_Exit';
 
 
     NM=length(CountryM);
@@ -34,7 +38,7 @@ for ccc=1:6
     CSR=CSR(tt);
 
     for ii=1:NM
-        [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~,~,~] = DataReturnSim(CountrySS(ccc),CountryM(ii),AL,cFile);
+        [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~,~,~] = DataReturnSim(CountrySS(ccc),CountryM(ii),AL,DateI,IncubationP);
         if(~isempty(prevA))
             vAB=(VTAB./NA);
             vBA=(VTBA./NB);

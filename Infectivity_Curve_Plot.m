@@ -35,7 +35,7 @@ ylabel('Infectivity','Fontsize',18);
 ylim([0 0.7]);
 xlim([0 25]);
 set(gca,'LineWidth',2,'tickdir','out','Fontsize',16,'XTick',[0:25],'XMinorTick','on','Yminortick','on','YTick',[0:0.1:0.9]);
-text(-2.836,0.7,'A','Fontsize',32,'Fontweight','bold');
+text(-2.836,0.7,'C','Fontsize',32,'Fontweight','bold');
 panel=2;
 
 subplot('Position',[0.05+0.5.*rem(panel-1,2) 0.59-0.49*floor((panel-1)/2) 0.438 0.38]);
@@ -65,5 +65,5 @@ ylabel('Infectivity','Fontsize',18);
 ylim([0 0.7]);
 xlim([0 25]);
 set(gca,'LineWidth',2,'tickdir','out','Fontsize',16,'XTick',[0:25],'XMinorTick','on','Yminortick','on','YTick',[0:0.1:0.9]);
-text(-2.836,0.7,'B','Fontsize',32,'Fontweight','bold');
+text(-2.836,0.7,'D','Fontsize',32,'Fontweight','bold');
 print(gcf,['Figure_Infectivity_8_29.png'],'-dpng','-r600');
