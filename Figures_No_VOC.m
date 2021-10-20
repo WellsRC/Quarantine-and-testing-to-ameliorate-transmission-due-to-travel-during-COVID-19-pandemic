@@ -24,6 +24,8 @@ for ii=1:4
         
     TrafficLightAnalysis(cFile{ii},DateI,1,1,IncubationP);
     
+    AIRLINETrafficLightAnalysis(cFile{ii},DateI,1,1,IncubationP);
+    
     CountryMatrixNoVOCAirline(cFile{ii},DateI,1,1,IncubationP);
 end
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
