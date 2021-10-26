@@ -25,7 +25,7 @@ close all;
 
 [BB,STDPI]=sort(STDP);
 STDPI=flip(STDPI);
-Name={'Demographics: Destination','Demographics: Origin','Prevalence: Destination','Prevalence: Origin','Vaccine immunity: Destination','Vaccine immunity: Origin','Natural immunity: Destination','Natural immunity: Origin','Fractional incidence: Destination','Fractional incidence: Origin','Proportion travelling: Destination to Origin','Proportion travelling: Origin to Destination','Duration of stay in Origin','Duration of stay in Destination','Population size: Destination','Population size: Origin'};
+Name={'Demographics: Destination','Demographics: Origin','Prevalence: Destination','Prevalence: Origin','Vaccine immunity: Destination','Vaccine immunity: Origin','Natural immunity: Destination','Natural immunity: Origin','Incidence per capita: Destination','Incidence per capita: Origin','Proportion travelling: Destination to Origin','Proportion travelling: Origin to Destination','Duration of stay in Origin','Duration of stay in Destination','Population size: Destination','Population size: Origin'};
 for jj=1:6
 figure('units','normalized','outerposition',[0.0 0.05 1 0.6]);
     for ii=(1+3*(jj-1)):(3*jj)
