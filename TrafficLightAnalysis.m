@@ -7,9 +7,6 @@ VABtemp=mean(VABtemp(VABtemp>=0));
 recAU=mean(rec(~isnan(rec)));
 recBU=mean(rec(~isnan(rec)));
 
-vacA=mean(Vacup(~isnan(rec)));
-vacB=mean(Vacup(~isnan(rec)));
-
 NA=mean(N(~isnan(rec)));
 NB=mean(N(~isnan(rec)));
 

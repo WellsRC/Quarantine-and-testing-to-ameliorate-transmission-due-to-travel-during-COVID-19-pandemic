@@ -1,5 +1,5 @@
-function [nageA,nageB,prevA,prevB,vacA,vacB,proHA,proHB,recA,recB,cA,cB,NA,NB,pgeoAB,VTAB,dAB,pgeoBA,VTBA,dBA,pA,VOCDeltaG478KV1A,VOCDeltaG478KV1B,VOCAlpha20201201GRYA,VOCAlpha20201201GRYB,VOCBetaGH501YV2A,VOCBetaGH501YV2B] = DataReturnSimAirline(CountryA,CountryB,AL,DateI,IncubationP)
-load(['Country_Data_' DateI{1} '_Incubation=' num2str(IncubationP) '_Adherence_Level_' num2str(AL*100) '_AIRLINEMATRIX.mat'],'prev','rec','c','N','vac','proH','pgeoABM','VTABM','CountryM','pA','avgABM','Demo','VOCDeltaG478KV1','VOCAlpha20201201GRY','VOCBetaGH501YV2');
+function [nageA,nageB,prevA,prevB,vacA,vacB,proHA,proHB,recA,recB,cA,cB,NA,NB,pgeoAB,VTAB,dAB,pgeoBA,VTBA,dBA,pA,VOCDeltaA,VOCDeltaB,VOCOmincronA,VOCOmincronB] =  DataReturnSimAirline(CountryA,CountryB,AL,DateI,IncubationP)
+load(['Country_Data_' DateI{1} '_Incubation=' num2str(IncubationP) '_Adherence_Level_' num2str(AL*100) '_AIRLINEMATRIX.mat'],'prev','rec','c','N','vac','proH','pgeoABM','VTABM','CountryM','pA','avgABM','Demo','VOCOmincron','VOCDelta');
 tA=strcmp(CountryA,CountryM);
 tB=strcmp(CountryB,CountryM);
 
@@ -24,9 +24,8 @@ if(sum(tA)+sum(tB)==2)
         VTAB=VTABM(tA,tB);
         dAB=avgABM(tA,tB);
         nageA=Demo(tA,:);
-        VOCDeltaG478KV1A=VOCDeltaG478KV1(tA);
-        VOCAlpha20201201GRYA=VOCAlpha20201201GRY(tA);
-        VOCBetaGH501YV2A=VOCBetaGH501YV2(tA);
+        VOCDeltaA=VOCDelta(tA);
+        VOCOmincronA=VOCOmincron(tA);
         
         
 %         if(isempty(vacupB))
@@ -48,9 +47,8 @@ if(sum(tA)+sum(tB)==2)
         dBA=avgABM(tB,tA);
         nageB=Demo(tB,:);
         
-        VOCDeltaG478KV1B=VOCDeltaG478KV1(tB);
-        VOCAlpha20201201GRYB=VOCAlpha20201201GRY(tB);
-        VOCBetaGH501YV2B=VOCBetaGH501YV2(tB);
+        VOCDeltaB=VOCDelta(tB);
+        VOCOmincronB=VOCOmincron(tB);
         
     else        
         prevA=[];
@@ -63,9 +61,8 @@ if(sum(tA)+sum(tB)==2)
         VTAB=[];
         dAB=[];
         nageA=[];
-        VOCDeltaG478KV1A=[];
-        VOCAlpha20201201GRYA=[];
-        VOCBetaGH501YV2A=[];
+        VOCDeltaA=[];
+        VOCOmincronA=[];
 
 
         prevB=[];
@@ -78,9 +75,8 @@ if(sum(tA)+sum(tB)==2)
         VTBA=[];
         dBA=[];
         nageB=[];
-        VOCDeltaG478KV1B=[];
-        VOCAlpha20201201GRYB=[];
-        VOCBetaGH501YV2B=[];
+        VOCDeltaB=[];
+        VOCOmincronB=[];
     end
 else
     prevA=[];
@@ -92,9 +88,8 @@ else
     pgeoAB=[];
     VTAB=[];
     dAB=[];
-        VOCDeltaG478KV1A=[];
-        VOCAlpha20201201GRYA=[];
-        VOCBetaGH501YV2A=[];
+        VOCDeltaA=[];
+        VOCOmincronA=[];
     
     
     prevB=[];
@@ -105,9 +100,8 @@ else
     NB=[];
     pgeoBA=[];
     dBA=[];
-        VOCDeltaG478KV1B=[];
-        VOCAlpha20201201GRYB=[];
-        VOCBetaGH501YV2B=[];
+        VOCDeltaB=[];
+        VOCOmincronB=[];
 end
 
 end

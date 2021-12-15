@@ -7,7 +7,7 @@ clc;
 
 %% 100% Adherence
 IncubationP=5.723;
-DateI={'August 8, 2021'};
+DateI={'November 21, 2021'};
 switch IncubationP
     case 5.723
         cFile={'Shorter_Incubation_Quarantine_RTPCR_Exit','Shorter_Incubation_Quarantine_BDVeritor_Exit','Shorter_Incubation_Quarantine_BDVeritor_Entry_Exit','Shorter_Incubation_NoTest'};
@@ -17,10 +17,12 @@ switch IncubationP
         cFile={'Longer_Incubation_Quarantine_RTPCR_Exit','Longer_Incubation_Quarantine_BDVeritor_Exit','Longer_Incubation_Quarantine_BDVeritor_Entry_Exit','Longer_Incubation_NoTest'};
 end
 
-DateInterV={'20-Jun-2021','27-Jun-2021',    '04-Jul-2021',    '11-Jul-2021',    '18-Jul-2021',    '25-Jul-2021',    '01-Aug-2021','August 8, 2021'};
-
+DateInterV={'October 3, 2021','October 10, 2021', 'October 17, 2021',    'October 24, 2021',    'October 31, 2021',    'November 7, 2021',    'November 14, 2021' ,'November 21, 2021'};
+DateIEarly={'August 8, 2021'};
 for ii=1:4
-    CountryMatrixNoVOC(cFile{ii},DateI,1,1,IncubationP);
+%     CountryMatrixNoVOC(cFile{ii},DateI,1,1,IncubationP);
+    
+%     CountryMatrixNoVOC_Early(cFile{ii},DateIEarly,1,1,IncubationP);
         
     TrafficLightAnalysis(cFile{ii},DateI,1,1,IncubationP);
     
@@ -49,7 +51,7 @@ end
 % Incubation Period
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 IncubationP=8.29;
-DateI={'August 8, 2021'};
+DateI={'November 21, 2021'};
 switch IncubationP
     case 5.723
         cFile={'Shorter_Incubation_Quarantine_RTPCR_Exit','Shorter_Incubation_Quarantine_BDVeritor_Exit','Shorter_Incubation_Quarantine_BDVeritor_Entry_Exit','Shorter_Incubation_NoTest'};
@@ -65,7 +67,7 @@ for ii=1:4
 end
 
 IncubationP=11.66;
-DateI={'August 8, 2021'};
+DateI={'November 21, 2021'};
 switch IncubationP
     case 5.723
         cFile={'Shorter_Incubation_Quarantine_RTPCR_Exit','Shorter_Incubation_Quarantine_BDVeritor_Exit','Shorter_Incubation_Quarantine_BDVeritor_Entry_Exit','Shorter_Incubation_NoTest'};

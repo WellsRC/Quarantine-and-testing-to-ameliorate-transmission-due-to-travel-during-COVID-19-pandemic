@@ -26,7 +26,7 @@ end
 set(gca,'LineWidth',2,'tickdir','out','YTick',[1:NC],'Yminortick','off','YTickLabel',flip(Country),'Fontsize',24,'XAxisLocation','top','XTick',[1:NC],'Xminortick','off','XTickLabel',Country)
 xlim([0.5 NC+0.5])
 ylim([0.5 NC+0.5])
-ylabel('Destination country','Fontsize',28,'Position',[-1,6.499])
+ylabel('Destination country','Fontsize',28,'Position',[-0.836415362731152,6.499])
 xtickangle(45)
 xlabel('Origin country','Fontsize',28,'Units','normalize','Position',[0.462120933449082,1.257568441621574])
 h=colorbar('southoutside');

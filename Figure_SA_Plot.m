@@ -41,17 +41,17 @@ figure('units','normalized','outerposition',[0.0 0.05 1 0.6]);
             fprintf('Added border closure: %4.3f \n',100.*(NBCA./NSum));
             fprintf('Removal border closure: %4.3f \n \n',100.*(NBCR./NSum));
             
-            xlim([-10.5 10.5]);
+            xlim([-13.5 13.5]);
             ylim([0 450])
             box off;
-            set(gca,'XTick',[-10:1:10],'Fontsize',18,'LineWidth',2','Tickdir','out');
+            set(gca,'XTick',[-14:2:14],'Xminortick','on','Fontsize',18,'LineWidth',2','Tickdir','out');
             xtickangle(90);
             xlabel({'Change in quarantine specified','by destination country'},'Fontsize',20','Position',[0.097490571475886,-65.51345482593172]);
             ylabel('Count','Fontsize',20);
             if(jj*ii==1)
                 legend('Increase in parameter','Decrease in parameter','Fontsize',16,'Position',[0.184523812920398,0.73303303593272,0.14075629912442,0.10540540250572])
             end
-            text(-8.663658536585366*21/13,371.14.*450/350,char(64+ii),'Fontsize',32','FontWeight','bold');
+            text(-17.7944,371.14.*450/350,char(64+ii),'Fontsize',32','FontWeight','bold');
         end
     end
     print(gcf,['SA-' num2str(jj) '.png'],'-dpng','-r600');

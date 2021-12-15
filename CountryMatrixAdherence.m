@@ -14,7 +14,7 @@ function CountryMatrixAdherence(cFile,AL)
     
     for ii=1:NM
         for jj=1:NM
-            [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),[],[]);
+            [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),[],[]);
             if(~isempty(prevA))
                 
                 vAB=(VTAB./NA);

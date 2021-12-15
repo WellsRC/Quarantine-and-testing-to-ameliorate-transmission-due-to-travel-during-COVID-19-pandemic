@@ -11,27 +11,26 @@ CSR=TEX(:,2);
 NM=length(CountryM);
 
 QM=-1.*ones(NM);
-QMDeltaG478KV1=-1.*ones(NM);
-QMAlpha20201201GRY=-1.*ones(NM);
+QMDelta=-1.*ones(NM);
+QMOmicron=-1.*ones(NM);
 QMGeneral=-1.*ones(NM);
-QMAllVOC=-1.*ones(NM);
 qR=[0:14];
 
 
-[RAlpha20201201GRY,~,RDeltaG478KV1]=FactorIncreaseVOC;
+[RDelta,ROmicron]=FactorIncreaseVOC;
 
 
 for ii=1:NM
     if(sum(strcmp(CountryM(ii),CountryInclude))==1)
         for jj=(ii+1):NM
             if(sum(strcmp(CountryM(jj),CountryInclude))==1)
-                [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,VOCDeltaG478KV1A,VOCDeltaG478KV1B,VOCAlpha20201201GRYA,VOCAlpha20201201GRYB,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),AL,DateI,IncubationP);
-                if(~isempty(VOCDeltaG478KV1A)&&~isempty(VOCDeltaG478KV1B)&&~isempty(VOCAlpha20201201GRYA)&&~isempty(VOCAlpha20201201GRYB))
-                    if((VOCDeltaG478KV1A>=0)&&(VOCDeltaG478KV1B>=0)&&(VOCAlpha20201201GRYA>=0)&&(VOCAlpha20201201GRYB>=0))
+                [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,VOCDeltaA,VOCDeltaB,VOCOmincronA,VOCOmincronB] = DataReturnSim(CountryM(ii),CountryM(jj),AL,DateI,IncubationP);
+                if(~isempty(VOCDeltaA)&&~isempty(VOCDeltaB)&&~isempty(VOCOmincronA)&&~isempty(VOCOmincronB))
+                    if((VOCDeltaA>=0)&&(VOCDeltaB>=0)&&(VOCOmincronA>=0)&&(VOCOmincronB>=0))
                         
-                        FVOCA=[max(1-VOCAlpha20201201GRYA-VOCDeltaG478KV1A,0) VOCDeltaG478KV1A VOCAlpha20201201GRYA];
-                        FVOCB=[max(1-VOCDeltaG478KV1B-VOCAlpha20201201GRYB,0) VOCDeltaG478KV1B VOCAlpha20201201GRYB];
-                        RVOC=[0 RDeltaG478KV1 RAlpha20201201GRY];
+                        FVOCA=[max(1-VOCOmincronA-VOCDeltaA,0) VOCDeltaA VOCOmincronA];
+                        FVOCB=[max(1-VOCDeltaB-VOCOmincronB,0) VOCDeltaB VOCOmincronB];
+                        RVOC=[0 RDelta ROmicron];
                         REPSVOC=[0 0 0];
                         RNIVOC=[0 0 0];
                         vAB=(VTAB./NA);
@@ -50,9 +49,9 @@ for ii=1:NM
                             QM(jj,ii)=15;           
                         end
                         
-                        FVOCA=[0 VOCDeltaG478KV1A 0];
-                        FVOCB=[0 VOCDeltaG478KV1B 0];
-                        RVOC=[0 RDeltaG478KV1 RAlpha20201201GRY];
+                        FVOCA=[0 VOCDeltaA 0];
+                        FVOCB=[0 VOCDeltaB 0];
+                        RVOC=[0 RDelta ROmicron];
                         REPSVOC=[0 0 0];
                         RNIVOC=[0 0 0];
                         vAB=(VTAB./NA);
@@ -60,20 +59,20 @@ for ii=1:NM
                         [qA,qB] = DetermineQuarantine(qR,nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,AQ,cFile);
                         
                         if(~isempty(qA))
-                            QMDeltaG478KV1(ii,jj)=qA;
+                            QMDelta(ii,jj)=qA;
                         else
-                            QMDeltaG478KV1(ii,jj)=15;           
+                            QMDelta(ii,jj)=15;           
                         end
 
                         if(~isempty(qB))
-                            QMDeltaG478KV1(jj,ii)=qB;
+                            QMDelta(jj,ii)=qB;
                         else
-                            QMDeltaG478KV1(jj,ii)=15;           
+                            QMDelta(jj,ii)=15;           
                         end
                         
-                        FVOCA=[0 0 VOCAlpha20201201GRYA];
-                        FVOCB=[0 0 VOCAlpha20201201GRYB];
-                        RVOC=[0 RDeltaG478KV1 RAlpha20201201GRY];
+                        FVOCA=[0 0 VOCOmincronA];
+                        FVOCB=[0 0 VOCOmincronB];
+                        RVOC=[0 RDelta ROmicron];
                         REPSVOC=[0 0 0];
                         RNIVOC=[0 0 0];
                         vAB=(VTAB./NA);
@@ -81,20 +80,20 @@ for ii=1:NM
                         [qA,qB] = DetermineQuarantine(qR,nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,AQ,cFile);
                         
                         if(~isempty(qA))
-                            QMAlpha20201201GRY(ii,jj)=qA;
+                            QMOmicron(ii,jj)=qA;
                         else
-                            QMAlpha20201201GRY(ii,jj)=15;           
+                            QMOmicron(ii,jj)=15;           
                         end
 
                         if(~isempty(qB))
-                            QMAlpha20201201GRY(jj,ii)=qB;
+                            QMOmicron(jj,ii)=qB;
                         else
-                            QMAlpha20201201GRY(jj,ii)=15;           
+                            QMOmicron(jj,ii)=15;           
                         end
 
-                        FVOCA=[max(1-VOCAlpha20201201GRYA-VOCDeltaG478KV1A,0) 0 0];
-                        FVOCB=[max(1-VOCDeltaG478KV1B-VOCAlpha20201201GRYB,0) 0 0];
-                        RVOC=[0 RDeltaG478KV1 RAlpha20201201GRY];
+                        FVOCA=[max(1-VOCOmincronA-VOCDeltaA,0) 0 0];
+                        FVOCB=[max(1-VOCDeltaB-VOCOmincronB,0) 0 0];
+                        RVOC=[0 RDelta ROmicron];
                         REPSVOC=[0 0 0 0];
                         RNIVOC=[0 0 0 0];
                         vAB=(VTAB./NA);
@@ -126,11 +125,11 @@ fnon=find(SQ>(-1.*NM+5));
 QM=QM(fnon,:);
 QM=QM(:,fnon);
 
-QMDeltaG478KV1=QMDeltaG478KV1(fnon,:);
-QMDeltaG478KV1=QMDeltaG478KV1(:,fnon);
+QMDelta=QMDelta(fnon,:);
+QMDelta=QMDelta(:,fnon);
 
-QMAlpha20201201GRY=QMAlpha20201201GRY(fnon,:);
-QMAlpha20201201GRY=QMAlpha20201201GRY(:,fnon);
+QMOmicron=QMOmicron(fnon,:);
+QMOmicron=QMOmicron(:,fnon);
 
 QMGeneral=QMGeneral(fnon,:);
 QMGeneral=QMGeneral(:,fnon);
@@ -148,20 +147,20 @@ CountryM(t)={'Czechia'};
 CountryM=CountryM(fnon);
 CSR=CSR(fnon);
 
-PlotQuarantineMatrixSummaryVOC(CountryM,QMDeltaG478KV1,CSR)
-text(-1.25206258890469,14.65675675675677,'A','Fontsize',38,'FontWeight','bold');
+PlotQuarantineMatrixSummaryVOC(CountryM,QMDelta,CSR)
+text(-1.102702702702699,13.332432432432444,0,'A','Fontsize',38,'FontWeight','bold');
 print(gcf,['Figure_Country_VOC_Delta_ONLY_Summary_' cFile '_AL=' num2str(100*AL) '_AQ=' num2str(AQ*100) '_' DateI{1} '.eps'],'-depsc','-r600');
 
-PlotQuarantineMatrixSummaryVOC(CountryM,QMAlpha20201201GRY,CSR)
-text(-1.25206258890469,14.65675675675677,'B','Fontsize',38,'FontWeight','bold');
-print(gcf,['Figure_Country_VOC_Alpha_ONLY_Summary_' cFile '_AL=' num2str(100*AL) '_AQ=' num2str(AQ*100) '_' DateI{1} '.eps'],'-depsc','-r600');
+PlotQuarantineMatrixSummaryVOC(CountryM,QMOmicron,CSR)
+text(-1.102702702702699,13.332432432432444,0,'B','Fontsize',38,'FontWeight','bold');
+print(gcf,['Figure_Country_VOC_Omicron_ONLY_Summary_' cFile '_AL=' num2str(100*AL) '_AQ=' num2str(AQ*100) '_' DateI{1} '.eps'],'-depsc','-r600');
 
 PlotQuarantineMatrixSummaryVOC(CountryM,QMGeneral,CSR)
-text(-1.25206258890469,14.65675675675677,'C','Fontsize',38,'FontWeight','bold');
+text(-1.102702702702699,13.332432432432444,0,'C','Fontsize',38,'FontWeight','bold');
 print(gcf,['Figure_Country_VOC_Genral_ONLY_Summary_' cFile '_AL=' num2str(100*AL) '_AQ=' num2str(AQ*100) '_' DateI{1} '.eps'],'-depsc','-r600');
 
 
 PlotQuarantineMatrixSummaryVOC(CountryM,QM,CSR)
-text(-1.25206258890469,14.65675675675677,'D','Fontsize',38,'FontWeight','bold');
+text(-1.102702702702699,13.332432432432444,0,'D','Fontsize',38,'FontWeight','bold');
 print(gcf,['Figure_Country_VOC_ALL_GENERAL__Summary_' cFile '_AL=' num2str(100*AL) '_AQ=' num2str(AQ*100) '_' DateI{1} '.eps'],'-depsc','-r600');
 end

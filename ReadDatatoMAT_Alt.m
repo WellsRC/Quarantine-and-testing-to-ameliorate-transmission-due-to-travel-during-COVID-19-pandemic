@@ -2,8 +2,15 @@ clear;
 clc;
 
 IncubationP=5.723;
-DateInterV={'20-Jun-2021','27-Jun-2021',    '04-Jul-2021',    '11-Jul-2021',    '18-Jul-2021',    '25-Jul-2021',    '01-Aug-2021'};
-pA=[81.91 77.59 77.59 69.46 69.46 64.54 64.54 35.44]./100;
+DateInterV={'October 3, 2021','October 10, 2021', 'October 17, 2021',    'October 24, 2021',    'October 31, 2021',    'November 7, 2021',    'November 14, 2021'};
+% Use european average for 60+ pA
+w60to79=0.200053552;
+w80p=0.052621047;
+wT=w60to79+w80p;
+w60to79=w60to79./wT;
+w80p=w80p./wT;
+
+pA=[81.91 77.59 77.59 69.46 69.46 (64.54.*w60to79+35.44.*w80p)]./100;
 for nn=1:7
     AL=1;
     DateInter=DateInterV{nn};
@@ -23,8 +30,7 @@ for nn=1:7
     proHM=-1.*ones(NM,101,length(pA));
     cstatusR=-1.*ones(NM,1);
     Vacup=-1.*ones(NM,1);
-    VOCBetaGH501YV2=-1.*ones(NM,1);
-    VOCAlpha20201201GRY=-1.*ones(NM,1);
+    VOCOmincron=-1.*ones(NM,1);
     VOCDeltaG478KV1=-1.*ones(NM,1);
     Demo=-1.*ones(NM,length(pA));
 
@@ -34,7 +40,7 @@ for nn=1:7
 
     for ii=1:NM-1
         for jj=(ii+1):NM        
-            [prevA,prevB,vacupA,vacupB,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,CAstatusR,~,VacupA,~,VOCBetaGH501YV2A,~,VOCAlpha20201201GRYA,~,VOCDeltaG478KV1A,~,DemoA,DemoB] = CountryDataReturnIncubation(DateInter,CountryM(ii),CountryM(jj),pA,AL,IncubationP);
+            [prevA,prevB,vacupA,vacupB,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,CAstatusR,~,VacupA,~,VOCOmincronA,~,VOCDeltaA,~,DemoA,DemoB] = CountryDataReturnIncubation(DateInter,CountryM(ii),CountryM(jj),pA,AL,IncubationP);
             if(~isempty(prevA)&&~isempty(vacupA)&&~isempty(proHA)&&~isempty(recA)&&~isempty(cA)&&~isempty(NA))
                 if(~isempty(prevA)&&~isempty(vacupA)&&~isempty(proHA)&&~isempty(recA)&&~isempty(cA)&&~isempty(NA)&&~isempty(pgeoAB)&&~isempty(VTAB)&&~isempty(DemoA)&&~isempty(DemoB)&&~isempty(prevB)&&~isempty(vacupB)&&~isempty(proHB)&&~isempty(recB)&&~isempty(cB)&&~isempty(NB)&&~isempty(pgeoBA)&&~isempty(VTBA))
                     avgABM(ii,jj)=avgdAB;
@@ -58,21 +64,18 @@ for nn=1:7
             proH(ii,:)=proHA;
             cstatusR(ii)=CAstatusR;
             Vacup(ii)=VacupA;
-            if(~isempty(VOCBetaGH501YV2A))
-                VOCBetaGH501YV2(ii)=VOCBetaGH501YV2A;
+            if(~isempty(VOCOmincronA))
+                VOCOmincron(ii)=VOCOmincronA;
             end
-            if(~isempty(VOCAlpha20201201GRYA))
-                VOCAlpha20201201GRY(ii)=VOCAlpha20201201GRYA;
-            end
-            if(~isempty(VOCDeltaG478KV1A))
-                VOCDeltaG478KV1(ii)=VOCDeltaG478KV1A;
+            if(~isempty(VOCDeltaA))
+                VOCDelta(ii)=VOCDeltaA;
             end
         end
     end
     % Need to record the last country's epiddemic profile
     ii=NM;
     jj=NM-1;
-    [prevA,prevB,vacupA,vacupB,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,CAstatusR,~,VacupA,~,VOCBetaGH501YV2A,~,VOCAlpha20201201GRYA,~,VOCDeltaG478KV1A,~,DemoA,DemoB] = CountryDataReturnIncubation(DateInter,CountryM(ii),CountryM(jj),pA,AL,IncubationP);
+    [prevA,prevB,vacupA,vacupB,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,CAstatusR,~,VacupA,~,VOCOmincronA,~,VOCDeltaA,~,DemoA,DemoB] = CountryDataReturnIncubation(DateInter,CountryM(ii),CountryM(jj),pA,AL,IncubationP);
     if(~isempty(prevA)&&~isempty(vacupA)&&~isempty(proHA)&&~isempty(recA)&&~isempty(cA)&&~isempty(NA))
         prev(ii,:)=prevA;
         Demo(ii,:)=DemoA;
@@ -83,16 +86,13 @@ for nn=1:7
         proH(ii,:)=proHA;
         cstatusR(ii)=CAstatusR;
         Vacup(ii)=VacupA;
-        if(~isempty(VOCBetaGH501YV2A))
-            VOCBetaGH501YV2(ii)=VOCBetaGH501YV2A;
-        end
-        if(~isempty(VOCAlpha20201201GRYA))
-            VOCAlpha20201201GRY(ii)=VOCAlpha20201201GRYA;
-        end
-        if(~isempty(VOCDeltaG478KV1A))
-            VOCDeltaG478KV1(ii)=VOCDeltaG478KV1A;
-        end
+            if(~isempty(VOCOmincronA))
+                VOCOmincron(ii)=VOCOmincronA;
+            end
+            if(~isempty(VOCDeltaA))
+                VOCDelta(ii)=VOCDeltaA;
+            end
     end
 
-    save(['Country_Data_' DateInter '_Incubation=' num2str(IncubationP) '_Adherence_Level_' num2str(100) '.mat'],'prev','rec','c','N','vac','proH','avgABM','pgeoABM','VTABM','CountryM','pA','cstatusR','Vacup','VOCBetaGH501YV2','VOCAlpha20201201GRY','VOCDeltaG478KV1','Demo')
+    save(['Country_Data_' DateInter '_Incubation=' num2str(IncubationP) '_Adherence_Level_' num2str(100) '.mat'],'prev','rec','c','N','vac','proH','avgABM','pgeoABM','VTABM','CountryM','pA','cstatusR','Vacup','VOCOmincron','VOCDelta','Demo')
 end

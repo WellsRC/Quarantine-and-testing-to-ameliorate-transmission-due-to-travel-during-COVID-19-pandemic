@@ -3,9 +3,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
 clear;
 clc;
-DateI={'August 8, 2021'};
+DateI={'November 21, 2021'};
 IncubationP=5.723;
-load('Country_Data_August 8, 2021_Incubation=5.723_Adherence_Level_100.mat');
+load('Country_Data_November 21, 2021_Incubation=5.723_Adherence_Level_100.mat');
 
 AL=1;
 AQ=1;
@@ -59,7 +59,7 @@ RNIVOC=0;
 
 for ii=1:NM
     for jj=1:NM
-        [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),AL,DateI,IncubationP);
+        [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),AL,DateI,IncubationP);
         if(~isempty(prevA))
             
             for pp=1:16
@@ -91,7 +91,7 @@ for ii=1:NM
                 end
                 switch pp
                     case 1
-                        ABin=[19./2 25 35 45 55 65 75 90];
+                        ABin=[19./2 25 35 45 55 80];
                         for zz=1:length(nageA)
                            if(nageAtemp(zz)>mednage(zz))
                                nageAtemp(zz)=max(nageAtemp(zz)-stdnage(zz),0);
@@ -107,7 +107,7 @@ for ii=1:NM
                             ChangeD(pp,ii,jj)=-1;
                         end
                     case 2
-                        ABin=[19./2 25 35 45 55 65 75 90];
+                        ABin=[19./2 25 35 45 55 80];
                         for zz=1:length(nageB)
                            if(nageBtemp(zz)>mednage(zz))
                                nageBtemp(zz)=max(nageBtemp(zz)-stdnage(zz),0);

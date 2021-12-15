@@ -1,4 +1,4 @@
-function [prevA,prevB,vacupA,vacupB,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,CAstatusR,CBstatusR,VacupALOA,VacupALOB,VOCBetaGH501YV2A,VOCBetaGH501YV2B,VOCAlpha20201201GRYA,VOCAlpha20201201GRYB,VOCDeltaG478KV1A,VOCDeltaG478KV1B,DemoA,DemoB] = CountryDataReturnIncubationAirline(Date,CountryA,CountryB,pA,AL,IncubationP)
+function [prevA,prevB,vacupA,vacupB,proHA,proHB,recA,recB,cA,cB,NA,NB,avgdAB,pgeoAB,VTAB,avgdBA,pgeoBA,VTBA,CAstatusR,CBstatusR,VacupALOA,VacupALOB,VOCOmincronA,VOCOmincronB,VOCDeltaA,VOCDeltaB,DemoA,DemoB] = CountryDataReturnIncubationAirline(Date,CountryA,CountryB,pA,AL,IncubationP)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Demographics
@@ -48,8 +48,9 @@ DateN=datenum(Date);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % VOC  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-[VOCBetaGH501YV2A,VOCAlpha20201201GRYA,VOCDeltaG478KV1A] = VOCDataReturn(CountryA);
-[VOCBetaGH501YV2B,VOCAlpha20201201GRYB,VOCDeltaG478KV1B] = VOCDataReturn(CountryB);
+[VOCOmincronA,VOCDeltaA] = VOCDataReturn(CountryA);
+[VOCOmincronB,VOCDeltaB] = VOCDataReturn(CountryB);
 
 end
+
 

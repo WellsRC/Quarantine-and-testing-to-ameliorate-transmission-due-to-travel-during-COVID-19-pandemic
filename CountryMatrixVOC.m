@@ -12,19 +12,18 @@ NM=length(CountryM);
 QM=-1.*ones(NM);
 qR=[0:14];
 
-[RAlpha20201201GRY,~,RDeltaG478KV1]=FactorIncreaseVOC;
+[RDelta,ROmicron]=FactorIncreaseVOC;
 
 for ii=1:NM
     for jj=(ii+1):NM
-        [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,VOCDeltaG478KV1A,VOCDeltaG478KV1B,VOCAlpha20201201GRYA,VOCAlpha20201201GRYB,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),AL,DateI,IncubationP);
-        if(~isempty(VOCDeltaG478KV1A)&&~isempty(VOCDeltaG478KV1B)&&~isempty(VOCAlpha20201201GRYA)&&~isempty(VOCAlpha20201201GRYB))
-%             if((VOCDeltaG478KV1A>=0)&&(VOCDeltaG478KV1B>=0)&&(VOCBetaGH501YV2A>=0)&&(VOCBetaGH501YV2B>=0)&&(VOCAlpha20201201GRYA>=0)&&(VOCAlpha20201201GRYB>=0))
-              if((VOCDeltaG478KV1A>=0)&&(VOCDeltaG478KV1B>=0)&&(VOCAlpha20201201GRYA>=0)&&(VOCAlpha20201201GRYB>=0))
+        [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,VOCDeltaA,VOCDeltaB,VOCOmincronA,VOCOmincronB] = DataReturnSim(CountryM(ii),CountryM(jj),AL,DateI,IncubationP);
+        if(~isempty(VOCDeltaA)&&~isempty(VOCDeltaB)&&~isempty(VOCOmincronA)&&~isempty(VOCOmincronB))
+              if((VOCDeltaA>=0)&&(VOCDeltaB>=0)&&(VOCOmincronA>=0)&&(VOCOmincronB>=0))
                 vAB=(VTAB./NA);
                 vBA=(VTBA./NB);
-                FVOCA=[max(1-VOCAlpha20201201GRYA-VOCDeltaG478KV1A,0) VOCDeltaG478KV1A VOCAlpha20201201GRYA ];
-                FVOCB=[max(1-VOCDeltaG478KV1B-VOCAlpha20201201GRYB,0) VOCDeltaG478KV1B VOCAlpha20201201GRYB ];
-                RVOC=[0 RDeltaG478KV1 RAlpha20201201GRY];
+                FVOCA=[max(1-VOCOmincronA-VOCDeltaA,0) VOCDeltaA VOCOmincronA ];
+                FVOCB=[max(1-VOCDeltaB-VOCOmincronB,0) VOCDeltaB VOCOmincronB ];
+                RVOC=[0 RDelta ROmicron];
                 REPSVOC=[0 0 0];
                 RNIVOC=[0 0 0];
                 [qA,qB] = DetermineQuarantine(qR,nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,AQ,cFile);
@@ -40,12 +39,6 @@ for ii=1:NM
                     QM(jj,ii)=15;  
                 end
                 
-%                 if(isempty(T))
-%                    T=table(nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,qA,qB); 
-%                 else
-%                    Ttemp=table(nageA,nageB,FVOCA,FVOCB,RVOC,REPSVOC,RNIVOC,pA,prevA,prevB,vacA,vacB,recA,recB,cA,cB,vAB,vBA,dAB,dBA,NA,NB,AL,qA,qB); 
-%                    T=[T;Ttemp];
-%                 end
             end
         end
     end

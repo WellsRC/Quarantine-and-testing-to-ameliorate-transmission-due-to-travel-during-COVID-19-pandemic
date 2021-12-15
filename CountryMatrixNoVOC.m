@@ -23,7 +23,7 @@ function CountryMatrixNoVOC(cFile,DateI,AL,AQ,IncubationP)
     qR=[0:14];
     for ii=1:NM
         for jj=(ii+1):NM
-            [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),AL,DateI,IncubationP);
+            [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~] = DataReturnSim(CountryM(ii),CountryM(jj),AL,DateI,IncubationP);
             if(~isempty(prevA))
                 VAC(ii,jj)=sum(nageB.*vacB)./sum(nageA.*vacA);
                 PREV(ii,jj)=sum(nageB.*prevB)./sum(nageA.*prevA);

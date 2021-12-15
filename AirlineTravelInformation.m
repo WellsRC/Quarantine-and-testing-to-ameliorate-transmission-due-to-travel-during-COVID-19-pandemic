@@ -7,6 +7,9 @@ load([pwd '\Country_Data\Airline_Flow_Data.mat']);
 fc=strcmp(CountryLeaving,Country);
 fr=strcmp(CountryEntering,Country);
 TravelDepart=[str2double(M{fr,fc})]./365;
+if(isnan(TravelDepart))
+    TravelDepart=[];
+end
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % multiple source

@@ -27,7 +27,7 @@ box off;
 legend({'One additional day required','Two additional days required','Three or more additional days required'},'Fontsize',18,'Location','NorthWest');
 
 xlabel('Date of epidemic information','Fontsize',24);
-ylabel({'Fraction of June 20','specified quarantines','in need of an increase'},'Fontsize',24);
+ylabel({'Fraction of October 3','specified quarantines','in need of an increase'},'Fontsize',24);
 
 
 figure('units','normalized','outerposition',[0 0.05 0.8 0.7]);
@@ -46,7 +46,7 @@ box off;
 grid on
 
 xlabel('Date of epidemic information','Fontsize',24);
-ylabel({'Fraction of June 20 quarantines',' that never resulted in an','increase of infections'},'Fontsize',22);
+ylabel({'Fraction of October 3 quarantines',' that never resulted in an','increase of infections'},'Fontsize',22);
 
 print(gcf,'Figure_Temporal_Q.png','-dpng','-r600');
 

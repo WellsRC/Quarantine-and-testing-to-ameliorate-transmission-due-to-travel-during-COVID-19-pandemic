@@ -6,10 +6,10 @@ clear;
 clc;
 AL=1;
 AQ=1;
-CountrySS={'Poland','Czech Republic','Germany','Bulgaria','Italy','Finland','Greece','United Kingdom'};
+CountrySS={'Spain','Malta','Cyprus','Portugal','United Kingdom','Greece','Austria','Hungary'};
 
 IncubationP=5.723;
-DateI={'August 8, 2021'};
+DateI={'November 21, 2021'};
 
 for ccc=1:8
     load(['Country_Data_' DateI{1} '_Incubation=' num2str(IncubationP) '_Adherence_Level_' num2str(AL*100) '.mat'],'CountryM','cstatusR')
@@ -38,7 +38,7 @@ for ccc=1:8
     CSR=CSR(tt);
 
     for ii=1:NM
-        [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~,~,~] = DataReturnSim(CountrySS(ccc),CountryM(ii),AL,DateI,IncubationP);
+        [nageA,nageB,prevA,prevB,vacA,vacB,~,~,recA,recB,cA,cB,NA,NB,~,VTAB,dAB,~,VTBA,dBA,pA,~,~,~,~] = DataReturnSim(CountrySS(ccc),CountryM(ii),AL,DateI,IncubationP);
         if(~isempty(prevA))
             vAB=(VTAB./NA);
             vBA=(VTBA./NB);

@@ -8,7 +8,7 @@ close all;
 
 %% 100% Adherence
 IncubationP=5.723;
-DateI={'August 8, 2021'};
+DateI={'November 21, 2021'};
 switch IncubationP
     case 5.723
         cFile={'Shorter_Incubation_Quarantine_RTPCR_Exit','Shorter_Incubation_Quarantine_BDVeritor_Exit','Shorter_Incubation_Quarantine_BDVeritor_Entry_Exit','Shorter_Incubation_NoTest'};
@@ -23,6 +23,6 @@ CountryMatrixVOC(cFile{1},DateI,1,1,IncubationP);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 % Summary for main text
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
-CountryInlcude={'United Kingdom','Germany','Belgium','Denmark','Italy','Netherlands','Poland','Slovakia','Czech Republic','Spain','Republic of Ireland'};
+CountryInlcude={'United Kingdom','Germany','Belgium','Denmark','Italy','Netherlands','Portugal','Slovakia','Czech Republic','Slovenia','Spain','Republic of Ireland'};
 
 CountryMatrixVOC_summary(cFile{1},CountryInlcude,DateI,1,1,IncubationP);
