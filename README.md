@@ -1,5 +1,20 @@
 # Quarantine and testing strategies to ameliorate transmission due to travel during the COVID-19 pandemic
-Chad R. Wells, Jeffrey P. Townsend*, Abhishek Pandey, Meagan C. Fitzpatrick, William S. Crystal, Alison P. Galvani
+Chad R. Wells ^1, Abhishek Pandey1, Meagan C. Fitzpatrick 1,2, William S. Crystal1, Burton H. Singer3, Seyed M. Moghadas,4 Alison P. Galvani1,5, Jeffrey P. Townsend5,6,7,8*
+
+
+1 Center for Infectious Disease Modeling and Analysis (CIDMA), Yale School of Public Health, New Haven, Connecticut 06520, USA
+2 Center for Vaccine Development and Global Health, University of Maryland School of Medicine, Baltimore, Maryland, 21201, USA
+3Emerging Pathogens Institute, University of Florida, P.O. Box 100009, Gainesville, FL 32610, USA
+4Agent-Based Modelling Laboratory, York University, Toronto, Ontario, Canada
+5 Department of Ecology and Evolutionary Biology, Yale University, New Haven, Connecticut 06525, USA
+6 Department of Biostatistics, Yale School of Public Health, New Haven, Connecticut 06510, USA
+7 Program in Computational Biology and Bioinformatics, Yale University, New Haven, Connecticut 06511, USA
+8 Program in Microbiology, Yale University, New Haven, Connecticut 06511, USA
+
+These authors contributed equally: Chad R. Wells and Abhishek Pandey
+
+*Corresponding author: Jeffrey.Townsend@yale.edu
+
 Copyright (C) <2021>, Chad R. Wells et. al. All rights reserved. Released under the GNU General Public License (GPL)
 
 This repository contains codes and data used to simulate and analyze COVID-19 travel quarantine and testing strategies between countries.
