@@ -5,7 +5,7 @@ Copyright (C) <2021>, Chad R. Wells et. al. All rights reserved. Released under 
 This repository contains codes and data used to simulate and analyze COVID-19 travel quarantine and testing strategies between countries.
 
 ## Interactive Excel spreadsheet
-Supplemental_Quarantine_Calculation - Allows for users to input the parameters to determined the minimum sufficient quarantine such that the total number of infections by that variant within the destination country will not be greater than with border closure.
+[Supplemental_Quarantine_Calculation](https://github.com/WellsRC/Quarantine-and-testing-to-ameliorate-transmission-due-to-travel-during-COVID-19-pandemic/blob/main/Supplemental_Quarantine_Calculation.xlsx) - Allows for users to input the parameters to determined the minimum sufficient quarantine such that the total number of infections by that variant within the destination country will not be greater than with border closure.
 
 The model code is written in MATLAB and results are saved as MATLAB data files (extension .mat), with plots also being constructed in MATLAB. As MATLAB is not an open-source software/programming language, a compatible code that can be run using GNU Octave can be found in the directory named Octave in the repository.
 
@@ -99,7 +99,7 @@ TrafficLightAnalysis_Ag_Test-Sufficient quarantine duration for teir-based analy
 TrafficLightAnalysis_Dual_Ag_Test-Sufficient quarantine duration for teir-based analysis for a rapid antigen test on entry and exit
 
 ## Functions/Scripts
-ReadDatatoMAT- Reads data from files to a mat file for the country-pair analysis (reference_hospitalization_all_locs.csv will need to be downloaded from http://www.healthdata.org/covid/data-downloads as the file size was too large to be included in the repository)
+ReadDatatoMAT- Reads data from files to a mat file for the country-pair analysis (reference_hospitalization_all_locs.csv will need to be downloaded from [IHME](http://www.healthdata.org/covid/data-downloads) as the file size was too large to be included in the repository)
 
 CalculateInequalityVOCAll-Calcualtes the values of the ineuality to determine quarantine duration
 
