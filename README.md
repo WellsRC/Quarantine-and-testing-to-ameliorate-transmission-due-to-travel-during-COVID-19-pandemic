@@ -1,5 +1,5 @@
 # Quarantine and testing strategies to ameliorate transmission due to travel during the COVID-19 pandemic
-Chad R. Wells ^1, Abhishek Pandey1, Meagan C. Fitzpatrick 1,2, William S. Crystal1, Burton H. Singer3, Seyed M. Moghadas,4 Alison P. Galvani1,5, Jeffrey P. Townsend5,6,7,8*
+Chad R. Wells 1, Abhishek Pandey 1, Meagan C. Fitzpatrick 1,2, William S. Crystal 1, Burton H. Singer 3, Seyed M. Moghadas 4, Alison P. Galvani 1,5, Jeffrey P. Townsend 5,6,7,8*
 
 
 1 Center for Infectious Disease Modeling and Analysis (CIDMA), Yale School of Public Health, New Haven, Connecticut 06520, USA
@@ -13,7 +13,7 @@ Chad R. Wells ^1, Abhishek Pandey1, Meagan C. Fitzpatrick 1,2, William S. Crysta
 
 These authors contributed equally: Chad R. Wells and Abhishek Pandey
 
-*Corresponding author: Jeffrey.Townsend@yale.edu
+*Corresponding author: jeffrey.townsend@yale.edu
 
 Copyright (C) <2021>, Chad R. Wells et. al. All rights reserved. Released under the GNU General Public License (GPL)
 
