@@ -1,4 +1,4 @@
-# Sufficient strategies for travel quarantine and testing
+# Quarantine and testing strategies to ameliorate transmission due to travel during the COVID-19 pandemic
 Chad R. Wells, Jeffrey P. Townsend*, Abhishek Pandey, Meagan C. Fitzpatrick, William S. Crystal, Alison P. Galvani
 Copyright (C) <2021>, Chad R. Wells et. al. All rights reserved. Released under the GNU General Public License (GPL)
 
