@@ -2,24 +2,16 @@
 Chad R. Wells <sup>1</sup>, Abhishek Pandey <sup>1</sup>, Meagan C. Fitzpatrick <sup>1,2</sup>, William S. Crystal <sup>1</sup>, Burton H. Singer <sup>3</sup>, Seyed M. Moghadas <sup>4</sup>, Alison P. Galvani <sup>1,5</sup>, Jeffrey P. Townsend <sup>5,6,7,8*</sup>
 
 
-1 Center for Infectious Disease Modeling and Analysis (CIDMA), Yale School of Public Health, New Haven, Connecticut 06520, USA
+1 Center for Infectious Disease Modeling and Analysis (CIDMA), Yale School of Public Health, New Haven, Connecticut 06520, USA <br /> 
+2 Center for Vaccine Development and Global Health, University of Maryland School of Medicine, Baltimore, Maryland, 21201, <br /> 
+3 Emerging Pathogens Institute, University of Florida, P.O. Box 100009, Gainesville, FL 32610, USA <br /> 
+4 Agent-Based Modelling Laboratory, York University, Toronto, Ontario, Canada <br /> 
+5 Department of Ecology and Evolutionary Biology, Yale University, New Haven, Connecticut 06525, USA <br />
+6 Department of Biostatistics, Yale School of Public Health, New Haven, Connecticut 06510, USA <br /> 
+7 Program in Computational Biology and Bioinformatics, Yale University, New Haven, Connecticut 06511, USA <br /> 
+8 Program in Microbiology, Yale University, New Haven, Connecticut 06511, USA <br /> 
 
-2 Center for Vaccine Development and Global Health, University of Maryland School of Medicine, Baltimore, Maryland, 21201, 
-
-3 Emerging Pathogens Institute, University of Florida, P.O. Box 100009, Gainesville, FL 32610, USA
-
-4 Agent-Based Modelling Laboratory, York University, Toronto, Ontario, Canada
-
-5 Department of Ecology and Evolutionary Biology, Yale University, New Haven, Connecticut 06525, USA
-
-6 Department of Biostatistics, Yale School of Public Health, New Haven, Connecticut 06510, USA
-
-7 Program in Computational Biology and Bioinformatics, Yale University, New Haven, Connecticut 06511, USA
-
-8 Program in Microbiology, Yale University, New Haven, Connecticut 06511, USA
-
-These authors contributed equally: Chad R. Wells and Abhishek Pandey
-
+These authors contributed equally: Chad R. Wells and Abhishek Pandey<br /> 
 *Corresponding author: jeffrey.townsend@yale.edu
 
 Copyright (C) <2021>, Chad R. Wells et. al. All rights reserved. Released under the GNU General Public License (GPL)
