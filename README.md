@@ -23,7 +23,9 @@ To generate the Figures and output of the calculations, select a script from Fig
 
 ## Scenarios
 Incubation_Period_5.72_day- A folder that contains the functions and scripts for the 5.72 day incubation period
+
 Incubation_Period_8.29_day- A folder that contains the functions and scripts for the 8.29 day incubation period
+
 Incubation_Period_11.66_day- A folder that contains the functions and scripts for the 11.66 day incubation period
 ### Analysis scripts
 NoTest- Calculates the post-quarantine transmission (PQT) for no testing.
