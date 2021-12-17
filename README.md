@@ -1,4 +1,4 @@
-# Quarantine and testing strategies to ameliorate transmission due to travel during the COVID-19 pandemic
+# Quarantine and testing strategies to ameliorate transmission due to travel during the COVID-19 pandemic: a modelling study
 Chad R. Wells <sup>1</sup>, Abhishek Pandey <sup>1</sup>, Meagan C. Fitzpatrick <sup>1,2</sup>, William S. Crystal <sup>1</sup>, Burton H. Singer <sup>3</sup>, Seyed M. Moghadas <sup>4</sup>, Alison P. Galvani <sup>1,5</sup>, Jeffrey P. Townsend <sup>5,6,7,8*</sup>
 
 
