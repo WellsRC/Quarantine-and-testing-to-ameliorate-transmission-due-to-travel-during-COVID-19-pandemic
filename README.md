@@ -19,7 +19,7 @@ Copyright (C) <2021>, Chad R. Wells et. al. All rights reserved. Released under 
 This repository contains codes and data used to simulate and analyze COVID-19 travel quarantine and testing strategies between countries.
 
 ## Interactive Excel spreadsheet
-[Supplemental_Quarantine_Calculation](https://github.com/WellsRC/Quarantine-and-testing-to-ameliorate-transmission-due-to-travel-during-COVID-19-pandemic/blob/main/Supplemental_Quarantine_Calculation.xlsx) - Allows for users to input the parameters to determined the minimum sufficient quarantine such that the total number of infections by that variant within the destination country will not be greater than with border closure. 
+[Supplemental_Quarantine_Calculation](https://github.com/WellsRC/Quarantine-and-testing-to-ameliorate-transmission-due-to-travel-during-COVID-19-pandemic/blob/main/Supplementary_File.xlsx) - Allows for users to input the parameters to determined the minimum sufficient quarantine such that the total number of infections by that variant within the destination country will not be greater than with border closure. 
 
 Note: Daily incidence in the origin country will NOT influence the quarantine duration (as it is NOT a parameter in the inequality). It was mistakenly added to the input portion of the spreadsheet.
 
