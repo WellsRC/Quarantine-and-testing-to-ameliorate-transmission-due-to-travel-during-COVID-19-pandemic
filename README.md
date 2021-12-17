@@ -1,4 +1,4 @@
-# Quarantine and testing strategies to ameliorate transmission due to travel during the COVID-19 pandemic
+# Quarantine and testing strategies to ameliorate transmission due to travel during the COVID-19 pandemic: a modelling study
 Chad R. Wells <sup>1</sup>, Abhishek Pandey <sup>1</sup>, Meagan C. Fitzpatrick <sup>1,2</sup>, William S. Crystal <sup>1</sup>, Burton H. Singer <sup>3</sup>, Seyed M. Moghadas <sup>4</sup>, Alison P. Galvani <sup>1,5</sup>, Jeffrey P. Townsend <sup>5,6,7,8*</sup>
 
 
@@ -19,11 +19,13 @@ Copyright (C) <2021>, Chad R. Wells et. al. All rights reserved. Released under 
 This repository contains codes and data used to simulate and analyze COVID-19 travel quarantine and testing strategies between countries.
 
 ## Interactive Excel spreadsheet
-[Supplemental_Quarantine_Calculation](https://github.com/WellsRC/Quarantine-and-testing-to-ameliorate-transmission-due-to-travel-during-COVID-19-pandemic/blob/main/Supplemental_Quarantine_Calculation.xlsx) - Allows for users to input the parameters to determined the minimum sufficient quarantine such that the total number of infections by that variant within the destination country will not be greater than with border closure.
+[Supplemental_Quarantine_Calculation](https://github.com/WellsRC/Quarantine-and-testing-to-ameliorate-transmission-due-to-travel-during-COVID-19-pandemic/blob/main/Supplemental_Quarantine_Calculation.xlsx) - Allows for users to input the parameters to determined the minimum sufficient quarantine such that the total number of infections by that variant within the destination country will not be greater than with border closure. 
 
-The model code is written in MATLAB and results are saved as MATLAB data files (extension .mat), with plots also being constructed in MATLAB. As MATLAB is not an open-source software/programming language, a compatible code that can be run using GNU Octave can be found in the directory named Octave in the repository.
+Note: Daily incidence in the origin country will NOT influence the quarantine duration (as it is NOT a parameter in the inequality). It was mistakenly added to the input portion of the spreadsheet.
 
 ## OS System requirements
+The model code is written in MATLAB and results are saved as MATLAB data files (extension .mat), with plots also being constructed in MATLAB. As MATLAB is not an open-source software/programming language, a compatible code that can be run using GNU Octave can be found in the directory named Octave in the repository.
+
 The codes developed here are tested on Windows operating system (Windows 10 Home: 64-bit). However as Matlab is available for most operating systems, codes should run on Mac OSX and Linux as well.
 
 ## Installation guide
