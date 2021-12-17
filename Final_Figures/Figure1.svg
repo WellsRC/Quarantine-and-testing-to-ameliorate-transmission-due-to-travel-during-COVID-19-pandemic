@@ -203,7 +203,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35"
-     inkscape:cx="1844.0899"
+     inkscape:cx="1415.5185"
      inkscape:cy="373.01785"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -237,7 +237,9 @@
     <g
        id="g326"
        transform="matrix(0.26458333,0,0,0.26458333,-179.85594,-37.428607)"
-       clip-path="url(#clip0)">
+       clip-path="url(#clip0)"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
       <text
          id="text64"
          transform="translate(237.594,378)"
