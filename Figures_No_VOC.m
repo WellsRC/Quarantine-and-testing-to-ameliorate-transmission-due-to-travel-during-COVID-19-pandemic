@@ -19,10 +19,10 @@ end
 
 DateInterV={'October 3, 2021','October 10, 2021', 'October 17, 2021',    'October 24, 2021',    'October 31, 2021',    'November 7, 2021',    'November 14, 2021' ,'November 21, 2021'};
 DateIEarly={'August 8, 2021'};
-for ii=2:4
-%     CountryMatrixNoVOC(cFile{ii},DateI,1,1,IncubationP);
+for ii=1:4
+    CountryMatrixNoVOC(cFile{ii},DateI,1,1,IncubationP);
     
-%     CountryMatrixNoVOC_Early(cFile{ii},DateIEarly,1,1,IncubationP);
+    CountryMatrixNoVOC_Early(cFile{ii},DateIEarly,1,1,IncubationP);
         
     TrafficLightAnalysis(cFile{ii},DateI,1,1,IncubationP);
     
